@@ -1,0 +1,29 @@
+<resources>
+    /* TITLES */
+    <string name="TITLE_APP_NAME">ArtFelt</string>
+
+    /* LABELS */
+    <string name="LABEL_AUTHENTICATION_EMAIL">Email</string>
+    <string name="LABEL_AUTHENTICATION_PASSWORD">Mot de passe</string>
+    <string name="LABEL_FIRST_NAME">Prénom</string>
+    <string name="LABEL_LAST_NAME">Nom</string>
+    <string name="LABEL_USERNAME">Nom d\'utilisateur</string>
+    <string name="LABEL_PHONE_NUMBER">Numéro de téléphone</string>
+    <string name="LABEL_ADDRESS_STREET">N° et nom de voie</string>
+    <string name="LABEL_ADDRESS_ZIPCODE">Code postal</string>
+    <string name="LABEL_ADDRESS_CITY">Ville</string>
+    <string name="LABEL_PERSONAL_INFORMATIONS">Informations personnelles</string>
+    <string name="LABEL_CONNECTION_INFORMATIONS">Information de connexion</string>
+    <string name="LABEL_AUTHENTICATION_TROUBLE_SIGINING_IN">Vous rencontrez des difficultés pour vous connecter ?</string>
+    <string name="LABEL_ALREADY_ACCOUNT">Déja un compte ?</string>
+    <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
+
+    /* ACTIONS */
+    <string name="ACTION_ADD">Ajouter</string>
+    <string name="ACTION_EDIT">Modifier</string>
+    <string name="ACTION_DELETE">Supprimer</string>
+    <string name="ACTION_SIGN_IN">Se connecter</string>
+    <string name="ACTION_SIGN_UP">Créer un compte</string>
+    <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Réinitialisez votre mot de passe </string>
+
+</resources>
