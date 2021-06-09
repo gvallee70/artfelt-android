@@ -2,10 +2,16 @@ package signup
 
 import android.content.Intent
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.android.synthetic.main.activity_signup.editText_email
+import kotlinx.android.synthetic.main.activity_signup.editText_password
+import kotlinx.android.synthetic.main.activity_signup.textView_signin
+import kotlinx.android.synthetic.main.activity_signup.textView_signup
 import signin.SignInActivity
 
 class SignUpActivity : AppCompatActivity() {
@@ -23,7 +29,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun initView() {
         initSignUpForm()
-        initSignInTextView()
+        initSignInButton()
     }
 
 
@@ -37,7 +43,6 @@ class SignUpActivity : AppCompatActivity() {
         initPersonalInformationsTextView()
         initFirstNameEditText()
         initLastNameEditText()
-        initPhoneNumberEditText()
         initAddressEditText()
     }
 
@@ -63,10 +68,6 @@ class SignUpActivity : AppCompatActivity() {
         editText_last_name.textSize = 16f
     }
 
-    private fun initPhoneNumberEditText() {
-        editText_phone_number.hint = getString(R.string.LABEL_PHONE_NUMBER)
-        editText_phone_number.textSize = 16f
-    }
 
     private fun initAddressEditText() {
         editText_address_street.hint = getString(R.string.LABEL_ADDRESS_STREET)
@@ -102,16 +103,55 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun initSignUpButton() {
-        button_signup.text = getString(R.string.ACTION_SIGN_UP)
+        initSignUpTextView()
+        hideSignUpProgressBar()
+        manageOnClickSignUpButton()
     }
 
-    private fun initSignInTextView() {
+    private fun initSignInButton() {
         textView_already_account.text = getString(R.string.LABEL_ALREADY_ACCOUNT)
 
         textView_signin.text = getString(R.string.ACTION_SIGN_IN)
         textView_signin.paintFlags = Paint.UNDERLINE_TEXT_FLAG
         manageOnClickSignInTextView()
 
+    }
+
+    private fun initSignUpTextView(){
+        textView_signup.text = getString(R.string.ACTION_SIGN_UP)
+        textView_signup.textSize = 16f
+        textView_signup.isAllCaps = true
+        showSignUpTextView()
+    }
+
+
+    private fun showLoadingSignUpButton(){
+        showSignUpProgressBar()
+        hideSignUpTextView()
+    }
+
+    private fun showSignUpProgressBar() {
+        progressBar_signup.visibility = View.VISIBLE
+    }
+
+    private fun hideSignUpProgressBar() {
+        progressBar_signup.visibility = View.GONE
+    }
+
+    private fun showSignUpTextView() {
+        textView_signup.visibility = View.VISIBLE
+    }
+
+    private fun hideSignUpTextView() {
+        textView_signup.visibility = View.GONE
+    }
+
+
+
+    private fun manageOnClickSignUpButton() {
+        button_signup.setOnClickListener {
+            showLoadingSignUpButton()
+        }
     }
 
     private fun manageOnClickSignInTextView(){
