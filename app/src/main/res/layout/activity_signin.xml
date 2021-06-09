@@ -48,39 +48,65 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/background_radius_gray"
         android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="5dp"
+        android:drawablePadding="9dp"
         android:inputType="textPassword"
         android:padding="10dp"
-        android:paddingStart="20dp"
+        android:paddingStart="17dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editText_email"
         tools:hint="Password" />
 
-    <Button
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/button_signin"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/background_radius_primary"
-        app:backgroundTint="@color/primaryColor"
+        app:cardBackgroundColor="@color/primaryColor"
+        app:cardCornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editText_password"
-        tools:hint="Se connecter" />
+        app:layout_constraintTop_toBottomOf="@id/editText_password">
 
-    <Button
+        <TextView
+            android:id="@+id/textView_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            tools:text="SE CONNECTER" />
+
+        <ProgressBar
+            android:id="@+id/progressBar_signin"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:indeterminateTint="@color/white"
+            android:layout_gravity="center"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/button_signup"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/background_radius_white"
-        android:textColor="@color/primaryColor"
-        app:backgroundTint="@color/white"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_signin"
-        tools:hint="Créer un compte" />
+        app:layout_constraintTop_toBottomOf="@id/button_signin">
+
+        <TextView
+            android:id="@+id/textView_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/primaryColor"
+            tools:hint="Créer un compte" />
+
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
