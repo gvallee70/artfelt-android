@@ -13,7 +13,8 @@
     <string name="LABEL_ADDRESS_ZIPCODE">Code postal</string>
     <string name="LABEL_ADDRESS_CITY">Ville</string>
     <string name="LABEL_PERSONAL_INFORMATIONS">Informations personnelles</string>
-    <string name="LABEL_CONNECTION_INFORMATIONS">Information de connexion</string>
+    <string name="LABEL_CONNECTION_INFORMATIONS">Informations de connexion</string>
+    <string name="LABEL_CONNECTION_IN_PROGRESS">Connexion en cours...</string>
     <string name="LABEL_AUTHENTICATION_TROUBLE_SIGINING_IN">Vous rencontrez des difficultés pour vous connecter ?</string>
     <string name="LABEL_ALREADY_ACCOUNT">Déja un compte ?</string>
     <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>

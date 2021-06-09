@@ -14,6 +14,7 @@
     <string name="LABEL_ADDRESS_CITY">City</string>
     <string name="LABEL_PERSONAL_INFORMATIONS">Personal informations</string>
     <string name="LABEL_CONNECTION_INFORMATIONS">Connexion informations</string>
+    <string name="LABEL_CONNECTION_IN_PROGRESS">Connection in progress...</string>
     <string name="LABEL_AUTHENTICATION_TROUBLE_SIGINING_IN">Trouble signing in?</string>
     <string name="LABEL_ALREADY_ACCOUNT">Already have an account?</string>
     <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
