@@ -2,17 +2,28 @@ package signup
 
 import android.content.Intent
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import api.ArtfeltClient
+import api.models.User
 import com.artfelt.artfelt.R
+import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_signup.*
-import kotlinx.android.synthetic.main.activity_signup.editText_email
+import kotlinx.android.synthetic.main.activity_signup.button_signup
 import kotlinx.android.synthetic.main.activity_signup.editText_password
+import kotlinx.android.synthetic.main.activity_signup.editText_username
 import kotlinx.android.synthetic.main.activity_signup.textView_signin
 import kotlinx.android.synthetic.main.activity_signup.textView_signup
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import signin.SignInActivity
+import utils.containsSpecialCharacters
+import utils.isEmail
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -150,7 +161,9 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun manageOnClickSignUpButton() {
         button_signup.setOnClickListener {
-            showLoadingSignUpButton()
+            if (signUpFormIsValid()) {
+                signUpAPICall()
+            }
         }
     }
 
@@ -161,5 +174,108 @@ class SignUpActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun signUpFormIsValid(): Boolean {
+        return checkEmptyFields() && checkErrorFields()
+    }
+
+
+    private fun checkEmptyFields(): Boolean {
+        if ("${editText_first_name.text}".isEmpty()) {
+            editText_first_name.error = getString(R.string.TEXT_EMPTY_FIRST_NAME)
+            return false
+        }
+
+        if ("${editText_last_name.text}".isEmpty()) {
+            editText_last_name.error = getString(R.string.TEXT_EMPTY_LAST_NAME)
+            return false
+        }
+
+        if ("${editText_address_street.text}".isEmpty()) {
+            editText_address_street.error = getString(R.string.TEXT_EMPTY_ADDRESS_STREET)
+            return false
+        }
+
+        if ("${editText_address_zipcode.text}".isEmpty()) {
+            editText_address_zipcode.error = getString(R.string.TEXT_EMPTY_ADDRESS_ZIPCODE)
+            return false
+        }
+
+        if ("${editText_address_city.text}".isEmpty()) {
+            editText_address_city.error = getString(R.string.TEXT_EMPTY_ADDRESS_CITY)
+            return false
+        }
+
+        if ("${editText_username.text}".isEmpty()) {
+            editText_username.error = getString(R.string.TEXT_EMPTY_USERNAME)
+            return false
+        }
+
+        if ("${editText_email.text}".isEmpty()) {
+            editText_email.error = getString(R.string.TEXT_EMPTY_EMAIL)
+            return false
+        }
+
+        if ("${editText_password.text}".isEmpty()) {
+            editText_password.error = getString(R.string.TEXT_EMPTY_PASSWORD)
+            return false
+        }
+
+        return true
+    }
+
+
+
+    private fun checkErrorFields(): Boolean {
+        if ("${editText_username.text}".containsSpecialCharacters()) {
+            editText_username.error = getString(R.string.TEXT_USERNAME_ERROR)
+            return false
+        }
+
+        if (!"${editText_email.text}".isEmail()) {
+            editText_email.error = getString(R.string.TEXT_EMAIL_ERROR)
+            return false
+        }
+
+        return true
+    }
+
+
+    private fun signUpAPICall() {
+        val user = User(
+            firstName = "${editText_first_name.text}",
+            lastName = "${editText_last_name.text}",
+            street = "${editText_address_street.text}",
+            zipCode = "${editText_address_zipcode.text}",
+            city = "${editText_address_city.text}",
+            username = "${editText_username.text}",
+            email = "${editText_email.text}",
+            password = "${editText_password.text}",
+        )
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val response = ArtfeltClient.apiService.signUp(user)
+                showLoadingSignUpButton()
+                println(response.code())
+                println(response.message())
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body()
+                    initSignUpButton()
+                } else {
+                    initSignUpButton()
+                    //edit.error = getString(R.string.TEXT_SIGNIN_ERROR)
+                }
+
+            } catch (e: Exception) {
+                initSignUpButton()
+                println(e.message)
+                Toast.makeText(
+                    this@SignUpActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
 
 }
