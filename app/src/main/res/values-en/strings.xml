@@ -19,6 +19,19 @@
     <string name="LABEL_ALREADY_ACCOUNT">Already have an account?</string>
     <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
 
+    /* TEXTS */
+    <string name="TEXT_EMPTY_FIRST_NAME">Please enter your first name.</string>
+    <string name="TEXT_EMPTY_LAST_NAME">Please enter your last name.</string>
+    <string name="TEXT_EMPTY_ADDRESS_STREET">Please enter your address.</string>
+    <string name="TEXT_EMPTY_ADDRESS_ZIPCODE">Please enter your zip code.</string>
+    <string name="TEXT_EMPTY_ADDRESS_CITY">Please enter your city.</string>
+    <string name="TEXT_EMPTY_EMAIL">Please enter your email.</string>
+    <string name="TEXT_EMPTY_USERNAME">Please enter your username.</string>
+    <string name="TEXT_EMPTY_PASSWORD">Please enter your password.</string>
+    <string name="TEXT_SIGNIN_ERROR">Wrong username or password.</string>
+    <string name="TEXT_EMAIL_ERROR">Please enter a valid email.</string>
+    <string name="TEXT_USERNAME_ERROR">Username must contain only unaccented letters, numbers and -_</string>
+
     /* ACTIONS */
     <string name="ACTION_ADD">Add</string>
     <string name="ACTION_EDIT">Edit</string>

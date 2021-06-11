@@ -19,6 +19,19 @@
     <string name="LABEL_ALREADY_ACCOUNT">Déja un compte ?</string>
     <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
 
+    /* TEXTS */
+    <string name="TEXT_EMPTY_FIRST_NAME">Merci d\'entrer votre prénom.</string>
+    <string name="TEXT_EMPTY_LAST_NAME">Merci d\'entrer votre nom de famille.</string>
+    <string name="TEXT_EMPTY_ADDRESS_STREET">Merci d\'entrer votre adresse.</string>
+    <string name="TEXT_EMPTY_ADDRESS_ZIPCODE">Merci d\'entrer votre code postal.</string>
+    <string name="TEXT_EMPTY_ADDRESS_CITY">Merci d\'entrer votre ville.</string>
+    <string name="TEXT_EMPTY_EMAIL">Merci d\'entrer votre email.</string>
+    <string name="TEXT_EMPTY_USERNAME">Merci d\'entrer votre nom d\'utilisateur.</string>
+    <string name="TEXT_SIGNIN_ERROR">Erreur dans le nom d\'utilisateur et/ou mot de passe.</string>
+    <string name="TEXT_EMPTY_PASSWORD">Merci d\'entrer votre mot de passe.</string>
+    <string name="TEXT_EMAIL_ERROR">Merci d\'entrer un email valide.</string>
+    <string name="TEXT_USERNAME_ERROR">Le nom d\'utilisateur ne peut contenir que des caractères non accentuées, des chiffres ou -_</string>
+
     /* ACTIONS */
     <string name="ACTION_ADD">Ajouter</string>
     <string name="ACTION_EDIT">Modifier</string>
