@@ -3,6 +3,8 @@
     package="com.artfelt.artfelt">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:allowBackup="true"
@@ -11,6 +13,8 @@
         android:roundIcon="@mipmap/ic_artfelt_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ArtFelt"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
         >
         <activity android:name="signin.SignInActivity">
             <intent-filter>
