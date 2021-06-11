@@ -1,18 +1,23 @@
 package signin
 
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_signin.button_signup
-import kotlinx.android.synthetic.main.activity_signin.editText_email
+import kotlinx.android.synthetic.main.activity_signin.editText_username
 import kotlinx.android.synthetic.main.activity_signin.editText_password
 import kotlinx.android.synthetic.main.activity_signin.textView_signin
 import kotlinx.android.synthetic.main.activity_signin.textView_signup
 import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import api.ArtfeltClient
+import api.models.User
 import signup.SignUpActivity
 
 class SignInActivity : AppCompatActivity() {
@@ -34,7 +39,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun initSignInForm() {
-        initEmailEditText()
+        initUsernameEditText()
         initPasswordEditText()
     }
 
@@ -43,9 +48,9 @@ class SignInActivity : AppCompatActivity() {
         initSignUpButton()
     }
 
-    private fun initEmailEditText() {
-        editText_email.hint = getString(R.string.LABEL_AUTHENTICATION_EMAIL)
-        editText_email.textSize = 16f
+    private fun initUsernameEditText() {
+        editText_username.hint = getString(R.string.LABEL_USERNAME)
+        editText_username.textSize = 16f
     }
 
     private fun initPasswordEditText() {
@@ -106,10 +111,8 @@ class SignInActivity : AppCompatActivity() {
     private fun manageOnClickSignInButton() {
         button_signin.setOnClickListener {
 
-            if(editText_email.text.toString().isEmpty()) {
-                editText_email.error = "Ceci est un test d'erreur"
-            } else {
-                showLoadingSignInButton()
+            if (signInFormIsValid()) {
+                signInAPICall()
             }
         }
     }
@@ -119,6 +122,53 @@ class SignInActivity : AppCompatActivity() {
         button_signup.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun signInFormIsValid(): Boolean {
+        if ("${editText_username.text}".isEmpty()) {
+            editText_username.error = getString(R.string.TEXT_EMPTY_USERNAME)
+            return false
+        }
+
+        if ("${editText_password.text}".isEmpty()) {
+            editText_password.error = getString(R.string.TEXT_EMPTY_PASSWORD)
+            return false
+        }
+
+        return true
+    }
+
+
+
+    private fun signInAPICall() {
+        val user = User(
+            username = "${editText_username.text}",
+            password = "${editText_password.text}"
+        )
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val response = ArtfeltClient.apiService.signIn(user)
+                showLoadingSignInButton()
+                println(response.code())
+                println(response.message())
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body()
+                    initSignInButton()
+                } else {
+                    initSignInButton()
+                    editText_username.error = getString(R.string.TEXT_SIGNIN_ERROR)
+                }
+
+            } catch (e: Exception) {
+                initSignInButton()
+                println(e.message)
+                Toast.makeText(
+                    this@SignInActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 
