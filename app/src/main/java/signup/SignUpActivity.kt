@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import api.ArtfeltClient
-import api.models.User
+import api.models.UserBody
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -22,8 +22,6 @@ import kotlinx.coroutines.launch
 import signin.SignInActivity
 import utils.containsSpecialCharacters
 import utils.isEmail
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
 class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -242,7 +240,7 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun signUpAPICall() {
-        val user = User(
+        val user = UserBody(
             firstName = "${editText_first_name.text}",
             lastName = "${editText_last_name.text}",
             street = "${editText_address_street.text}",

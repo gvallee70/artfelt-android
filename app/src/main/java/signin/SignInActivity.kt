@@ -18,6 +18,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import api.ArtfeltClient
 import api.models.User
+import api.models.UserBody
+import home.HomeActivity
 import signup.SignUpActivity
 
 class SignInActivity : AppCompatActivity() {
@@ -125,6 +127,11 @@ class SignInActivity : AppCompatActivity() {
         }
     }
 
+    private fun navigateToHomePage() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+    }
+
     private fun signInFormIsValid(): Boolean {
         if ("${editText_username.text}".isEmpty()) {
             editText_username.error = getString(R.string.TEXT_EMPTY_USERNAME)
@@ -140,9 +147,38 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
+    private fun getSelfInfos() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val response = ArtfeltClient.apiService.getSelfInfos(User.infos!!.token!!)
+
+                if (response.isSuccessful && response.body() != null) {
+                    val content = response.body()
+                    content?.let {
+                        User.infos = it
+                    }
+                    navigateToHomePage()
+                } else {
+                    initSignInButton()
+                    editText_username.error = getString(R.string.TEXT_SIGNIN_ERROR)
+                }
+                println("${response.code()} ${response.message()} : \n ${User.infos}")
+
+
+            } catch (e: Exception) {
+                initSignInButton()
+                println(e.message)
+                Toast.makeText(
+                    this@SignInActivity,
+                    "Error Occurred: ${e.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+    }
 
     private fun signInAPICall() {
-        val user = User(
+        var user = UserBody(
             username = "${editText_username.text}",
             password = "${editText_password.text}"
         )
@@ -150,11 +186,15 @@ class SignInActivity : AppCompatActivity() {
             try {
                 val response = ArtfeltClient.apiService.signIn(user)
                 showLoadingSignInButton()
-                println(response.code())
-                println(response.message())
                 if (response.isSuccessful && response.body() != null) {
                     val content = response.body()
+                    content?.let {
+                        User.infos = it
+                    }
+                    println("${response.code()} ${response.message()} : \n ${User.infos!!.token}")
+                    //getSelfInfos()
                     initSignInButton()
+                    navigateToHomePage()
                 } else {
                     initSignInButton()
                     editText_username.error = getString(R.string.TEXT_SIGNIN_ERROR)
