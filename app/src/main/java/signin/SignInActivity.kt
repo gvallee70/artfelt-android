@@ -17,16 +17,20 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import api.ArtfeltClient
-import api.models.User
-import api.models.UserBody
+import api.models.user.User
+import api.models.auth.signin.SignInRequest
 import home.HomeActivity
+import managers.session.SessionManager
 import signup.SignUpActivity
 
 class SignInActivity : AppCompatActivity() {
+    private lateinit var sessionManager: SessionManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
+        sessionManager = SessionManager(this)
         this.supportActionBar!!.hide()
     }
 
@@ -53,11 +57,19 @@ class SignInActivity : AppCompatActivity() {
     private fun initUsernameEditText() {
         editText_username.hint = getString(R.string.LABEL_USERNAME)
         editText_username.textSize = 16f
+
+        if (intent.hasExtra("NEW_USERNAME")) {
+            editText_username.setText(intent.getStringExtra("NEW_USERNAME"))
+        }
     }
 
     private fun initPasswordEditText() {
         editText_password.hint = getString(R.string.LABEL_AUTHENTICATION_PASSWORD)
         editText_password.textSize = 16f
+
+        if (intent.hasExtra("NEW_PASSWORD")) {
+            editText_password.setText(intent.getStringExtra("NEW_PASSWORD"))
+        }
     }
 
     private fun initSignInButton() {
@@ -148,13 +160,14 @@ class SignInActivity : AppCompatActivity() {
 
 
     private fun getSelfInfos() {
+        var userToken = sessionManager.fetchAuthToken().toString()
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = ArtfeltClient.apiService.getSelfInfos(User.infos!!.token!!)
+                val selfInfosResponse = ArtfeltClient.apiService.getSelfInfos(userToken)
 
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body()
-                    content?.let {
+                if (selfInfosResponse.isSuccessful && selfInfosResponse.body() != null) {
+                    selfInfosResponse.body()?.let {
                         User.infos = it
                     }
                     navigateToHomePage()
@@ -162,8 +175,6 @@ class SignInActivity : AppCompatActivity() {
                     initSignInButton()
                     editText_username.error = getString(R.string.TEXT_SIGNIN_ERROR)
                 }
-                println("${response.code()} ${response.message()} : \n ${User.infos}")
-
 
             } catch (e: Exception) {
                 initSignInButton()
@@ -178,23 +189,24 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun signInAPICall() {
-        var user = UserBody(
+        var signInRequest = SignInRequest(
             username = "${editText_username.text}",
             password = "${editText_password.text}"
         )
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = ArtfeltClient.apiService.signIn(user)
+                val signInResponse = ArtfeltClient.apiService.signIn(signInRequest)
+
                 showLoadingSignInButton()
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body()
-                    content?.let {
-                        User.infos = it
+
+                if (signInResponse.isSuccessful && signInResponse.body() != null) {
+                    signInResponse.body()?.let {
+                        sessionManager.saveAuthToken(it.token!!)
+                        println(it.token)
                     }
-                    println("${response.code()} ${response.message()} : \n ${User.infos!!.token}")
-                    //getSelfInfos()
-                    initSignInButton()
-                    navigateToHomePage()
+
+                    println("${signInResponse.code()} ${signInResponse.message()}")
+                    getSelfInfos()
                 } else {
                     initSignInButton()
                     editText_username.error = getString(R.string.TEXT_SIGNIN_ERROR)

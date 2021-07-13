@@ -5,14 +5,14 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
-import api.models.UserBody
+import api.models.user.infos.UserInfosResponse
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.view_header.view.*
 
 class HeaderView(
     private val context: Context,
     parent: ViewGroup,
-    user: UserBody,
+    user: UserInfosResponse,
 ){
 
     private val view =
@@ -28,7 +28,7 @@ class HeaderView(
         initView(user)
     }
 
-    private fun initView(user: UserBody) {
+    private fun initView(user: UserInfosResponse) {
         initHeaderProfilePic(user)
         initHeaderTitle()
         initHeaderShopcart()
@@ -36,7 +36,7 @@ class HeaderView(
 
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun initHeaderProfilePic(user: UserBody) {
+    private fun initHeaderProfilePic(user: UserInfosResponse) {
         mHeaderProfilePic.clipToOutline = true
         //if (user.image !== "") {
             //mHeaderProfilePic.setImageResource(user.image)

@@ -7,8 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import api.ArtfeltClient
-import api.models.UserBody
+import api.models.auth.signup.SignUpRequest
 import com.artfelt.artfelt.R
+import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.button_signup
@@ -239,8 +240,17 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
+    private fun navigateToSignInPage(username: String, password: String) {
+        val intent = Intent(this, SignInActivity::class.java)
+        intent.putExtra("NEW_USERNAME", username);
+        intent.putExtra("NEW_PASSWORD", password);
+
+        startActivity(intent)
+    }
+
+
     private fun signUpAPICall() {
-        val user = UserBody(
+        val signUpRequest = SignUpRequest(
             firstName = "${editText_first_name.text}",
             lastName = "${editText_last_name.text}",
             street = "${editText_address_street.text}",
@@ -250,18 +260,19 @@ class SignUpActivity : AppCompatActivity() {
             email = "${editText_email.text}",
             password = "${editText_password.text}",
         )
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val response = ArtfeltClient.apiService.signUp(user)
+                val signUpResponse = ArtfeltClient.apiService.signUp(signUpRequest)
+
                 showLoadingSignUpButton()
-                println(response.code())
-                println(response.message())
-                if (response.isSuccessful && response.body() != null) {
-                    val content = response.body()
-                    initSignUpButton()
+
+                if (signUpResponse.isSuccessful && signUpResponse.body() != null) {
+                    signUpResponse.body()?.let {
+                        navigateToSignInPage(it.user.username, editText_password.text.toString())
+                    }
                 } else {
                     initSignUpButton()
-                    //edit.error = getString(R.string.TEXT_SIGNIN_ERROR)
                 }
 
             } catch (e: Exception) {
