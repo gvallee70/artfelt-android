@@ -18,6 +18,8 @@
     <string name="LABEL_AUTHENTICATION_TROUBLE_SIGINING_IN">Trouble signing in?</string>
     <string name="LABEL_ALREADY_ACCOUNT">Already have an account?</string>
     <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
+    <string name="LABEL_ALL_ARTWORKS">All artworks</string>
+
 
     /* TEXTS */
     <string name="TEXT_EMPTY_FIRST_NAME">Please enter your first name.</string>
