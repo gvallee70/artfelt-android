@@ -1,11 +1,8 @@
 package home
 
-import android.graphics.Color
-import android.graphics.ColorFilter
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,7 +19,6 @@ import kotlinx.coroutines.launch
 import managers.session.SessionManager
 import partials.HeaderView
 import signin.SignInActivity
-import signup.SignUpActivity
 import utils.Toolbox
 import utils.navigateTo
 
@@ -120,23 +116,21 @@ class HomeActivity: AppCompatActivity() {
 
 
     private fun getAllArtworksAPICall() {
-        var userToken = SessionManager(this).fetchAuthToken().toString()
-
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val getArtworksResponse = ArtfeltClient.apiService.getAllArtworks(userToken)
+                val getArtworksResponse = ArtfeltClient().getApiService(this@HomeActivity).getAllArtworks()
 
                 if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
                     getArtworksResponse.body()?.let {
                         initArtworksRecyclerView(it)
                     }
                 } else {
-                    Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_ERROR_GET_ARTWORKS))
+                    Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_GET_ARTWORKS_API_ERROR))
                 }
 
             } catch (e: Exception) {
                 println(e.message)
-                Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_ERROR_GET_ARTWORKS))
+                Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_GET_ARTWORKS_API_ERROR))
             }
         }
     }

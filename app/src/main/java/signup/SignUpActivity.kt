@@ -262,7 +262,12 @@ class SignUpActivity : AppCompatActivity() {
             try {
                 showLoadingSignUpButton()
 
-                val signUpResponse = ArtfeltClient.apiService.signUp(signUpRequest)
+                val signUpResponse = ArtfeltClient().getApiService(this@SignUpActivity).signUp(signUpRequest)
+                /*println(signUpResponse.message())
+                println(signUpResponse.body()!!.message)
+                println(signUpResponse.code())
+                println(signUpResponse.errorBody().toString())
+                println(signUpResponse.headers())*/
 
                 if (signUpResponse.isSuccessful && signUpResponse.body() != null) {
                     Toolbox.showSuccessDialog(this@SignUpActivity, getString(R.string.TEXT_SUCCESS_SIGN_UP))

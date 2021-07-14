@@ -27,7 +27,7 @@ interface ArtfeltApiService {
     /* USER */
     @Headers( "Content-Type: application/json")
     @GET("/v1/user/info")
-    suspend fun getSelfInfos(@Header("authorization") token: String): Response<UserInfosResponse>
+    suspend fun getSelfInfos(): Response<UserInfosResponse>
 
 
 
@@ -35,7 +35,7 @@ interface ArtfeltApiService {
     /* ARTWORK */
     @Headers( "Content-Type: application/json")
     @GET("/v1/artwork")
-    suspend fun getAllArtworks(@Header("authorization") token: String): Response<ArrayList<Artwork>>
+    suspend fun getAllArtworks(): Response<ArrayList<Artwork>>
 
 
 

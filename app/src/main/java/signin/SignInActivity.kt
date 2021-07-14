@@ -176,7 +176,7 @@ class SignInActivity : AppCompatActivity() {
             try {
                 showLoadingSignInButton()
 
-                val signInResponse = ArtfeltClient.apiService.signIn(signInRequest)
+                val signInResponse = ArtfeltClient().getApiService(this@SignInActivity).signIn(signInRequest)
 
                 if (signInResponse.isSuccessful && signInResponse.body() != null) {
                     signInResponse.body()?.let {

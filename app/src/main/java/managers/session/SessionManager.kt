@@ -4,6 +4,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.artfelt.artfelt.R
 
+/**
+ * Session manager to save and fetch data from SharedPreferences
+ */
+
 class SessionManager (context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.TITLE_APP_NAME), Context.MODE_PRIVATE)
 
@@ -11,9 +15,7 @@ class SessionManager (context: Context) {
         const val USER_TOKEN = "user_token"
     }
 
-    /**
-     * Function to save auth token
-     */
+
     fun saveAuthToken(token: String) {
         prefs.edit()
              .putString(USER_TOKEN, token)
@@ -26,14 +28,11 @@ class SessionManager (context: Context) {
              .apply()
     }
 
-    /**
-     * Function to fetch auth token
-     */
     fun fetchAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
     }
 
-    fun isLogged(): Boolean {
+    fun userIsLogged(): Boolean {
         return !this.fetchAuthToken().isNullOrEmpty()
     }
 }

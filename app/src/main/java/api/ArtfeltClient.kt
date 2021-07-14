@@ -1,31 +1,34 @@
 package api
 
+import android.content.Context
 import api.interfaces.ArtfeltApiService
 import com.artfelt.artfelt.BuildConfig
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ArtfeltClient {
-    private val gson : Gson by lazy {
-        GsonBuilder().setLenient().create()
+class ArtfeltClient {
+
+    private lateinit var apiService: ArtfeltApiService
+
+    fun getApiService(context: Context): ArtfeltApiService {
+        // Initialize ApiService if not initialized yet
+        if (!::apiService.isInitialized) {
+            val retrofit = Retrofit.Builder()
+                .baseUrl(BuildConfig.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient(context))
+                .build()
+
+            apiService = retrofit.create(ArtfeltApiService::class.java)
+        }
+        return apiService
     }
 
-    private val httpClient : OkHttpClient by lazy {
-        OkHttpClient.Builder().build()
-    }
 
-    private val retrofit : Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(httpClient)
-            .addConverterFactory(GsonConverterFactory.create(gson))
+    private fun okHttpClient(context: Context): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(AuthInterceptor(context))
             .build()
-    }
-
-    val apiService: ArtfeltApiService by lazy {
-        retrofit.create(ArtfeltApiService::class.java)
     }
 }
