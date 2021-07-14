@@ -19,6 +19,9 @@
     <string name="LABEL_ALREADY_ACCOUNT">Already have an account?</string>
     <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
     <string name="LABEL_ALL_ARTWORKS">All artworks</string>
+    <string name="LABEL_ARTWORK_PRICE">%d $</string>
+
+
 
 
     /* TEXTS */
@@ -37,6 +40,7 @@
     <string name="TEXT_ERROR_SIGN_UP">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_ERROR_SIGN_IN">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_ERROR_GET_USER_INFOS">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_ERROR_GET_ARTWORKS">Error while trying to get artworks. You may not be connected to the internet. Please try again.</string>
 
 
     /* ACTIONS */
