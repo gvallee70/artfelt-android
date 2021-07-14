@@ -10,6 +10,8 @@ import home.artworks.ArtworkAdapter
 import kotlinx.android.synthetic.main.activity_home.*
 import managers.session.SessionManager
 import partials.HeaderView
+import signin.SignInActivity
+import utils.navigateTo
 
 class HomeActivity: AppCompatActivity() {
 
@@ -35,6 +37,7 @@ class HomeActivity: AppCompatActivity() {
         initSearchView()
         initArtworksTitle()
 
+        manageOnClickDecoButton()
         artworks.add(Artwork(R.drawable.image_default_profilepic, "Coeur de pirate", "3$"))
         artworks.add(Artwork(R.drawable.image_default_profilepic, "Toto", "3$"))
         artworks.add(Artwork(R.drawable.image_default_profilepic, "Je m'apelle paul grossier trop lol", "3$"))
@@ -52,8 +55,6 @@ class HomeActivity: AppCompatActivity() {
 
     private fun initHeader() {
         HeaderView(this, block_header_home, User.infos!!)
-        println(SessionManager(this).fetchAuthToken())
-        println(User.infos)
     }
 
     private fun initSearchView(){
@@ -63,6 +64,13 @@ class HomeActivity: AppCompatActivity() {
     private fun initArtworksTitle() {
         title_all_artworks.textSize = 22f
         title_all_artworks.text = getString(R.string.LABEL_ALL_ARTWORKS)
+    }
+
+    private fun manageOnClickDecoButton() {
+        deconnexion.setOnClickListener {
+            SessionManager(this).removeAuthToken()
+            navigateTo(SignInActivity(),true)
+        }
     }
 
 }

@@ -22,9 +22,17 @@ import api.models.auth.signin.SignInRequest
 import home.HomeActivity
 import managers.session.SessionManager
 import signup.SignUpActivity
+import splash.SplashActivity
+import utils.*
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
+
+    companion object {
+        private const val NEW_USERNAME = "new-username"
+        private const val NEW_PASSWORD = "new-password"
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +66,10 @@ class SignInActivity : AppCompatActivity() {
         editText_username.hint = getString(R.string.LABEL_USERNAME)
         editText_username.textSize = 16f
 
-        if (intent.hasExtra("NEW_USERNAME")) {
-            editText_username.setText(intent.getStringExtra("NEW_USERNAME"))
+        if (intent.hasExtra(EXTRA_HASHMAP)) {
+
+            val data = intent.getExtraPassedData()
+            editText_username.setText(data[NEW_USERNAME].toString())
         }
     }
 
@@ -67,8 +77,9 @@ class SignInActivity : AppCompatActivity() {
         editText_password.hint = getString(R.string.LABEL_AUTHENTICATION_PASSWORD)
         editText_password.textSize = 16f
 
-        if (intent.hasExtra("NEW_PASSWORD")) {
-            editText_password.setText(intent.getStringExtra("NEW_PASSWORD"))
+        if (intent.hasExtra(EXTRA_HASHMAP)) {
+            val data = intent.getExtraPassedData()
+            editText_password.setText(data[NEW_PASSWORD].toString())
         }
     }
 
@@ -126,6 +137,7 @@ class SignInActivity : AppCompatActivity() {
         button_signin.setOnClickListener {
 
             if (signInFormIsValid()) {
+                hideKeyboard()
                 signInAPICall()
             }
         }
@@ -134,15 +146,10 @@ class SignInActivity : AppCompatActivity() {
 
     private fun manageOnClickSignUpButton() {
         button_signup.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            navigateTo(SignUpActivity(), false)
         }
     }
 
-    private fun navigateToHomePage() {
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-    }
 
     private fun signInFormIsValid(): Boolean {
         if ("${editText_username.text}".isEmpty()) {
@@ -159,34 +166,6 @@ class SignInActivity : AppCompatActivity() {
     }
 
 
-    private fun getSelfInfos() {
-        var userToken = sessionManager.fetchAuthToken().toString()
-
-        GlobalScope.launch(Dispatchers.Main) {
-            try {
-                val selfInfosResponse = ArtfeltClient.apiService.getSelfInfos(userToken)
-
-                if (selfInfosResponse.isSuccessful && selfInfosResponse.body() != null) {
-                    selfInfosResponse.body()?.let {
-                        User.infos = it
-                    }
-                    navigateToHomePage()
-                } else {
-                    initSignInButton()
-                    editText_username.error = getString(R.string.TEXT_SIGNIN_ERROR)
-                }
-
-            } catch (e: Exception) {
-                initSignInButton()
-                println(e.message)
-                Toast.makeText(
-                    this@SignInActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }
-    }
 
     private fun signInAPICall() {
         var signInRequest = SignInRequest(
@@ -195,9 +174,9 @@ class SignInActivity : AppCompatActivity() {
         )
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val signInResponse = ArtfeltClient.apiService.signIn(signInRequest)
-
                 showLoadingSignInButton()
+
+                val signInResponse = ArtfeltClient.apiService.signIn(signInRequest)
 
                 if (signInResponse.isSuccessful && signInResponse.body() != null) {
                     signInResponse.body()?.let {
@@ -206,7 +185,7 @@ class SignInActivity : AppCompatActivity() {
                     }
 
                     println("${signInResponse.code()} ${signInResponse.message()}")
-                    getSelfInfos()
+                    navigateTo(SplashActivity(), true)
                 } else {
                     initSignInButton()
                     editText_username.error = getString(R.string.TEXT_SIGNIN_ERROR)
@@ -215,11 +194,8 @@ class SignInActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 initSignInButton()
                 println(e.message)
-                Toast.makeText(
-                    this@SignInActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toolbox.showErrorDialog(this@SignInActivity, getString(R.string.TEXT_ERROR_SIGN_IN))
+
             }
         }
     }

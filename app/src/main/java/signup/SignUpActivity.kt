@@ -21,10 +21,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import signin.SignInActivity
-import utils.containsSpecialCharacters
-import utils.isEmail
+import utils.*
 
 class SignUpActivity : AppCompatActivity() {
+
+    companion object {
+        private const val NEW_USERNAME = "new-username"
+        private const val NEW_PASSWORD = "new-password"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
@@ -161,6 +166,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun manageOnClickSignUpButton() {
         button_signup.setOnClickListener {
             if (signUpFormIsValid()) {
+                hideKeyboard()
                 signUpAPICall()
             }
         }
@@ -168,8 +174,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun manageOnClickSignInTextView(){
         textView_signin.setOnClickListener {
-            val intent = Intent(this, SignInActivity::class.java)
-            startActivity(intent)
+            navigateTo(SignInActivity(), false)
         }
     }
 
@@ -240,14 +245,6 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
-    private fun navigateToSignInPage(username: String, password: String) {
-        val intent = Intent(this, SignInActivity::class.java)
-        intent.putExtra("NEW_USERNAME", username);
-        intent.putExtra("NEW_PASSWORD", password);
-
-        startActivity(intent)
-    }
-
 
     private fun signUpAPICall() {
         val signUpRequest = SignUpRequest(
@@ -263,13 +260,18 @@ class SignUpActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val signUpResponse = ArtfeltClient.apiService.signUp(signUpRequest)
-
                 showLoadingSignUpButton()
 
+                val signUpResponse = ArtfeltClient.apiService.signUp(signUpRequest)
+
                 if (signUpResponse.isSuccessful && signUpResponse.body() != null) {
+                    Toolbox.showSuccessDialog(this@SignUpActivity, getString(R.string.TEXT_SUCCESS_SIGN_UP))
+
                     signUpResponse.body()?.let {
-                        navigateToSignInPage(it.user.username, editText_password.text.toString())
+                        val data = HashMap<String, Any>()
+                        data[NEW_USERNAME] = it.user.username
+                        data[NEW_PASSWORD] = editText_password.text.toString()
+                        navigateTo(SignInActivity(), data, true)
                     }
                 } else {
                     initSignUpButton()
@@ -278,11 +280,7 @@ class SignUpActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 initSignUpButton()
                 println(e.message)
-                Toast.makeText(
-                    this@SignUpActivity,
-                    "Error Occurred: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toolbox.showErrorDialog(this@SignUpActivity, getString(R.string.TEXT_ERROR_SIGN_UP))
             }
         }
     }

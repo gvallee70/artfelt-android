@@ -15,9 +15,15 @@ class SessionManager (context: Context) {
      * Function to save auth token
      */
     fun saveAuthToken(token: String) {
-        val editor = prefs.edit()
-        editor.putString(USER_TOKEN, token)
-        editor.apply()
+        prefs.edit()
+             .putString(USER_TOKEN, token)
+             .apply()
+    }
+
+    fun removeAuthToken() {
+        prefs.edit()
+             .remove(USER_TOKEN)
+             .apply()
     }
 
     /**
@@ -25,5 +31,9 @@ class SessionManager (context: Context) {
      */
     fun fetchAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
+    }
+
+    fun isLogged(): Boolean {
+        return !this.fetchAuthToken().isNullOrEmpty()
     }
 }
