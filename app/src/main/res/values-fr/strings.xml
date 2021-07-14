@@ -33,6 +33,11 @@
     <string name="TEXT_EMPTY_PASSWORD">Merci d\'entrer votre mot de passe.</string>
     <string name="TEXT_EMAIL_ERROR">Merci d\'entrer un email valide.</string>
     <string name="TEXT_USERNAME_ERROR">Le nom d\'utilisateur ne peut contenir que des caractères non accentuées, des chiffres ou -_</string>
+    <string name="TEXT_SUCCESS_SIGN_UP">Votre compte à bien été créé. Vous pouvez désormais vous connecter.</string>
+    <string name="TEXT_ERROR_SIGN_UP">Impossible de créer votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_ERROR_SIGN_IN">Echec de connexion, il se peut que vous ne soyez pas connecté à internet. Merci de rééssayer.</string>
+    <string name="TEXT_ERROR_GET_USER_INFOS">Impossible de récupérer les informations de votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+
 
     /* ACTIONS */
     <string name="ACTION_ADD">Ajouter</string>

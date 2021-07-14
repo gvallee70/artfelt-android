@@ -34,6 +34,10 @@
     <string name="TEXT_SIGNIN_ERROR">Wrong username or password. Please try again.</string>
     <string name="TEXT_EMAIL_ERROR">Please enter a valid email.</string>
     <string name="TEXT_USERNAME_ERROR">Username must contain only unaccented letters, numbers and -_</string>
+    <string name="TEXT_SUCCESS_SIGN_UP">Your account has been successfully created. You can now sign in.</string>
+    <string name="TEXT_ERROR_SIGN_UP">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_ERROR_SIGN_IN">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_ERROR_GET_USER_INFOS">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
 
 
     /* ACTIONS */

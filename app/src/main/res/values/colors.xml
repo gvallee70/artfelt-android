@@ -10,5 +10,7 @@
 
     <color name="lightGray">#EDF0F1</color>
     <color name="primaryColor">#DC0F71</color>
+    <color name="successColor">#11CF52</color>
+    <color name="errorColor">#F52222</color>
 
 </resources>
