@@ -38,6 +38,7 @@ class SplashActivity: AppCompatActivity() {
 
     private fun getSelfInfos() {
         var userToken = sessionManager.fetchAuthToken().toString()
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val selfInfosResponse = ArtfeltClient.apiService.getSelfInfos(userToken)

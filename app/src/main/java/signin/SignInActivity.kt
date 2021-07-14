@@ -181,7 +181,6 @@ class SignInActivity : AppCompatActivity() {
                 if (signInResponse.isSuccessful && signInResponse.body() != null) {
                     signInResponse.body()?.let {
                         sessionManager.saveAuthToken(it.token!!)
-                        println(it.token)
                     }
 
                     println("${signInResponse.code()} ${signInResponse.message()}")

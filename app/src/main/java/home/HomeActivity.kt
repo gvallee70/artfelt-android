@@ -1,22 +1,29 @@
 package home
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import api.ArtfeltClient
+import api.models.artwork.Artwork
 import api.models.user.User
 import com.artfelt.artfelt.R
-import home.artworks.Artwork
 import home.artworks.ArtworkAdapter
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_signup.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import managers.session.SessionManager
 import partials.HeaderView
 import signin.SignInActivity
+import signup.SignUpActivity
+import utils.Toolbox
 import utils.navigateTo
 
 class HomeActivity: AppCompatActivity() {
 
     var artworkAdapter: ArtworkAdapter? = null
-    var artworks: ArrayList<Artwork> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +36,7 @@ class HomeActivity: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        getAllArtworksAPICall()
         initView()
     }
 
@@ -36,19 +44,7 @@ class HomeActivity: AppCompatActivity() {
         initHeader()
         initSearchView()
         initArtworksTitle()
-
         manageOnClickDecoButton()
-        artworks.add(Artwork(R.drawable.image_default_profilepic, "Coeur de pirate", "3$"))
-        artworks.add(Artwork(R.drawable.image_default_profilepic, "Toto", "3$"))
-        artworks.add(Artwork(R.drawable.image_default_profilepic, "Je m'apelle paul grossier trop lol", "3$"))
-        artworks.add(Artwork(R.drawable.image_default_profilepic, "A", "3$"))
-        artworks.add(Artwork(R.drawable.image_default_profilepic, "Todvbaknldnaldnaldnalndnadnanlnlto", "3$"))
-
-        artworkAdapter = ArtworkAdapter(this, artworks)
-
-        grid_view_artworks.adapter = artworkAdapter
-        grid_view_artworks.isVerticalScrollBarEnabled = false
-        grid_view_artworks.isHorizontalScrollBarEnabled = false
 
     }
 
@@ -58,7 +54,7 @@ class HomeActivity: AppCompatActivity() {
     }
 
     private fun initSearchView(){
-        grid_view_artworks.visibility = View.VISIBLE
+
     }
 
     private fun initArtworksTitle() {
@@ -73,4 +69,34 @@ class HomeActivity: AppCompatActivity() {
         }
     }
 
+    private fun initArtworksRecyclerView(artworks: ArrayList<Artwork>) {
+        artworkAdapter = ArtworkAdapter(this, artworks)
+
+        recycler_view_artworks.removeAllViews()
+        recycler_view_artworks.layoutManager = GridLayoutManager(this, 2)
+        recycler_view_artworks.adapter = artworkAdapter
+    }
+
+
+    private fun getAllArtworksAPICall() {
+        var userToken = SessionManager(this).fetchAuthToken().toString()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val getArtworksResponse = ArtfeltClient.apiService.getAllArtworks(userToken)
+
+                if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
+                    getArtworksResponse.body()?.let {
+                        initArtworksRecyclerView(it)
+                    }
+                } else {
+                    Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_ERROR_GET_ARTWORKS))
+                }
+
+            } catch (e: Exception) {
+                println(e.message)
+                Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_ERROR_GET_ARTWORKS))
+            }
+        }
+    }
 }

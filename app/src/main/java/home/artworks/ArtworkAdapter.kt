@@ -2,43 +2,24 @@ package home.artworks
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
+import api.models.artwork.Artwork
 import com.artfelt.artfelt.R
-import kotlinx.android.synthetic.main.item_artwork.view.*
 
-class ArtworkAdapter: BaseAdapter {
-    var artworks: ArrayList<Artwork> = ArrayList()
-    var context: Context? = null
+class ArtworkAdapter(val context: Context, private var artworks: ArrayList<Artwork>): RecyclerView.Adapter<ArtworkViewHolder>() {
+    var artworksList = ArrayList<Artwork>(artworks)
 
-    constructor(context: Context, artworks: ArrayList<Artwork>) : super() {
-        this.context = context
-        this.artworks = artworks
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtworkViewHolder {
+        return ArtworkViewHolder(LayoutInflater.from(context).inflate(R.layout.item_artwork, parent, false))
     }
 
-    override fun getCount(): Int {
-        return artworks.size
+    override fun onBindViewHolder(holder: ArtworkViewHolder, position: Int) {
+        holder.bindView(artworksList[position])
     }
 
-    override fun getItem(position: Int): Any {
-        return artworks[position]
+    override fun getItemCount(): Int {
+        return artworksList.size
     }
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-
-        val artwork = this.artworks[position]
-        var artworkView = LayoutInflater.from(context).inflate(R.layout.item_artwork, null)
-
-        artworkView.imageView_artwork.setImageResource(artwork.image!!)
-        artworkView.textView_title_artwork.text = artwork.title
-        artworkView.textView_price_artwork.text = artwork.price
-
-
-        return artworkView
-    }
 }

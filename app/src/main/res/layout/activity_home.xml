@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:paddingBottom="30dp">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_start_home"
@@ -33,12 +32,12 @@
     <SearchView
         android:id="@+id/search_view_home"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_radius_gray"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
         app:layout_constraintStart_toStartOf="@id/guideline_start_home"
         app:layout_constraintTop_toBottomOf="@id/block_header_home" />
-
 
 
     <TextView
@@ -53,31 +52,30 @@
         app:layout_constraintTop_toBottomOf="@id/search_view_home"
         tools:text="Toutes les oeuvres" />
 
-    <GridView
-        android:id="@+id/grid_view_artworks"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_artworks"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:columnWidth="150dp"
-        android:horizontalSpacing="15dp"
-        android:numColumns="auto_fit"
-        android:verticalSpacing="20dp"
-        android:listSelector="@null"
-        android:background="@color/white"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
         android:fadingEdgeLength="0px"
+        android:listSelector="@null"
+        android:overScrollMode="never"
+        android:layout_marginBottom="40dp"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
         app:layout_constraintStart_toStartOf="@id/guideline_start_home"
-        app:layout_constraintTop_toBottomOf="@id/title_all_artworks" />
+        app:layout_constraintTop_toBottomOf="@id/title_all_artworks"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:listitem="@layout/item_artwork" />
 
     <Button
         android:id="@+id/deconnexion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/search_view_home"
+        android:text="deconnexion"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
         app:layout_constraintStart_toStartOf="@id/guideline_start_home"
-        android:text="deconnexion"/>
+        app:layout_constraintTop_toBottomOf="@id/recycler_view_artworks" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
