@@ -24,22 +24,28 @@
 
 
     /* TEXTS */
-    <string name="TEXT_EMPTY_FIRST_NAME">Please enter your first name.</string>
-    <string name="TEXT_EMPTY_LAST_NAME">Please enter your last name.</string>
-    <string name="TEXT_EMPTY_ADDRESS_STREET">Please enter your address.</string>
-    <string name="TEXT_EMPTY_ADDRESS_ZIPCODE">Please enter your zip code.</string>
-    <string name="TEXT_EMPTY_ADDRESS_CITY">Please enter your city.</string>
-    <string name="TEXT_EMPTY_EMAIL">Please enter your email.</string>
-    <string name="TEXT_EMPTY_USERNAME">Please enter an username.</string>
-    <string name="TEXT_EMPTY_PASSWORD">Please enter a password.</string>
+    <string name="TEXT_FIRST_NAME_EMPTY">Please enter your first name.</string>
+    <string name="TEXT_LAST_NAME_EMPTY">Please enter your last name.</string>
+    <string name="TEXT_ADDRESS_STREET_EMPTY">Please enter your address.</string>
+    <string name="TEXT_ADDRESS_ZIPCODE_EMPTY">Please enter your zip code.</string>
+    <string name="TEXT_ADDRESS_CITY_EMPTY">Please enter your city.</string>
+    <string name="TEXT_EMAIL_EMPTY">Please enter your email.</string>
+    <string name="TEXT_USERNAME_EMPTY">Please enter an username.</string>
+    <string name="TEXT_PASSWORD_EMPTY">Please enter a password.</string>
     <string name="TEXT_SIGNIN_ERROR">Wrong username or password. Please try again.</string>
     <string name="TEXT_EMAIL_ERROR">Please enter a valid email.</string>
-    <string name="TEXT_USERNAME_ERROR">Username must contain only unaccented letters, numbers and -_</string>
+    <string name="TEXT_PASSWORD_LENGTH_ERROR">Password must contain between 7 and 20 characters.</string>
+    <string name="TEXT_USERNAME_LENGTH_ERROR">Username must contain between 7 and 16 characters.</string>
+    <string name="TEXT_USERNAME_FORMAT_ERROR">Username must contain only unaccented letters, numbers and -_</string>
+    <string name="TEXT_FIRST_NAME_FORMAT_ERROR">First name must contain only unaccented letters.</string>
+    <string name="TEXT_LAST_NAME_FORMAT_ERROR">Last name must contain only unaccented letters.</string>
+    <string name="TEXT_USERNAME_ALREADY_USE">An account with this username already exists. Please enter another.</string>
+    <string name="TEXT_EMAIL_ALREADY_USE">An account with this email already exists. Please enter another.</string>
     <string name="TEXT_SUCCESS_SIGN_UP">Your account has been successfully created. You can now sign in.</string>
-    <string name="TEXT_ERROR_SIGN_UP">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
-    <string name="TEXT_ERROR_SIGN_IN">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
-    <string name="TEXT_ERROR_GET_USER_INFOS">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
-    <string name="TEXT_ERROR_GET_ARTWORKS">Error while trying to get artworks. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_SIGN_UP_API_ERROR">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_SIGN_IN_API_ERROR">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_GET_USER_INFO_API_ERROR">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_GET_ARTWORKS_API_ERROR">Error while trying to get artworks. You may not be connected to the internet. Please try again.</string>
 
 
     /* ACTIONS */

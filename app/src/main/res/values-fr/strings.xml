@@ -24,22 +24,28 @@
 
 
     /* TEXTS */
-    <string name="TEXT_EMPTY_FIRST_NAME">Merci d\'entrer votre prénom.</string>
-    <string name="TEXT_EMPTY_LAST_NAME">Merci d\'entrer votre nom de famille.</string>
-    <string name="TEXT_EMPTY_ADDRESS_STREET">Merci d\'entrer votre adresse.</string>
-    <string name="TEXT_EMPTY_ADDRESS_ZIPCODE">Merci d\'entrer votre code postal.</string>
-    <string name="TEXT_EMPTY_ADDRESS_CITY">Merci d\'entrer votre ville.</string>
-    <string name="TEXT_EMPTY_EMAIL">Merci d\'entrer votre email.</string>
-    <string name="TEXT_EMPTY_USERNAME">Merci d\'entrer votre nom d\'utilisateur.</string>
+    <string name="TEXT_FIRST_NAME_EMPTY">Merci d\'entrer votre prénom.</string>
+    <string name="TEXT_LAST_NAME_EMPTY">Merci d\'entrer votre nom de famille.</string>
+    <string name="TEXT_ADDRESS_STREET_EMPTY">Merci d\'entrer votre adresse.</string>
+    <string name="TEXT_ADDRESS_ZIPCODE_EMPTY">Merci d\'entrer votre code postal.</string>
+    <string name="TEXT_ADDRESS_CITY_EMPTY">Merci d\'entrer votre ville.</string>
+    <string name="TEXT_EMAIL_EMPTY">Merci d\'entrer votre email.</string>
+    <string name="TEXT_USERNAME_EMPTY">Merci d\'entrer votre nom d\'utilisateur.</string>
     <string name="TEXT_SIGNIN_ERROR">Erreur dans le nom d\'utilisateur et/ou mot de passe.</string>
-    <string name="TEXT_EMPTY_PASSWORD">Merci d\'entrer votre mot de passe.</string>
+    <string name="TEXT_PASSWORD_EMPTY">Merci d\'entrer votre mot de passe.</string>
     <string name="TEXT_EMAIL_ERROR">Merci d\'entrer un email valide.</string>
-    <string name="TEXT_USERNAME_ERROR">Le nom d\'utilisateur ne peut contenir que des caractères non accentuées, des chiffres ou -_</string>
+    <string name="TEXT_PASSWORD_LENGTH_ERROR">Le mot de passe doit contenir entre 7 et 20 caractères.</string>
+    <string name="TEXT_USERNAME_LENGTH_ERROR">Le nom d\'utilisateur doit contenir entre 7 et 20 caractères.</string>
+    <string name="TEXT_USERNAME_FORMAT_ERROR">Le nom d\'utilisateur ne peut contenir que des lettres non accentuées, des chiffres et -_</string>
+    <string name="TEXT_FIRST_NAME_FORMAT_ERROR">Le prénom ne peut contenir que des lettres non accentuées.</string>
+    <string name="TEXT_LAST_NAME_FORMAT_ERROR">Le nom de famille ne peut contenir que des lettres non accentuées.</string>
+    <string name="TEXT_USERNAME_ALREADY_USE">Un compte utilisant ce nom d\'utilisateur existe déjà. Merci d\'en renseigner un autre.</string>
+    <string name="TEXT_EMAIL_ALREADY_USE">Un compte utilisant cet email existe déjà. Merci d\'en renseigner un autre.</string>
     <string name="TEXT_SUCCESS_SIGN_UP">Votre compte à bien été créé. Vous pouvez désormais vous connecter.</string>
-    <string name="TEXT_ERROR_SIGN_UP">Impossible de créer votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
-    <string name="TEXT_ERROR_SIGN_IN">Echec de connexion, il se peut que vous ne soyez pas connecté à internet. Merci de rééssayer.</string>
-    <string name="TEXT_ERROR_GET_USER_INFOS">Impossible de récupérer les informations de votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
-    <string name="TEXT_ERROR_GET_ARTWORKS">Impossible de récupérer la liste des œuvres. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_SIGN_UP_API_ERROR">Impossible de créer votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_SIGN_IN_API_ERROR">Echec de connexion, il se peut que vous ne soyez pas connecté à internet. Merci de rééssayer.</string>
+    <string name="TEXT_GET_USER_INFO_API_ERROR">Impossible de récupérer les informations de votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_GET_ARTWORKS_API_ERROR">Impossible de récupérer la liste des œuvres. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
 
 
     /* ACTIONS */

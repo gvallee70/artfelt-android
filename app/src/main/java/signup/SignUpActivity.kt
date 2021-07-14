@@ -1,15 +1,12 @@
 package signup
 
-import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import api.ArtfeltClient
 import api.models.auth.signup.SignUpRequest
 import com.artfelt.artfelt.R
-import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.button_signup
@@ -165,8 +162,9 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun manageOnClickSignUpButton() {
         button_signup.setOnClickListener {
+            hideKeyboard()
+
             if (signUpFormIsValid()) {
-                hideKeyboard()
                 signUpAPICall()
             }
         }
@@ -186,42 +184,42 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun checkEmptyFields(): Boolean {
         if ("${editText_first_name.text}".isEmpty()) {
-            editText_first_name.error = getString(R.string.TEXT_EMPTY_FIRST_NAME)
+            editText_first_name.error = getString(R.string.TEXT_FIRST_NAME_EMPTY)
             return false
         }
 
         if ("${editText_last_name.text}".isEmpty()) {
-            editText_last_name.error = getString(R.string.TEXT_EMPTY_LAST_NAME)
+            editText_last_name.error = getString(R.string.TEXT_LAST_NAME_EMPTY)
             return false
         }
 
         if ("${editText_address_street.text}".isEmpty()) {
-            editText_address_street.error = getString(R.string.TEXT_EMPTY_ADDRESS_STREET)
+            editText_address_street.error = getString(R.string.TEXT_ADDRESS_STREET_EMPTY)
             return false
         }
 
         if ("${editText_address_zipcode.text}".isEmpty()) {
-            editText_address_zipcode.error = getString(R.string.TEXT_EMPTY_ADDRESS_ZIPCODE)
+            editText_address_zipcode.error = getString(R.string.TEXT_ADDRESS_ZIPCODE_EMPTY)
             return false
         }
 
         if ("${editText_address_city.text}".isEmpty()) {
-            editText_address_city.error = getString(R.string.TEXT_EMPTY_ADDRESS_CITY)
+            editText_address_city.error = getString(R.string.TEXT_ADDRESS_CITY_EMPTY)
             return false
         }
 
         if ("${editText_username.text}".isEmpty()) {
-            editText_username.error = getString(R.string.TEXT_EMPTY_USERNAME)
+            editText_username.error = getString(R.string.TEXT_USERNAME_EMPTY)
             return false
         }
 
         if ("${editText_email.text}".isEmpty()) {
-            editText_email.error = getString(R.string.TEXT_EMPTY_EMAIL)
+            editText_email.error = getString(R.string.TEXT_EMAIL_EMPTY)
             return false
         }
 
         if ("${editText_password.text}".isEmpty()) {
-            editText_password.error = getString(R.string.TEXT_EMPTY_PASSWORD)
+            editText_password.error = getString(R.string.TEXT_PASSWORD_EMPTY)
             return false
         }
 
@@ -231,13 +229,33 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun checkErrorFields(): Boolean {
+        if (!"${editText_first_name.text}".isAlphaOnly()) {
+            editText_first_name.error = getString(R.string.TEXT_FIRST_NAME_FORMAT_ERROR)
+            return false
+        }
+
+        if (!"${editText_last_name.text}".isAlphaOnly()) {
+            editText_last_name.error = getString(R.string.TEXT_LAST_NAME_FORMAT_ERROR)
+            return false
+        }
+
         if ("${editText_username.text}".containsSpecialCharacters()) {
-            editText_username.error = getString(R.string.TEXT_USERNAME_ERROR)
+            editText_username.error = getString(R.string.TEXT_USERNAME_FORMAT_ERROR)
+            return false
+        }
+
+        if ("${editText_username.text}".length < 7 || "${editText_username.text}".length > 16) {
+            editText_username.error = getString(R.string.TEXT_USERNAME_LENGTH_ERROR)
             return false
         }
 
         if (!"${editText_email.text}".isEmail()) {
             editText_email.error = getString(R.string.TEXT_EMAIL_ERROR)
+            return false
+        }
+
+        if ("${editText_password.text}".length < 7 || "${editText_password.text}".length > 20) {
+            editText_password.error = getString(R.string.TEXT_PASSWORD_LENGTH_ERROR)
             return false
         }
 
@@ -280,12 +298,18 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 } else {
                     initSignUpButton()
+
+                    if(signUpResponse.body()?.message.toString().contains("username")) {
+                        editText_username.error = getString(R.string.TEXT_USERNAME_ALREADY_USE)
+                    } else if(signUpResponse.body()?.message.toString().contains("email")) {
+                        editText_email.error = getString(R.string.TEXT_EMAIL_ALREADY_USE)
+                    }
                 }
 
             } catch (e: Exception) {
                 initSignUpButton()
                 println(e.message)
-                Toolbox.showErrorDialog(this@SignUpActivity, getString(R.string.TEXT_ERROR_SIGN_UP))
+                Toolbox.showErrorDialog(this@SignUpActivity, getString(R.string.TEXT_SIGN_UP_API_ERROR))
             }
         }
     }

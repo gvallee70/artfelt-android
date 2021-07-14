@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -105,10 +106,10 @@ class Toolbox {
 const val EXTRA_HASHMAP = "extra-hashmap"
 
 fun String.isEmail(): Boolean {
-    if (this.contains("@") && this.contains(".")) {
-        return true
-    }
-    return false
+    val pattern: Pattern = Patterns.EMAIL_ADDRESS
+    val matcher: Matcher = pattern.matcher(this)
+
+    return matcher.find()
 }
 
 fun String.containsSpecialCharacters(): Boolean {
@@ -116,6 +117,13 @@ fun String.containsSpecialCharacters(): Boolean {
     val matcher: Matcher = pattern.matcher(this)
 
     return matcher.find()
+}
+
+fun String.isAlphaOnly(): Boolean {
+    val pattern: Pattern = Pattern.compile("[^a-zA-Z]")
+    val matcher: Matcher = pattern.matcher(this)
+
+    return !matcher.find()
 }
 
 

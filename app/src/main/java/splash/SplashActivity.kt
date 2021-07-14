@@ -47,7 +47,7 @@ class SplashActivity: AppCompatActivity() {
 
             } catch (e: Exception) {
                 println(e.message)
-                Toolbox.showErrorDialog(this@SplashActivity, getString(R.string.TEXT_ERROR_GET_USER_INFOS))
+                Toolbox.showErrorDialog(this@SplashActivity, getString(R.string.TEXT_GET_USER_INFO_API_ERROR))
             }
         }
     }

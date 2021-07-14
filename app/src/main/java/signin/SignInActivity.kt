@@ -1,9 +1,7 @@
 package signin
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_signin.*
@@ -17,9 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import api.ArtfeltClient
-import api.models.user.User
 import api.models.auth.signin.SignInRequest
-import home.HomeActivity
 import managers.session.SessionManager
 import signup.SignUpActivity
 import splash.SplashActivity
@@ -135,9 +131,9 @@ class SignInActivity : AppCompatActivity() {
 
     private fun manageOnClickSignInButton() {
         button_signin.setOnClickListener {
+            hideKeyboard()
 
             if (signInFormIsValid()) {
-                hideKeyboard()
                 signInAPICall()
             }
         }
@@ -153,12 +149,12 @@ class SignInActivity : AppCompatActivity() {
 
     private fun signInFormIsValid(): Boolean {
         if ("${editText_username.text}".isEmpty()) {
-            editText_username.error = getString(R.string.TEXT_EMPTY_USERNAME)
+            editText_username.error = getString(R.string.TEXT_USERNAME_EMPTY)
             return false
         }
 
         if ("${editText_password.text}".isEmpty()) {
-            editText_password.error = getString(R.string.TEXT_EMPTY_PASSWORD)
+            editText_password.error = getString(R.string.TEXT_PASSWORD_EMPTY)
             return false
         }
 
@@ -193,7 +189,7 @@ class SignInActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 initSignInButton()
                 println(e.message)
-                Toolbox.showErrorDialog(this@SignInActivity, getString(R.string.TEXT_ERROR_SIGN_IN))
+                Toolbox.showErrorDialog(this@SignInActivity, getString(R.string.TEXT_SIGN_IN_API_ERROR))
 
             }
         }
