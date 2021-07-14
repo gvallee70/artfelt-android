@@ -29,15 +29,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <SearchView
+    <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view_home"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/background_radius_gray"
+        android:clickable="true"
+        android:textCursorDrawable="@null"
+        app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
         app:layout_constraintStart_toStartOf="@id/guideline_start_home"
-        app:layout_constraintTop_toBottomOf="@id/block_header_home" />
+        app:layout_constraintTop_toBottomOf="@id/block_header_home"
+        app:queryBackground="@drawable/background_radius_gray" />
 
 
     <TextView
@@ -52,20 +56,22 @@
         app:layout_constraintTop_toBottomOf="@id/search_view_home"
         tools:text="Toutes les oeuvres" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_artworks"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
         android:fadingEdgeLength="0px"
         android:listSelector="@null"
         android:overScrollMode="never"
-        android:layout_marginBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
         app:layout_constraintStart_toStartOf="@id/guideline_start_home"
         app:layout_constraintTop_toBottomOf="@id/title_all_artworks"
-        app:layout_constraintBottom_toBottomOf="parent"
         tools:listitem="@layout/item_artwork" />
+
 
     <Button
         android:id="@+id/deconnexion"
