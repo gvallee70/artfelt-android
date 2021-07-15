@@ -27,9 +27,9 @@
             android:layout_marginTop="5dp"
             android:fontFamily="@font/work_sans"
             android:textSize="16sp"
-            android:layout_marginLeft="10dp"
-            android:maxLength="15"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:maxEms="5"
             tools:text="Titre artwork"
             android:gravity="left"/>
 
@@ -38,7 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="10dp"
             android:fontFamily="@font/work_sans_bold"
             android:textSize="16sp"
             android:gravity="right"

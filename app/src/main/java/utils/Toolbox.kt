@@ -119,7 +119,7 @@ fun String.containsSpecialCharacters(): Boolean {
     return matcher.find()
 }
 
-fun String.isAlphaOnly(): Boolean {
+fun String.containsAlphaOnly(): Boolean {
     val pattern: Pattern = Pattern.compile("[^a-zA-Z]")
     val matcher: Matcher = pattern.matcher(this)
 

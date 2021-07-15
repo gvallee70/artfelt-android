@@ -229,12 +229,12 @@ class SignUpActivity : AppCompatActivity() {
 
 
     private fun checkErrorFields(): Boolean {
-        if (!"${editText_first_name.text}".isAlphaOnly()) {
+        if (!"${editText_first_name.text}".containsAlphaOnly()) {
             editText_first_name.error = getString(R.string.TEXT_FIRST_NAME_FORMAT_ERROR)
             return false
         }
 
-        if (!"${editText_last_name.text}".isAlphaOnly()) {
+        if (!"${editText_last_name.text}".containsAlphaOnly()) {
             editText_last_name.error = getString(R.string.TEXT_LAST_NAME_FORMAT_ERROR)
             return false
         }

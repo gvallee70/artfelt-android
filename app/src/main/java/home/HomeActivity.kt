@@ -1,30 +1,41 @@
 package home
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import api.ArtfeltClient
 import api.models.artwork.Artwork
 import api.models.user.User
+import artwork.ArtworkDetailsActivity
 import com.artfelt.artfelt.R
 import home.artworks.ArtworkAdapter
+import home.artworks.ArtworkDelegate
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import managers.session.SessionManager
+import partials.HeaderDelegate
 import partials.HeaderView
 import signin.SignInActivity
+import utils.EXTRA_HASHMAP
 import utils.Toolbox
 import utils.navigateTo
+import java.io.Serializable
 
-class HomeActivity: AppCompatActivity() {
+class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
     private lateinit var artworkAdapter: ArtworkAdapter
+
+    companion object {
+        const val ARTWORK = "artwork"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +45,13 @@ class HomeActivity: AppCompatActivity() {
 
     }
 
-
     override fun onResume() {
         super.onResume()
 
         getAllArtworksAPICall()
         initView()
     }
+
 
     private fun initView() {
         initHeader()
@@ -52,7 +63,7 @@ class HomeActivity: AppCompatActivity() {
 
 
     private fun initHeader() {
-        HeaderView(this, block_header_home, User.infos!!)
+        HeaderView(this, block_header_home, false, this)
     }
 
 
@@ -98,7 +109,7 @@ class HomeActivity: AppCompatActivity() {
 
 
     private fun initArtworksRecyclerView(artworks: ArrayList<Artwork>) {
-        artworkAdapter = ArtworkAdapter(this, artworks)
+        artworkAdapter = ArtworkAdapter(this, artworks, this)
 
         recycler_view_artworks.removeAllViews()
         recycler_view_artworks.layoutManager = GridLayoutManager(this, 2)
@@ -133,5 +144,16 @@ class HomeActivity: AppCompatActivity() {
                 Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_GET_ARTWORKS_API_ERROR))
             }
         }
+    }
+
+    override fun onClickItem(artwork: Artwork) {
+        val data = HashMap<String, Any>()
+        data[ARTWORK] = artwork as Serializable
+        navigateTo(ArtworkDetailsActivity(), data, false)
+
+    }
+
+    override fun onClickLeftIcon() {
+        //open profile
     }
 }

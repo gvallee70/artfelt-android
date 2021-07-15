@@ -22,8 +22,8 @@ class SplashActivity: AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         this.supportActionBar!!.hide()
-
         if (SessionManager(this).userIsLogged()) {
+            println("token: ${SessionManager(this).fetchAuthToken()}")
             getSelfInfos()
         } else {
             navigateTo(SignInActivity(), true)

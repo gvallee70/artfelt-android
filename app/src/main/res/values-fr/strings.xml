@@ -21,7 +21,9 @@
     <string name="LABEL_ARTWORK_SEARCH">Rechercher une œuvre...</string>
     <string name="LABEL_ALL_ARTWORKS">Toutes les œuvres</string>
     <string name="LABEL_ARTWORK_PRICE">%d €</string>
-
+    <string name="LABEL_ASSOCIATION_DONATED_PRICE">dont %d € reversés à %s</string>
+    <string name="LABEL_ARTWORK_TYPE_TITLE">Type :</string>
+    <string name="LABEL_ARTWORK_DATE_TITLE">Mise en ligne :</string>
 
     /* TEXTS */
     <string name="TEXT_FIRST_NAME_EMPTY">Merci d\'entrer votre prénom.</string>

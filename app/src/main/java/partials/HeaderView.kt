@@ -1,47 +1,51 @@
 package partials
 
 import android.content.Context
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
-import api.models.user.infos.UserInfosResponse
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.view_header.view.*
 
 class HeaderView(
     private val context: Context,
     parent: ViewGroup,
-    user: UserInfosResponse,
+    val backButton: Boolean,
+    private val listener: HeaderDelegate
 ){
 
     private val view =
         LayoutInflater.from(context).inflate(R.layout.view_header, parent, false)
 
-    var mHeaderProfilePic = view.header_profile_pic
+    var mHeaderLeftIcon = view.header_left_icon
     var mHeaderTitle = view.header_title
-    var mHeaderShopcart = view.header_shopcart
+    var mHeaderRightIcon = view.header_right_icon
 
     init {
         parent.removeAllViews()
         parent.addView(view)
-        initView(user)
+        initView()
     }
 
-    private fun initView(user: UserInfosResponse) {
-        initHeaderProfilePic(user)
+    private fun initView() {
+        initHeaderLeftIcon()
         initHeaderTitle()
-        initHeaderShopcart()
+        initHeaderRightIcon()
+
+        manageOnClickLeftIcon()
     }
 
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    private fun initHeaderProfilePic(user: UserInfosResponse) {
-        mHeaderProfilePic.clipToOutline = true
+    private fun initHeaderLeftIcon() {
+        mHeaderLeftIcon.clipToOutline = true
         //if (user.image !== "") {
-            //mHeaderProfilePic.setImageResource(user.image)
+            //mHeaderProfilePic.setImageResource(User.infos!!.)
         //} else {
-            mHeaderProfilePic.setImageResource(R.drawable.image_default_profilepic)
+
+        if (backButton) {
+            mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
+        } else {
+            mHeaderLeftIcon.setImageResource(R.drawable.image_default_profilepic)
+        }
         // }
     }
 
@@ -50,8 +54,15 @@ class HeaderView(
         mHeaderTitle.textSize = 18f
     }
 
-    private fun initHeaderShopcart() {
+    private fun initHeaderRightIcon() {
 
+    }
+
+
+    private fun manageOnClickLeftIcon() {
+        mHeaderLeftIcon.setOnClickListener {
+            listener.onClickLeftIcon()
+        }
     }
 
 }

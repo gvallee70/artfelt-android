@@ -21,7 +21,9 @@
     <string name="LABEL_ARTWORK_SEARCH">Search an artwork...</string>
     <string name="LABEL_ALL_ARTWORKS">All artworks</string>
     <string name="LABEL_ARTWORK_PRICE">%d $</string>
-
+    <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ that will be donated to %s</string>
+    <string name="LABEL_ARTWORK_TYPE_TITLE">Type:</string>
+    <string name="LABEL_ARTWORK_DATE_TITLE">Date:</string>
 
 
 

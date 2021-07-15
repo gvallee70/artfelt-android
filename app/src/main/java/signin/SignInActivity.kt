@@ -22,7 +22,6 @@ import splash.SplashActivity
 import utils.*
 
 class SignInActivity : AppCompatActivity() {
-    private lateinit var sessionManager: SessionManager
 
     companion object {
         private const val NEW_USERNAME = "new-username"
@@ -34,7 +33,6 @@ class SignInActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signin)
 
-        sessionManager = SessionManager(this)
         this.supportActionBar!!.hide()
     }
 
@@ -176,7 +174,7 @@ class SignInActivity : AppCompatActivity() {
 
                 if (signInResponse.isSuccessful && signInResponse.body() != null) {
                     signInResponse.body()?.let {
-                        sessionManager.saveAuthToken(it.token!!)
+                        SessionManager(this@SignInActivity).saveAuthToken(it.token!!)
                     }
 
                     println("${signInResponse.code()} ${signInResponse.message()}")

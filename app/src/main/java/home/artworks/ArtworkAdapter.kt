@@ -2,30 +2,42 @@ package home.artworks
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import api.models.artwork.Artwork
 import com.artfelt.artfelt.R
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ArtworkAdapter(val context: Context, private var artworks: ArrayList<Artwork>): RecyclerView.Adapter<ArtworkViewHolder>(), Filterable {
+class ArtworkAdapter(val context: Context, private var artworks: ArrayList<Artwork>, private val listener: ArtworkDelegate) :
+    RecyclerView.Adapter<ArtworkViewHolder>(), Filterable {
     var artworksList = ArrayList<Artwork>(artworks)
     var artworksListFilter = ArrayList<Artwork>(artworksList)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArtworkViewHolder {
-        return ArtworkViewHolder(LayoutInflater.from(context).inflate(R.layout.item_artwork, parent, false))
+        return ArtworkViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.item_artwork, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ArtworkViewHolder, position: Int) {
-        holder.bindView(artworksListFilter[position])
+        val artwork = artworksListFilter[position]
+        holder.bindView(artwork)
+
+        holder.container.setOnClickListener {
+            listener.onClickItem(artwork)
+        }
     }
 
     override fun getItemCount(): Int {
         return artworksListFilter.size
     }
+
 
     override fun getFilter(): Filter {
         return object : Filter() {
@@ -36,7 +48,7 @@ class ArtworkAdapter(val context: Context, private var artworks: ArrayList<Artwo
                 } else {
                     val resultList = ArrayList<Artwork>()
                     for (artwork in artworksListFilter) {
-                        if (artwork.title.toLowerCase(Locale.ROOT)
+                        if (artwork.title!!.toLowerCase(Locale.ROOT)
                                 .contains(charSearch.toLowerCase(Locale.ROOT))
                         ) {
                             resultList.add(artwork)
@@ -56,7 +68,6 @@ class ArtworkAdapter(val context: Context, private var artworks: ArrayList<Artwo
         }
 
     }
-
 
 
 }

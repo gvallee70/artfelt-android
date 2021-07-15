@@ -24,11 +24,18 @@ class ArtworkViewHolder(val container: View) : RecyclerView.ViewHolder(container
         initImage(artwork)
         initTitle(artwork)
         initPrice(artwork)
+
     }
+
 
     private fun initImage(artwork: Artwork) {
         mImage.clipToOutline = true
-        Picasso.get().load(artwork.imageUrl).into(mImage)
+
+        if(artwork.imageUrl.isNullOrEmpty()) {
+            mImage.setImageResource(R.drawable.ic_image_placeholder)
+        } else {
+            Picasso.get().load(artwork.imageUrl).into(mImage)
+        }
     }
 
     private fun initTitle(artwork: Artwork) {

@@ -6,14 +6,14 @@
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_start_home"
+        android:id="@+id/guideline_start_artwork_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_begin="15dp" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline_end_home"
+        android:id="@+id/guideline_end_artwork_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -38,8 +38,8 @@
         android:clickable="true"
         android:textCursorDrawable="@null"
         app:iconifiedByDefault="false"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_home"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
         app:layout_constraintTop_toBottomOf="@id/block_header_home"
         app:queryBackground="@drawable/background_radius_gray" />
 
@@ -51,8 +51,8 @@
         android:layout_marginTop="40dp"
         android:fontFamily="@font/work_sans_bold"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_home"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
         app:layout_constraintTop_toBottomOf="@id/search_view_home"
         tools:text="Toutes les oeuvres" />
 
@@ -67,8 +67,8 @@
         android:listSelector="@null"
         android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_home"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
         app:layout_constraintTop_toBottomOf="@id/title_all_artworks"
         tools:listitem="@layout/item_artwork" />
 
@@ -79,8 +79,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="deconnexion"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_home"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_home"
+        app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
+        app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
         app:layout_constraintTop_toBottomOf="@id/recycler_view_artworks" />
 
 
