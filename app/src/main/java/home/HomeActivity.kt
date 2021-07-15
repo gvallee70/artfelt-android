@@ -1,16 +1,13 @@
 package home
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import api.ArtfeltClient
 import api.models.artwork.Artwork
-import api.models.user.User
 import artwork.ArtworkDetailsActivity
 import com.artfelt.artfelt.R
 import home.artworks.ArtworkAdapter
@@ -21,10 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import managers.session.SessionManager
-import partials.HeaderDelegate
-import partials.HeaderView
+import common.HeaderDelegate
+import common.HeaderView
 import signin.SignInActivity
-import utils.EXTRA_HASHMAP
 import utils.Toolbox
 import utils.navigateTo
 import java.io.Serializable
@@ -153,7 +149,7 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
     }
 
-    override fun onClickLeftIcon() {
+    override fun onClickHeaderLeftIcon() {
         //open profile
     }
 }

@@ -1,15 +1,17 @@
-package partials
+package common
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import api.models.user.User
 import com.artfelt.artfelt.R
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_header.view.*
 
 class HeaderView(
     private val context: Context,
     parent: ViewGroup,
-    val backButton: Boolean,
+    private val backButton: Boolean,
     private val listener: HeaderDelegate
 ){
 
@@ -36,22 +38,20 @@ class HeaderView(
 
 
     private fun initHeaderLeftIcon() {
-        mHeaderLeftIcon.clipToOutline = true
-        //if (user.image !== "") {
-            //mHeaderProfilePic.setImageResource(User.infos!!.)
-        //} else {
-
         if (backButton) {
             mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
         } else {
-            mHeaderLeftIcon.setImageResource(R.drawable.image_default_profilepic)
+            if (User.infos!!.avatarUrl.isNullOrEmpty()) {
+                mHeaderLeftIcon.setImageResource(R.drawable.ic_user_default)
+            } else {
+                Picasso.get().load(User.infos!!.avatarUrl).into(mHeaderLeftIcon)
+            }
         }
-        // }
     }
 
     private fun initHeaderTitle() {
         mHeaderTitle.text = context.getString(R.string.TITLE_APP_NAME)
-        mHeaderTitle.textSize = 18f
+        mHeaderTitle.textSize = 22f
     }
 
     private fun initHeaderRightIcon() {
@@ -61,7 +61,7 @@ class HeaderView(
 
     private fun manageOnClickLeftIcon() {
         mHeaderLeftIcon.setOnClickListener {
-            listener.onClickLeftIcon()
+            listener.onClickHeaderLeftIcon()
         }
     }
 

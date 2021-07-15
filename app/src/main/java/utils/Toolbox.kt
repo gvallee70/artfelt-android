@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.artfelt.artfelt.R
 import home.HomeActivity
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -168,6 +169,13 @@ fun Intent.getExtraPassedData(): HashMap<String, Any> {
     return getSerializableExtra(EXTRA_HASHMAP) as HashMap<String, Any>
 }
 
+
+fun Date.formatddMMMMYYYY(): String {
+    val formatter = SimpleDateFormat("dd MMMM YYYY")
+
+    return formatter.format(this)
+
+}
 
 
 

@@ -1,19 +1,15 @@
 package artwork
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import api.models.artwork.Artwork
-import api.models.user.User
 import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_artwork_details.*
-import managers.session.SessionManager
-import partials.HeaderDelegate
-import partials.HeaderView
+import common.HeaderDelegate
+import common.HeaderView
 import utils.EXTRA_HASHMAP
 import utils.getExtraPassedData
-import java.io.Serializable
 
 class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
 
@@ -27,12 +23,9 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_artwork_details)
 
-        if(intent.hasExtra(EXTRA_HASHMAP)) {
-            val data = intent.getExtraPassedData()
-            artwork = data[ARTWORK] as Artwork
-        }
-
         this.supportActionBar!!.hide()
+
+        getArtworkDetailsFromIntent()
     }
 
 
@@ -50,12 +43,21 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
         initArtworkDescription()
         initArtworkType()
         initArtworkDate()
+        initArtistView()
 
+    }
+
+    private fun getArtworkDetailsFromIntent() {
+        if(intent.hasExtra(EXTRA_HASHMAP)) {
+            val data = intent.getExtraPassedData()
+            artwork = data[ARTWORK] as Artwork
+        }
     }
 
     private fun initHeader() {
         HeaderView(this, block_header_artwork_details, true, this)
     }
+
 
     private fun initArtworkImageView() {
         imageView_artwork_details.clipToOutline = true
@@ -96,10 +98,15 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
 
     private fun initArtworkDate() {
         textView_date_title_artwork_details.text = getString(R.string.LABEL_ARTWORK_DATE_TITLE)
-        //textView_date_artwork_details.text = artwork.date
+        textView_date_artwork_details.text = "15/07/2021"
     }
 
-    override fun onClickLeftIcon() {
+
+    private fun initArtistView() {
+        ArtistView(this, block_artwork_artist_view, artwork.artist!!)
+    }
+
+    override fun onClickHeaderLeftIcon() {
         finish()
     }
 
