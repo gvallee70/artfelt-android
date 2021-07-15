@@ -24,7 +24,7 @@
     <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ that will be donated to %s</string>
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type:</string>
     <string name="LABEL_ARTWORK_DATE_TITLE">Date:</string>
-
+    <string name="LABEL_ARTIST_MEMBER_SINCE">Member since %s</string>
 
 
     /* TEXTS */

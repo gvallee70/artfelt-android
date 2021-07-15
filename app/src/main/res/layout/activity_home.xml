@@ -23,7 +23,6 @@
         android:id="@+id/block_header_home"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:animateLayoutChanges="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,14 +33,14 @@
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/background_radius_gray"
+        android:background="@drawable/background_radius_light_gray"
         android:clickable="true"
         android:textCursorDrawable="@null"
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
         app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
         app:layout_constraintTop_toBottomOf="@id/block_header_home"
-        app:queryBackground="@drawable/background_radius_gray" />
+        app:queryBackground="@drawable/background_radius_light_gray" />
 
 
     <TextView
@@ -63,9 +62,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="40dp"
-        android:fadingEdgeLength="0px"
-        android:listSelector="@null"
         android:overScrollMode="never"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
         app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"

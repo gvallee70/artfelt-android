@@ -9,6 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="lightGray">#ECF0F1</color>
+    <color name="extraLightGray">#F5F6F6</color>
     <color name="primaryColor">#E0367A</color>
     <color name="successColor">#11CF52</color>
     <color name="errorColor">#F52222</color>

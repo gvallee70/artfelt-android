@@ -24,6 +24,8 @@
     <string name="LABEL_ASSOCIATION_DONATED_PRICE">dont %d € reversés à %s</string>
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type :</string>
     <string name="LABEL_ARTWORK_DATE_TITLE">Mise en ligne :</string>
+    <string name="LABEL_ARTIST_MEMBER_SINCE">Membre depuis le %s</string>
+
 
     /* TEXTS */
     <string name="TEXT_FIRST_NAME_EMPTY">Merci d\'entrer votre prénom.</string>

@@ -4,31 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/background_small_radius_extra_light_gray"
+    android:padding="10dp"
     app:layout_constraintBottom_toBottomOf="parent"
-    android:background="@drawable/background_radius_gray">
+    app:layout_constraintTop_toTopOf="parent">
 
 
     <ImageView
         android:id="@+id/imageView_artist_profile_pic"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/background_radius_gray"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/background_radius_light_gray"
+        android:src="@drawable/ic_user_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView_artist_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/work_sans"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/imageView_artist_profile_pic"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Jean Yves Dupont" />
 
 
     <ImageView
-        android:id="@+id/header_right_icon"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginRight="10dp"
+        android:id="@+id/imageView_artist_location"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:src="@drawable/ic_location"
+        app:layout_constraintStart_toEndOf="@id/imageView_artist_profile_pic"
+        app:layout_constraintTop_toBottomOf="@id/textView_artist_name" />
+
+    <TextView
+        android:id="@+id/textView_artist_address"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/work_sans"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/imageView_artist_location"
+        app:layout_constraintTop_toBottomOf="@id/textView_artist_name"
+        tools:text="Paris (75)" />
+
+    <TextView
+        android:id="@+id/textView_artist_member_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:src="@drawable/ic_shopcart"
+        android:fontFamily="@font/work_sans"
+        android:textColor="@color/black"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textView_artist_address"
+        tools:text="Membre depuis le 5 juin 2019" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
