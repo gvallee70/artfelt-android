@@ -81,8 +81,8 @@
             android:id="@+id/progressBar_signin"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:indeterminateTint="@color/white"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white" />
 
     </androidx.cardview.widget.CardView>
 

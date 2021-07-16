@@ -1,6 +1,7 @@
 package home
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,9 @@ import common.HeaderDelegate
 import common.HeaderView
 import signin.SignInActivity
 import utils.Toolbox
+import utils.hide
 import utils.navigateTo
+import utils.show
 import java.io.Serializable
 
 class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
@@ -51,8 +54,6 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
     private fun initView() {
         initHeader()
-        initSearchView()
-        initArtworksTitle()
 
         manageOnClickDecoButton()
     }
@@ -62,6 +63,15 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
         HeaderView(this, block_header_home, false, this)
     }
 
+    private fun initViewsIfArtworks() {
+        initSearchView()
+        initAllArtworksTitle()
+    }
+
+    private fun initViewsIfNoArtworks() {
+        search_view_home.hide()
+        initNoArtworksTitle()
+    }
 
     private fun initSearchView() {
         initSearchViewUI()
@@ -69,6 +79,8 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
     }
 
     private fun initSearchViewUI() {
+        search_view_home.show()
+
         search_view_home.queryHint = getString(R.string.LABEL_ARTWORK_SEARCH)
 
         val searchIcon = search_view_home.findViewById<ImageView>(R.id.search_mag_icon)
@@ -98,9 +110,14 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
     }
 
 
-    private fun initArtworksTitle() {
+    private fun initAllArtworksTitle() {
         title_all_artworks.textSize = 22f
         title_all_artworks.text = getString(R.string.LABEL_ALL_ARTWORKS)
+    }
+
+    private fun initNoArtworksTitle() {
+        title_all_artworks.textSize = 22f
+        title_all_artworks.text = getString(R.string.TEXT_NO_ARTWORKS)
     }
 
 
@@ -129,7 +146,12 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
                 if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
                     getArtworksResponse.body()?.let {
-                        initArtworksRecyclerView(it)
+                        if (it.isEmpty()) {
+                            initViewsIfNoArtworks()
+                        } else {
+                            initArtworksRecyclerView(it)
+                            initViewsIfArtworks()
+                        }
                     }
                 } else {
                     Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_GET_ARTWORKS_API_ERROR))

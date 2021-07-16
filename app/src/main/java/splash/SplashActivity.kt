@@ -2,6 +2,7 @@ package splash
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import api.ArtfeltClient
 import api.models.user.User
 import com.artfelt.artfelt.R
@@ -21,7 +22,10 @@ class SplashActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         this.supportActionBar!!.hide()
+
         if (SessionManager(this).userIsLogged()) {
             println("token: ${SessionManager(this).fetchAuthToken()}")
             getSelfInfos()

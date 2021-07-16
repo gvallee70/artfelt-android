@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_artwork_details.*
 import common.HeaderDelegate
 import common.HeaderView
 import utils.EXTRA_HASHMAP
+import utils.formatddMMMMYYYY
 import utils.getExtraPassedData
 
 class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
@@ -41,6 +42,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
         initArtworkPrice()
         initArtworkAssociationDonatedPrice()
         initArtworkDescription()
+        initArtworkQuantity()
         initArtworkType()
         initArtworkDate()
         initArtistView()
@@ -80,15 +82,21 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initArtworkAssociationDonatedPrice() {
-        //val donatedPrice = (artwork.price/100) * artwork.artist.pourcentage
-        val donatedPrice = artwork.price!!/4
-        textView_association_artwork_details.text = getString(R.string.LABEL_ASSOCIATION_DONATED_PRICE).format(donatedPrice, "Restos du coeur" /*,artwork.artist.association */)
-        textView_association_artwork_details.textSize = 12f
+        artwork.artist?.percentage.let {
+            val donatedPrice = (artwork.price!!/100) * it!!
+            textView_association_artwork_details.text = getString(R.string.LABEL_ASSOCIATION_DONATED_PRICE).format(donatedPrice, "Restos du coeur" /*,artwork.artist.association */)
+            textView_association_artwork_details.textSize = 12f
+        }
     }
 
     private fun initArtworkDescription() {
         textView_description_artwork_details.text = artwork.description
         textView_description_artwork_details.textSize = 16f
+    }
+
+    private fun initArtworkQuantity() {
+        textView_quantity_title_artwork_details.text = getString(R.string.LABEL_ARTWORK_QUANTITY_TITLE)
+        textView_quantity_artwork_details.text = artwork.quantity.toString()
     }
 
     private fun initArtworkType() {
@@ -98,7 +106,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
 
     private fun initArtworkDate() {
         textView_date_title_artwork_details.text = getString(R.string.LABEL_ARTWORK_DATE_TITLE)
-        textView_date_artwork_details.text = "15/07/2021"
+        textView_date_artwork_details.text = artwork.creationDate.formatddMMMMYYYY()
     }
 
 

@@ -35,12 +35,16 @@ data class Artist(
     @SerializedName("BIC")
     val bic: String? = null,
 
-    @SerializedName("creation_date")
-    val creationDate: Date,
-
     @SerializedName("role")
     val role: String,
 
+    @SerializedName("percentage")
+    val percentage: Int? = null,
+
     @SerializedName("avatar_url")
-    val avatarUrl: String? = null
+    val avatarUrl: String? = null,
+
+    @SerializedName("creation_date")
+    val creationDate: Date
+
 ): Serializable

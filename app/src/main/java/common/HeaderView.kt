@@ -38,6 +38,8 @@ class HeaderView(
 
 
     private fun initHeaderLeftIcon() {
+        mHeaderLeftIcon.clipToOutline = true
+
         if (backButton) {
             mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
         } else {

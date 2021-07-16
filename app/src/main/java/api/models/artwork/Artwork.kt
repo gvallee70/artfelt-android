@@ -5,6 +5,7 @@ import android.os.Parcelable
 import api.models.user.Artist
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.*
 
 data class Artwork(
     @SerializedName("id")
@@ -27,6 +28,9 @@ data class Artwork(
 
     @SerializedName("image_url")
     var imageUrl: String? = null,
+
+    @SerializedName("creation_date")
+    var creationDate: Date,
 
     @SerializedName("artist")
     var artist: Artist? = null,
