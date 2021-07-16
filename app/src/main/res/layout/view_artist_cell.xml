@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/background_small_radius_extra_light_gray"
-    android:padding="10dp"
+    android:background="@drawable/background_small_radius_white"
+    android:paddingVertical="5dp"
+    android:paddingHorizontal="10dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
@@ -60,7 +61,7 @@
         android:id="@+id/textView_artist_member_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="@font/work_sans"
         android:textColor="@color/black"
         android:textSize="10dp"

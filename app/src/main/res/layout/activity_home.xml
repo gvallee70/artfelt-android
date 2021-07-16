@@ -43,44 +43,50 @@
         app:queryBackground="@drawable/background_radius_light_gray" />
 
 
-    <TextView
-        android:id="@+id/title_all_artworks"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/work_sans_bold"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
-        app:layout_constraintTop_toBottomOf="@id/search_view_home"
-        tools:text="Toutes les oeuvres" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_artworks"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/block_artworks_list"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="40dp"
-        android:padding="10dp"
-        android:overScrollMode="never"
-        android:scrollbars="none"
+        android:layout_marginTop="30dp"
+        android:padding="15dp"
+        android:background="@drawable/background_top_radius_extra_light_gray"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
-        app:layout_constraintTop_toBottomOf="@id/title_all_artworks"
-        tools:listitem="@layout/item_artwork" />
+        app:layout_constraintTop_toBottomOf="@id/search_view_home">
 
+        <TextView
+            android:id="@+id/title_artworks_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/work_sans_bold"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Toutes les oeuvres" />
+        <Button
+            android:id="@+id/deconnexion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="deconnexion"
+            app:layout_constraintTop_toBottomOf="@id/title_artworks_list" />
 
-    <Button
-        android:id="@+id/deconnexion"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="deconnexion"
-        app:layout_constraintEnd_toEndOf="@id/guideline_end_artwork_details"
-        app:layout_constraintStart_toStartOf="@id/guideline_start_artwork_details"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view_artworks" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_artworks"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            android:padding="10dp"
+            android:scrollbars="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_artworks_list"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_artwork" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

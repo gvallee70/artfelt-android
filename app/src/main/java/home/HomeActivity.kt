@@ -1,7 +1,6 @@
 package home
 
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -103,7 +102,12 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                title_artworks_list.hide()
                 artworkAdapter.filter.filter(newText)
+
+                if (newText.isNullOrEmpty()) {
+                    title_artworks_list.show()
+                }
                 return false
             }
         })
@@ -111,13 +115,13 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
 
     private fun initAllArtworksTitle() {
-        title_all_artworks.textSize = 22f
-        title_all_artworks.text = getString(R.string.LABEL_ALL_ARTWORKS)
+        title_artworks_list.textSize = 22f
+        title_artworks_list.text = getString(R.string.LABEL_ALL_ARTWORKS)
     }
 
     private fun initNoArtworksTitle() {
-        title_all_artworks.textSize = 22f
-        title_all_artworks.text = getString(R.string.TEXT_NO_ARTWORKS)
+        title_artworks_list.textSize = 22f
+        title_artworks_list.text = getString(R.string.TEXT_NO_ARTWORKS)
     }
 
 
