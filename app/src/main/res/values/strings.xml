@@ -21,7 +21,8 @@
     <string name="LABEL_ARTWORK_SEARCH">Search an artwork...</string>
     <string name="LABEL_ALL_ARTWORKS">All artworks</string>
     <string name="LABEL_ARTWORK_PRICE">%d $</string>
-    <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ that will be donated to %s</string>
+    <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ for %s</string>
+    <string name="LABEL_ARTWORK_QUANTITY_TITLE">Quantity available:</string>
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type:</string>
     <string name="LABEL_ARTWORK_DATE_TITLE">Date:</string>
     <string name="LABEL_ARTIST_MEMBER_SINCE">Member since %s</string>
@@ -50,6 +51,7 @@
     <string name="TEXT_SIGN_IN_API_ERROR">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_ARTWORKS_API_ERROR">Error while trying to get artworks. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_NO_ARTWORKS">There is no artworks for the moment...</string>
 
 
     /* ACTIONS */
