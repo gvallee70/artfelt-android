@@ -26,7 +26,10 @@
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type:</string>
     <string name="LABEL_ARTWORK_DATE_TITLE">Date:</string>
     <string name="LABEL_ARTIST_MEMBER_SINCE">Member since %s</string>
-
+    <string name="LABEL_WANNA_BECOME_ARTIST">You want to sell your artworks?</string>
+    <string name="LABEL_OLD_PASSWORD">Old password</string>
+    <string name="LABEL_NEW_PASSWORD">New password</string>
+    <string name="LABEL_CONFIRMATION_PASSWORD">Confirm new password</string>
 
     /* TEXTS */
     <string name="TEXT_FIRST_NAME_EMPTY">Please enter your first name.</string>
@@ -40,6 +43,9 @@
     <string name="TEXT_SIGNIN_ERROR">Wrong username or password. Please try again.</string>
     <string name="TEXT_EMAIL_ERROR">Please enter a valid email.</string>
     <string name="TEXT_PASSWORD_LENGTH_ERROR">Password must contain between 7 and 20 characters.</string>
+    <string name="TEXT_OLD_PASSWORD_ERROR">Your old password is wrong.</string>
+    <string name="TEXT_PASSWORD_CHANGED_SUCCESS">Your password has been successfully changed.</string>
+    <string name="TEXT_PASSWORD_CONFIRMATION_ERROR">Passwords entered do not match.</string>
     <string name="TEXT_USERNAME_LENGTH_ERROR">Username must contain between 7 and 16 characters.</string>
     <string name="TEXT_USERNAME_FORMAT_ERROR">Username must contain only unaccented letters, numbers and -_</string>
     <string name="TEXT_FIRST_NAME_FORMAT_ERROR">First name must contain only unaccented letters.</string>
@@ -51,6 +57,7 @@
     <string name="TEXT_SIGN_IN_API_ERROR">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_ARTWORKS_API_ERROR">Error while trying to get artworks. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_CHANGE_PASSWORD_API_ERROR">Error while trying to change your password. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_NO_ARTWORKS">There is no artworks for the moment...</string>
 
 
@@ -58,7 +65,12 @@
     <string name="ACTION_ADD">Add</string>
     <string name="ACTION_EDIT">Edit</string>
     <string name="ACTION_DELETE">Delete</string>
+    <string name="ACTION_CANCEL">Cancel</string>
+    <string name="ACTION_SAVE">Save</string>
     <string name="ACTION_SIGN_IN">Sign In</string>
     <string name="ACTION_SIGN_UP">Sign Up</string>
+    <string name="ACTION_CHANGE_PASSWORD">Change password</string>
     <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Reset your password</string>
+    <string name="ACTION_BECOME_ARTIST">Become an artist</string>
+
 </resources>

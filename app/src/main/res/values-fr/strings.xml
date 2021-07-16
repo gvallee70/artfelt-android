@@ -26,6 +26,10 @@
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type :</string>
     <string name="LABEL_ARTWORK_DATE_TITLE">Mise en ligne :</string>
     <string name="LABEL_ARTIST_MEMBER_SINCE">Membre depuis le %s</string>
+    <string name="LABEL_WANNA_BECOME_ARTIST">Vous souhaitez vendre vos œuvres ?</string>
+    <string name="LABEL_OLD_PASSWORD">Ancien mot de passe</string>
+    <string name="LABEL_NEW_PASSWORD">Nouveau mot de passe</string>
+    <string name="LABEL_CONFIRMATION_PASSWORD">Confirmer nouveau mot de passe</string>
 
 
     /* TEXTS */
@@ -40,17 +44,21 @@
     <string name="TEXT_PASSWORD_EMPTY">Merci d\'entrer votre mot de passe.</string>
     <string name="TEXT_EMAIL_ERROR">Merci d\'entrer un email valide.</string>
     <string name="TEXT_PASSWORD_LENGTH_ERROR">Le mot de passe doit contenir entre 7 et 20 caractères.</string>
+    <string name="TEXT_PASSWORD_CHANGED_SUCCESS">Votre mot de passe a bien été modifié.</string>
+    <string name="TEXT_OLD_PASSWORD_ERROR">Votre ancien mot de passe n\'est pas le bon.</string>
+    <string name="TEXT_PASSWORD_CONFIRMATION_ERROR">Les mots de passe ne correspondent pas.</string>
     <string name="TEXT_USERNAME_LENGTH_ERROR">Le nom d\'utilisateur doit contenir entre 7 et 20 caractères.</string>
     <string name="TEXT_USERNAME_FORMAT_ERROR">Le nom d\'utilisateur ne peut contenir que des lettres non accentuées, des chiffres et -_</string>
     <string name="TEXT_FIRST_NAME_FORMAT_ERROR">Le prénom ne peut contenir que des lettres non accentuées.</string>
     <string name="TEXT_LAST_NAME_FORMAT_ERROR">Le nom de famille ne peut contenir que des lettres non accentuées.</string>
     <string name="TEXT_USERNAME_ALREADY_USE">Un compte utilisant ce nom d\'utilisateur existe déjà. Merci d\'en renseigner un autre.</string>
     <string name="TEXT_EMAIL_ALREADY_USE">Un compte utilisant cet email existe déjà. Merci d\'en renseigner un autre.</string>
-    <string name="TEXT_SUCCESS_SIGN_UP">Votre compte à bien été créé. Vous pouvez désormais vous connecter.</string>
+    <string name="TEXT_SUCCESS_SIGN_UP">Votre compte a bien été créé. Vous pouvez désormais vous connecter.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Impossible de créer votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Echec de connexion, il se peut que vous ne soyez pas connecté à internet. Merci de rééssayer.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Impossible de récupérer les informations de votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_GET_ARTWORKS_API_ERROR">Impossible de récupérer la liste des œuvres. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_CHANGE_PASSWORD_API_ERROR">Impossible de modifier votre mot de passe. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_NO_ARTWORKS">Il n\'y a pas d\'œuvres pour le moment...</string>
 
 
@@ -58,8 +66,12 @@
     <string name="ACTION_ADD">Ajouter</string>
     <string name="ACTION_EDIT">Modifier</string>
     <string name="ACTION_DELETE">Supprimer</string>
+    <string name="ACTION_CANCEL">Annuler</string>
+    <string name="ACTION_SAVE">Enregistrer</string>
     <string name="ACTION_SIGN_IN">Se connecter</string>
     <string name="ACTION_SIGN_UP">Créer un compte</string>
+    <string name="ACTION_CHANGE_PASSWORD">Modifier le mot de passe</string>
     <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Réinitialisez votre mot de passe </string>
+    <string name="ACTION_BECOME_ARTIST">Devenir artiste</string>
 
 </resources>
