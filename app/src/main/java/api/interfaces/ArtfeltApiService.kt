@@ -1,6 +1,7 @@
 package api.interfaces
 
 import api.models.artwork.Artwork
+import api.models.auth.changepassword.ChangePasswordRequest
 import retrofit2.Response
 import api.models.auth.signin.SignInRequest
 import api.models.auth.signin.SignInResponse
@@ -21,7 +22,9 @@ interface ArtfeltApiService {
     @POST("/v1/auth/sign-in")
     suspend fun signIn(@Body request: SignInRequest): Response<SignInResponse>
 
-
+    @Headers("Content-Type: application/json")
+    @POST("/v1/auth/change-password")
+    suspend fun changePassword(@Body request: ChangePasswordRequest): Response<String>
 
 
     /* USER */

@@ -110,19 +110,19 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun showSignInProgressBar() {
-        progressBar_signin.visibility = View.VISIBLE
+        progressBar_signin.show()
     }
 
     private fun hideSignInProgressBar() {
-        progressBar_signin.visibility = View.GONE
+        progressBar_signin.hide()
     }
 
     private fun showSignInTextView() {
-        textView_signin.visibility = View.VISIBLE
+        textView_signin.show()
     }
 
     private fun hideSignInTextView() {
-        textView_signin.visibility = View.GONE
+        textView_signin.hide()
     }
 
 

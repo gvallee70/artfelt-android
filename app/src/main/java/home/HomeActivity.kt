@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import managers.session.SessionManager
 import common.HeaderDelegate
 import common.HeaderView
+import profile.ProfileActivity
 import signin.SignInActivity
 import utils.Toolbox
 import utils.hide
@@ -176,6 +177,6 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
     }
 
     override fun onClickHeaderLeftIcon() {
-        //open profile
+        navigateTo(ProfileActivity(), false)
     }
 }

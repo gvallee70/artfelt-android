@@ -43,10 +43,10 @@ class HeaderView(
         if (backButton) {
             mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
         } else {
-            if (User.infos!!.avatarUrl.isNullOrEmpty()) {
+            if (User.infos?.avatarUrl.isNullOrEmpty()) {
                 mHeaderLeftIcon.setImageResource(R.drawable.ic_user_default)
             } else {
-                Picasso.get().load(User.infos!!.avatarUrl).into(mHeaderLeftIcon)
+                Picasso.get().load(User.infos?.avatarUrl).into(mHeaderLeftIcon)
             }
         }
     }

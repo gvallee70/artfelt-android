@@ -143,19 +143,19 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun showSignUpProgressBar() {
-        progressBar_signup.visibility = View.VISIBLE
+        progressBar_signup.show()
     }
 
     private fun hideSignUpProgressBar() {
-        progressBar_signup.visibility = View.GONE
+        progressBar_signup.hide()
     }
 
     private fun showSignUpTextView() {
-        textView_signup.visibility = View.VISIBLE
+        textView_signup.show()
     }
 
     private fun hideSignUpTextView() {
-        textView_signup.visibility = View.GONE
+        textView_signup.hide()
     }
 
 
