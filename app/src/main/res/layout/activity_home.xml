@@ -63,13 +63,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Toutes les oeuvres" />
-        <Button
-            android:id="@+id/deconnexion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="deconnexion"
-            app:layout_constraintTop_toBottomOf="@id/title_artworks_list" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_artworks"

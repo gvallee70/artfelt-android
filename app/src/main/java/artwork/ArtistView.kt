@@ -12,6 +12,7 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_artist_cell.view.*
 import kotlinx.android.synthetic.main.view_header.view.*
 import utils.formatddMMMMYYYY
+import utils.setImageURL
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -55,7 +56,7 @@ class ArtistView(
         if (artist.avatarUrl.isNullOrEmpty()) {
             mArtistProfilePicture.setImageResource(R.drawable.ic_user_default)
         } else {
-            Picasso.get().load(artist.avatarUrl).into(mArtistProfilePicture)
+            mArtistProfilePicture.setImageURL(artist.avatarUrl)
         }
     }
 

@@ -12,12 +12,15 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import api.models.user.infos.User
 import com.artfelt.artfelt.R
+import com.squareup.picasso.Picasso
 import home.HomeActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -203,6 +206,11 @@ fun View.hide() {
     this.visibility = View.INVISIBLE
 }
 
+
+
+fun ImageView.setImageURL(url: String) {
+    Picasso.get().load(url).into(this)
+}
 
 
 

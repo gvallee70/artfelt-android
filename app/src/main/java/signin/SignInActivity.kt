@@ -61,7 +61,6 @@ class SignInActivity : AppCompatActivity() {
         editText_username.textSize = 16f
 
         if (intent.hasExtra(EXTRA_HASHMAP)) {
-
             val data = intent.getExtraPassedData()
             editText_username.setText(data[NEW_USERNAME].toString())
         }
@@ -97,6 +96,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun initSignUpTextView(){
+        button_signup.setBackgroundResource(R.drawable.background_primary_radius_white)
         textView_signup.text = getString(R.string.ACTION_SIGN_UP)
         textView_signup.textSize = 16f
         textView_signup.isAllCaps = true

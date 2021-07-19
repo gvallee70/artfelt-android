@@ -9,6 +9,7 @@ import api.models.artwork.Artwork
 import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_artwork.view.*
+import utils.setImageURL
 import java.io.InputStream
 import java.net.URLConnection
 import java.net.URLStreamHandler
@@ -34,7 +35,7 @@ class ArtworkViewHolder(val container: View) : RecyclerView.ViewHolder(container
         if(artwork.imageUrl.isNullOrEmpty()) {
             mImage.setImageResource(R.drawable.ic_image_placeholder)
         } else {
-            Picasso.get().load(artwork.imageUrl).into(mImage)
+            mImage.setImageURL(artwork.imageUrl!!)
         }
     }
 

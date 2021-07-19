@@ -11,6 +11,7 @@ import common.HeaderView
 import utils.EXTRA_HASHMAP
 import utils.formatddMMMMYYYY
 import utils.getExtraPassedData
+import utils.setImageURL
 
 class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
 
@@ -67,7 +68,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
         if(artwork.imageUrl.isNullOrEmpty()) {
             imageView_artwork_details.setImageResource(R.drawable.ic_image_placeholder)
         } else {
-            Picasso.get().load(artwork.imageUrl).into(imageView_artwork_details)
+            imageView_artwork_details.setImageURL(artwork.imageUrl!!)
         }
     }
 
@@ -82,7 +83,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initArtworkAssociationDonatedPrice() {
-        artwork.artist?.percentage.let {
+        artwork.artist?.percentage?.let {
             val donatedPrice = (artwork.price!!/100) * it!!
             textView_association_artwork_details.text = getString(R.string.LABEL_ASSOCIATION_DONATED_PRICE).format(donatedPrice, "Restos du coeur" /*,artwork.artist.association */)
             textView_association_artwork_details.textSize = 12f
@@ -111,7 +112,9 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
 
 
     private fun initArtistView() {
-        ArtistView(this, block_artwork_artist_view, artwork.artist!!)
+        artwork.artist?.let {
+            ArtistView(this, block_artwork_artist_view, artwork.artist!!)
+        }
     }
 
     override fun onClickHeaderLeftIcon() {

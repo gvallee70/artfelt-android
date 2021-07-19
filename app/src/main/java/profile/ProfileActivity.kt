@@ -22,9 +22,9 @@ import api.models.user.infos.User
 import com.artfelt.artfelt.R
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
-import com.squareup.picasso.Picasso
 import common.HeaderDelegate
 import common.HeaderView
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.dialog_change_password.*
@@ -32,8 +32,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import managers.session.SessionManager
 import org.json.JSONObject
 import org.json.JSONTokener
+import signin.SignInActivity
 import utils.*
 import java.io.OutputStreamWriter
 import java.net.URL
@@ -82,8 +84,11 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     private fun initView() {
         initHeader()
         initProfilePicture()
-        initModifyProfileForm()
+        initModifyProfileForms()
         initBecomeArtistButton()
+        initLogOutButton()
+
+        manageOnClickLogOutButton()
     }
 
     private fun initHeader() {
@@ -97,7 +102,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
             imageView_profile_profile_pic.setImageResource(R.drawable.ic_add_user_picture)
         } else {
             if (!hasChangedProfilePicture) {
-                Picasso.get().load(User.info?.avatarUrl).into(imageView_profile_profile_pic)
+                imageView_profile_profile_pic.setImageURL(User.info?.avatarUrl!!)
             }
         }
 
@@ -106,7 +111,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
 
 
-    private fun initModifyProfileForm() {
+    private fun initModifyProfileForms() {
         initPersonalInformationsForm()
         initConnexionInformationsForm()
         initSaveButton()
@@ -207,11 +212,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
 
-    private fun initChangePasswordButton() {
-        button_profile_password.hint = getString(R.string.ACTION_CHANGE_PASSWORD)
-        button_profile_password.textSize = 16f
-    }
-
 
     private fun initSaveButton() {
         /*saveButtonView.isEnabled = false
@@ -221,14 +221,36 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
         manageOnClickSaveButton()
     }
 
+
+    private fun initChangePasswordButton() {
+        button_profile_password.text = getString(R.string.ACTION_CHANGE_PASSWORD)
+        button_profile_password.textSize = 16f
+    }
+
+
+
+
     private fun initBecomeArtistButton() {
         textView_wanna_become_artist.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
 
+        button_profile_become_artist.text = getString(R.string.ACTION_BECOME_ARTIST)
+        button_profile_become_artist.textSize = 16f
+
+        /*textView_wanna_become_artist.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
+
         textView_become_artist.text = getString(R.string.ACTION_BECOME_ARTIST)
-        textView_become_artist.paintFlags = Paint.UNDERLINE_TEXT_FLAG
-        manageOnClickBecomeArtistTextView()
+        textView_become_artist.paintFlags = Paint.UNDERLINE_TEXT_FLAG*/
+        manageOnClickBecomeArtistButton()
 
     }
+
+
+    private fun initLogOutButton() {
+        textView_logout.text = getString(R.string.ACTION_LOG_OUT)
+        textView_logout.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+    }
+
+
 
     private fun initSaveTextView(){
         textView_profile_save.text = getString(R.string.ACTION_SAVE)
@@ -463,8 +485,8 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
 
-    private fun manageOnClickBecomeArtistTextView(){
-        textView_become_artist.setOnClickListener {
+    private fun manageOnClickBecomeArtistButton(){
+        button_profile_become_artist.setOnClickListener {
             becomeArtistRequestDialog = AlertDialog.Builder(this)
                     .setView(R.layout.dialog_become_artist)
                     .setPositiveButton(R.string.ACTION_SEND, null)
@@ -476,7 +498,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
             val mExplainWhyTitle = becomeArtistRequestDialog.findViewById<TextView>(R.id.textView_explain_why_title)
 
             mDialogTitle?.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
-            mDialogTitle?.textSize = 24f
+            mDialogTitle?.textSize = 22f
             mExplainWhyTitle?.text = getString(R.string.LABEL_EXPLAIN_WHY)
 
 
@@ -487,6 +509,17 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
             }
 
+        }
+    }
+
+
+
+    private fun manageOnClickLogOutButton() {
+        textView_logout.setOnClickListener {
+            SessionManager(this).removeAuthToken()
+            navigateTo(SignInActivity(),true)
+
+            finishAffinity() //finish all activities
         }
     }
 

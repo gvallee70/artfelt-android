@@ -54,8 +54,6 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
     private fun initView() {
         initHeader()
-
-        manageOnClickDecoButton()
     }
 
 
@@ -135,13 +133,6 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
     }
 
 
-
-    private fun manageOnClickDecoButton() {
-        deconnexion.setOnClickListener {
-            SessionManager(this).removeAuthToken()
-            navigateTo(SignInActivity(),true)
-        }
-    }
 
 
     private fun getAllArtworksAPICall() {

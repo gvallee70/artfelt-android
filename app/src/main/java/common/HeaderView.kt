@@ -7,6 +7,7 @@ import api.models.user.infos.User
 import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_header.view.*
+import utils.setImageURL
 
 class HeaderView(
     private val context: Context,
@@ -46,7 +47,7 @@ class HeaderView(
             if (User.info?.avatarUrl.isNullOrEmpty()) {
                 mHeaderLeftIcon.setImageResource(R.drawable.ic_user_default)
             } else {
-                Picasso.get().load(User.info?.avatarUrl).into(mHeaderLeftIcon)
+                mHeaderLeftIcon.setImageURL(User.info?.avatarUrl!!)
             }
         }
     }
