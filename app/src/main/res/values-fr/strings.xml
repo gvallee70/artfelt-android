@@ -78,6 +78,7 @@
     <string name="ACTION_SEND">Envoyer</string>
     <string name="ACTION_SIGN_IN">Se connecter</string>
     <string name="ACTION_SIGN_UP">Créer un compte</string>
+    <string name="ACTION_LOG_OUT">Se déconnecter</string>
     <string name="ACTION_CHANGE_PASSWORD">Modifier le mot de passe</string>
     <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Réinitialisez votre mot de passe </string>
     <string name="ACTION_BECOME_ARTIST">Devenir artiste</string>
