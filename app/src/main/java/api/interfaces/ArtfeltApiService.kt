@@ -7,8 +7,10 @@ import api.models.auth.signin.SignInRequest
 import api.models.auth.signin.SignInResponse
 import api.models.auth.signup.SignUpRequest
 import api.models.auth.signup.SignUpResponse
+import api.models.request.BecomeArtistRequest
 import api.models.user.infos.UpdateUserInfoResponse
 import api.models.user.infos.User
+import org.json.JSONObject
 import retrofit2.http.*
 
 interface ArtfeltApiService {
@@ -38,6 +40,10 @@ interface ArtfeltApiService {
     suspend fun getAllArtworks(): Response<ArrayList<Artwork>>
 
 
+
+    /* REQUEST */
+    @POST("/v1/request")
+    suspend fun becomeArtistRequest(@Body request: BecomeArtistRequest): Response<JSONObject>
 
 
 

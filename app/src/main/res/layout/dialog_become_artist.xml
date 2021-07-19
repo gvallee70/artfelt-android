@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textView_wanna_become_artist_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/work_sans_bold"
+        android:textColor="@color/primaryColor"
+        tools:text="Vous souhaitez vendre vos oeuvres?" />
+
+    <TextView
+        android:id="@+id/textView_explain_why_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_wanna_become_artist_title"
+        android:layout_marginTop="30dp"
+        android:textAllCaps="true"
+        android:textColor="@color/primaryColor"
+        tools:text="Expliquez-nous pourquoi" />
+
+    <EditText
+        android:id="@+id/editText_explain_why"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_explain_why_title"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/background_small_radius_extra_light_gray"
+        android:padding="10dp"
+        android:textSize="16dp"
+        tools:text="Je souhaite...." />
+
+</RelativeLayout>

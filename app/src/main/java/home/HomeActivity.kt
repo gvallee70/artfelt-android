@@ -122,7 +122,7 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
     private fun initNoArtworksTitle() {
         title_artworks_list.textSize = 22f
-        title_artworks_list.text = getString(R.string.TEXT_NO_ARTWORKS)
+        title_artworks_list.text = getString(R.string.LABEL_NO_ARTWORKS)
     }
 
 

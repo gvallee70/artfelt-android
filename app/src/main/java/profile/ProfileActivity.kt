@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import api.ArtfeltClient
 import api.models.auth.changepassword.ChangePasswordRequest
+import api.models.request.BecomeArtistRequest
 import api.models.user.infos.User
 import com.artfelt.artfelt.R
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -33,7 +34,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import org.json.JSONTokener
-import signin.SignInActivity
 import utils.*
 import java.io.OutputStreamWriter
 import java.net.URL
@@ -45,6 +45,9 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     companion object {
         lateinit var saveButtonView: CardView
     }
+    private lateinit var becomeArtistRequestDialog: AlertDialog
+    private lateinit var mExplainWhyEditText: EditText
+
     private lateinit var changePasswordDialog: AlertDialog
     private lateinit var mOldPasswordEditText: EditText
     private lateinit var mNewPasswordEditText: EditText
@@ -273,6 +276,10 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
         return checkChangePasswordForm()
     }
 
+    private fun becomeArtistRequestFormIsValid(): Boolean {
+        return checkBecomeArtistRequestForm()
+    }
+
 
 
     private fun checkEmptyFields(): Boolean {
@@ -383,6 +390,18 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
 
 
+    private fun checkBecomeArtistRequestForm(): Boolean {
+        mExplainWhyEditText = becomeArtistRequestDialog.findViewById(R.id.editText_explain_why)!!
+
+
+        if ("${mExplainWhyEditText?.text}".isEmpty()) {
+            mExplainWhyEditText?.error = getString(R.string.TEXT_EXPLAIN_WHY_EMPTY)
+            return false
+        }
+
+        return true
+    }
+
 
 
 
@@ -446,7 +465,28 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
     private fun manageOnClickBecomeArtistTextView(){
         textView_become_artist.setOnClickListener {
-            navigateTo(SignInActivity(), false)
+            becomeArtistRequestDialog = AlertDialog.Builder(this)
+                    .setView(R.layout.dialog_become_artist)
+                    .setPositiveButton(R.string.ACTION_SEND, null)
+                    .setNegativeButton(R.string.ACTION_CANCEL, null)
+                    .show()
+
+            val mButtonSend = becomeArtistRequestDialog.getButton(DialogInterface.BUTTON_POSITIVE)
+            val mDialogTitle = becomeArtistRequestDialog.findViewById<TextView>(R.id.textView_wanna_become_artist_title)
+            val mExplainWhyTitle = becomeArtistRequestDialog.findViewById<TextView>(R.id.textView_explain_why_title)
+
+            mDialogTitle?.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
+            mDialogTitle?.textSize = 24f
+            mExplainWhyTitle?.text = getString(R.string.LABEL_EXPLAIN_WHY)
+
+
+            mButtonSend.setOnClickListener {
+                if (becomeArtistRequestFormIsValid()) {
+                    becomeArtistRequestAPICall()
+                }
+
+            }
+
         }
     }
 
@@ -457,6 +497,28 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     /*---------------------------------------------------*/
     /* -------------------- API CALLS -------------------*/
     /*---------------------------------------------------*/
+
+    private fun becomeArtistRequestAPICall() {
+        val becomeArtistRequest = BecomeArtistRequest(
+                message = "${mExplainWhyEditText.text}"
+        )
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val becomeArtistResponse = ArtfeltClient().getApiService(this@ProfileActivity).becomeArtistRequest(becomeArtistRequest)
+
+                if (becomeArtistResponse.isSuccessful) {
+                    Toolbox.showSuccessDialog(this@ProfileActivity, getString(R.string.TEXT_BECOME_ARTIST_SUCCESS))
+                    becomeArtistRequestDialog.dismiss()
+                }
+            } catch (e: Exception) {
+                println(e.message)
+                Toolbox.showErrorDialog(this@ProfileActivity, getString(R.string.TEXT_BECOME_ARTIST_API_ERROR))
+            }
+        }
+    }
+
+
 
     private fun changePasswordAPICall() {
         val changePasswordRequest = ChangePasswordRequest(
