@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import api.ArtfeltClient
-import api.models.user.User
+import api.models.user.infos.User
 import com.artfelt.artfelt.R
 import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_signin.*
@@ -42,7 +42,7 @@ class SplashActivity: AppCompatActivity() {
 
                 if (selfInfosResponse.isSuccessful && selfInfosResponse.body() != null) {
                     selfInfosResponse.body()?.let {
-                        User.infos = it
+                        User.info = it
                         navigateTo(HomeActivity(), true)
                     }
                 } else {

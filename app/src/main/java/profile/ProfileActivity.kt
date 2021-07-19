@@ -1,16 +1,26 @@
 package profile
 
+import android.app.Activity
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Paint
 import android.os.Bundle
+import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import api.ArtfeltClient
 import api.models.auth.changepassword.ChangePasswordRequest
-import api.models.user.User
+import api.models.user.infos.User
 import com.artfelt.artfelt.R
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import com.squareup.picasso.Picasso
 import common.HeaderDelegate
 import common.HeaderView
@@ -20,15 +30,30 @@ import kotlinx.android.synthetic.main.dialog_change_password.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import org.json.JSONTokener
 import signin.SignInActivity
-import signup.SignUpActivity
 import utils.*
+import java.io.OutputStreamWriter
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
+
 
 class ProfileActivity: AppCompatActivity(), HeaderDelegate {
+
+    companion object {
+        lateinit var saveButtonView: CardView
+    }
     private lateinit var changePasswordDialog: AlertDialog
     private lateinit var mOldPasswordEditText: EditText
     private lateinit var mNewPasswordEditText: EditText
     private lateinit var mConfirmationPasswordEditText: EditText
+
+    private lateinit var selectedProfilePicture : Bitmap
+    private var newProfilePictureUrl: String? = null
+    private var hasChangedProfilePicture : Boolean = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,8 +65,16 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
     override fun onResume() {
         super.onResume()
+        saveButtonView = findViewById(R.id.button_profile_save)
         initView()
     }
+
+
+
+
+    /*---------------------------------------------------*/
+    /* --------------------- VIEWS ----------------------*/
+    /*---------------------------------------------------*/
 
     private fun initView() {
         initHeader()
@@ -57,11 +90,15 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     private fun initProfilePicture() {
         imageView_profile_profile_pic.clipToOutline = true
 
-        if (User.infos?.avatarUrl.isNullOrEmpty()) {
+        if (User.info?.avatarUrl.isNullOrEmpty()) {
             imageView_profile_profile_pic.setImageResource(R.drawable.ic_add_user_picture)
         } else {
-            Picasso.get().load(User.infos?.avatarUrl).into(imageView_profile_profile_pic)
+            if (!hasChangedProfilePicture) {
+                Picasso.get().load(User.info?.avatarUrl).into(imageView_profile_profile_pic)
+            }
         }
+
+        manageOnClickProfilePicture()
     }
 
 
@@ -96,8 +133,9 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     private fun initFirstNameEditText() {
         editText_profile_first_name.hint = getString(R.string.LABEL_FIRST_NAME)
         editText_profile_first_name.textSize = 16f
+        editText_profile_first_name.addTextChangedListener(CustomTextWatcher(editText_profile_first_name))
 
-        User.infos?.firstName.let {
+        User.info?.firstName.let {
             editText_profile_first_name.setText(it)
         }
     }
@@ -105,8 +143,9 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     private fun initLastNameEditText() {
         editText_profile_last_name.hint = getString(R.string.LABEL_LAST_NAME)
         editText_profile_last_name.textSize = 16f
+        editText_profile_last_name.addTextChangedListener(CustomTextWatcher(editText_profile_last_name))
 
-        User.infos?.lastName.let {
+        User.info?.lastName.let {
             editText_profile_last_name.setText(it)
         }
     }
@@ -115,22 +154,25 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     private fun initAddressEditText() {
         editText_profile_address_street.hint = getString(R.string.LABEL_ADDRESS_STREET)
         editText_profile_address_street.textSize = 16f
+        editText_profile_address_street.addTextChangedListener(CustomTextWatcher(editText_profile_address_street))
 
-        User.infos?.street.let {
+        User.info?.street.let {
             editText_profile_address_street.setText(it)
         }
 
         editText_profile_address_zipcode.hint = getString(R.string.LABEL_ADDRESS_ZIPCODE)
         editText_profile_address_zipcode.textSize = 16f
+        editText_profile_address_zipcode.addTextChangedListener(CustomTextWatcher(editText_profile_address_zipcode))
 
-        User.infos?.zipCode.let {
+        User.info?.zipCode.let {
             editText_profile_address_zipcode.setText(it)
         }
 
         editText_profile_address_city.hint = getString(R.string.LABEL_ADDRESS_CITY)
         editText_profile_address_city.textSize = 16f
+        editText_profile_address_city.addTextChangedListener(CustomTextWatcher(editText_profile_address_city))
 
-        User.infos?.city.let {
+        User.info?.city.let {
             editText_profile_address_city.setText(it)
         }
     }
@@ -144,9 +186,9 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     private fun initUsernameEditText() {
         editText_profile_username.hint = getString(R.string.LABEL_USERNAME)
         editText_profile_username.textSize = 16f
-        editText_profile_username.isEnabled = false
+        editText_profile_username.addTextChangedListener(CustomTextWatcher(editText_profile_username))
 
-        User.infos?.username.let {
+        User.info?.username.let {
             editText_profile_username.setText(it)
         }
     }
@@ -154,8 +196,9 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     private fun initEmailEditText() {
         editText_profile_email.hint = getString(R.string.LABEL_AUTHENTICATION_EMAIL)
         editText_profile_email.textSize = 16f
+        editText_profile_email.addTextChangedListener(CustomTextWatcher(editText_profile_email))
 
-        User.infos?.email.let {
+        User.info?.email.let {
             editText_profile_email.setText(it)
         }
     }
@@ -168,6 +211,8 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
 
     private fun initSaveButton() {
+        /*saveButtonView.isEnabled = false
+        saveButtonView.isClickable = false*/
         initSaveTextView()
         hideSaveProgressBar()
         manageOnClickSaveButton()
@@ -212,8 +257,20 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
 
+
+
+
+
+    /*---------------------------------------------------*/
+    /* ---------------- FORMS VALIDATOR -----------------*/
+    /*---------------------------------------------------*/
+
     private fun formIsValid(): Boolean {
         return checkEmptyFields() && checkErrorFields()
+    }
+
+    private fun changePasswordFormIsValid(): Boolean {
+        return checkChangePasswordForm()
     }
 
 
@@ -244,6 +301,10 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
             return false
         }
 
+        if ("${editText_profile_username.text}".isEmpty()) {
+            editText_profile_username.error = getString(R.string.TEXT_USERNAME_EMPTY)
+            return false
+        }
 
         if ("${editText_profile_email.text}".isEmpty()) {
             editText_profile_email.error = getString(R.string.TEXT_EMAIL_EMPTY)
@@ -266,6 +327,15 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
                 return false
             }*/
 
+        if ("${editText_profile_username.text}".containsSpecialCharacters()) {
+            editText_profile_username.error = getString(R.string.TEXT_USERNAME_FORMAT_ERROR)
+            return false
+        }
+
+        if ("${editText_profile_username.text}".length < 7 || "${editText_profile_username.text}".length > 16) {
+            editText_username.error = getString(R.string.TEXT_USERNAME_LENGTH_ERROR)
+            return false
+        }
 
         if (!"${editText_profile_email.text}".isEmail()) {
             editText_profile_email.error = getString(R.string.TEXT_EMAIL_ERROR)
@@ -275,10 +345,12 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
         return true
     }
 
+
+
     private fun checkChangePasswordForm(): Boolean {
-        mOldPasswordEditText = changePasswordDialog.findViewById<EditText>(R.id.editText_old_password)!!
-        mNewPasswordEditText = changePasswordDialog.findViewById<EditText>(R.id.editText_new_password)!!
-        mConfirmationPasswordEditText = changePasswordDialog.findViewById<EditText>(R.id.editText_new_password_confirmation)!!
+        mOldPasswordEditText = changePasswordDialog.findViewById(R.id.editText_old_password)!!
+        mNewPasswordEditText = changePasswordDialog.findViewById(R.id.editText_new_password)!!
+        mConfirmationPasswordEditText = changePasswordDialog.findViewById(R.id.editText_new_password_confirmation)!!
 
         if ("${mOldPasswordEditText?.text}".isEmpty()) {
             mOldPasswordEditText?.error = getString(R.string.TEXT_PASSWORD_EMPTY)
@@ -310,8 +382,18 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
 
-    private fun changePasswordFormIsValid(): Boolean {
-        return checkChangePasswordForm()
+
+
+
+
+    /*---------------------------------------------------*/
+    /* --------------------- ACTIONS --------------------*/
+    /*---------------------------------------------------*/
+
+    private fun manageOnClickProfilePicture(){
+        imageView_profile_profile_pic.setOnClickListener {
+            ImagePicker.with(this).provider(ImageProvider.BOTH).galleryMimeTypes(arrayOf("image/*")).crop().start()
+        }
     }
 
 
@@ -348,7 +430,15 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
             hideKeyboard()
 
             if (formIsValid()) {
-                //signUpAPICall()
+                showLoadingSaveButton()
+                if (hasChangedProfilePicture) {
+                    println(selectedProfilePicture)
+                    uploadImageToImgurAPICall(selectedProfilePicture, complete = {
+                        updateUserInfoAPICall()
+                    })
+                } else {
+                    updateUserInfoAPICall()
+                }
             }
         }
     }
@@ -363,10 +453,15 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
 
 
+
+    /*---------------------------------------------------*/
+    /* -------------------- API CALLS -------------------*/
+    /*---------------------------------------------------*/
+
     private fun changePasswordAPICall() {
         val changePasswordRequest = ChangePasswordRequest(
-            oldPassword = mOldPasswordEditText.text.toString(),
-            newPassword = mNewPasswordEditText.text.toString()
+                oldPassword = "${mOldPasswordEditText.text}",
+                newPassword = "${mNewPasswordEditText.text}"
         )
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -387,8 +482,130 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
 
+
+    private fun updateUserInfoAPICall() {
+        val updateUserInfoRequest = User(
+                firstName = "${editText_profile_first_name.text}",
+                lastName = "${editText_profile_last_name.text}",
+                street = "${editText_profile_address_street.text}",
+                zipCode = "${editText_profile_address_zipcode.text}",
+                city = "${editText_profile_address_city.text}",
+                username = "${editText_profile_username.text}",
+                email = "${editText_profile_email.text}",
+                avatarUrl = newProfilePictureUrl
+                )
+
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val updateUserInfoResponse = ArtfeltClient().getApiService(this@ProfileActivity).updateUserInfo(User.info?.id!!, updateUserInfoRequest)
+
+                if (updateUserInfoResponse.isSuccessful && updateUserInfoResponse.body() != null) {
+                    Toolbox.showSuccessDialog(this@ProfileActivity, getString(R.string.TEXT_USER_INFO_CHANGED_SUCCESS))
+
+                    updateUserInfoResponse.body().let {
+                        User.info = it?.updatedUser
+                    }
+                } else {
+                    Toolbox.showErrorDialog(this@ProfileActivity, getString(R.string.TEXT_USER_INFO_API_ERROR))
+                }
+                initSaveButton()
+            } catch (e: Exception) {
+                initSaveButton()
+                println(e.message)
+                Toolbox.showErrorDialog(this@ProfileActivity, getString(R.string.TEXT_USER_INFO_API_ERROR))
+            }
+        }
+    }
+
+
+    private fun uploadImageToImgurAPICall(image: Bitmap, complete: (String) -> Unit) {
+        val IMGUR_CLIENT_ID = "71ed2e9f9ddad16"
+
+        Toolbox.getBase64Image(image, complete = { base64Image ->
+            GlobalScope.launch(Dispatchers.Default) {
+                val url = URL("https://api.imgur.com/3/image")
+
+                val boundary = "Boundary-${System.currentTimeMillis()}"
+
+                val httpsURLConnection = withContext(Dispatchers.IO) {
+                    url.openConnection() as HttpsURLConnection
+                }
+
+                httpsURLConnection.setRequestProperty("Authorization", "Client-ID $IMGUR_CLIENT_ID")
+                httpsURLConnection.setRequestProperty(
+                        "Content-Type",
+                        "multipart/form-data; boundary=$boundary"
+                )
+
+                httpsURLConnection.requestMethod = "POST"
+                httpsURLConnection.doInput = true
+                httpsURLConnection.doOutput = true
+
+                var body = ""
+                body += "--$boundary\r\n"
+                body += "Content-Disposition:form-data; name=\"image\""
+                body += "\r\n\r\n$base64Image\r\n"
+                body += "--$boundary--\r\n"
+
+
+                val outputStreamWriter = OutputStreamWriter(httpsURLConnection.outputStream)
+                withContext(Dispatchers.IO) {
+                    outputStreamWriter.write(body)
+                    outputStreamWriter.flush()
+                }
+
+
+                val response = httpsURLConnection.inputStream.bufferedReader().use {
+                    it.readText()
+                }
+
+                val jsonObject = JSONTokener(response).nextValue() as JSONObject
+
+                val data = jsonObject.getJSONObject("data")
+
+                Log.d("TAG", "Link is : ${data.getString("link")}")
+
+                data.getString("link")?.let {
+                    newProfilePictureUrl = it
+                    complete(newProfilePictureUrl!!) //we wait to achieve before passing to the next instruction
+                }
+            }
+        })
+
+
+    }
+
+
+    /*---------------------------------------------------*/
+    /* -------------------- DELEGATE -------------------*/
+    /*---------------------------------------------------*/
+
     override fun onClickHeaderLeftIcon() {
         finish()
     }
 
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK && requestCode== ImagePicker.REQUEST_CODE) {
+            selectedProfilePicture = MediaStore.Images.Media.getBitmap(contentResolver, data?.data)
+            imageView_profile_profile_pic.setImageBitmap(selectedProfilePicture)
+            hasChangedProfilePicture = true
+        }
+    }
+
+
+
+
+
+
+private class CustomTextWatcher(private val mEditText: EditText) : TextWatcher {
+    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    override fun afterTextChanged(s: Editable) {
+        //TODO("faire en sorte que quand un edit text change de valeur, ca rend clickable le bouton save")
+    }
 }
+}
+
+

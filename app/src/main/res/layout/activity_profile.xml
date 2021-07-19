@@ -34,7 +34,8 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/background_rounded_light_gray" />
+                android:background="@drawable/background_rounded_light_gray"
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:id="@+id/textView_profile_info_personnal"
@@ -160,10 +161,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dp"
-                android:outlineProvider="none"
                 android:background="@drawable/background_radius_light_gray"
                 android:drawablePadding="9dp"
                 android:inputType="textPassword"
+                android:outlineProvider="none"
                 app:backgroundTint="@color/lightGray"
                 tools:hint="Change password" />
 

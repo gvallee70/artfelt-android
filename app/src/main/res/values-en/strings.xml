@@ -54,11 +54,13 @@
     <string name="TEXT_USERNAME_ALREADY_USE">An account with this username already exists. Please enter another.</string>
     <string name="TEXT_EMAIL_ALREADY_USE">An account with this email already exists. Please enter another.</string>
     <string name="TEXT_SUCCESS_SIGN_UP">Your account has been successfully created. You can now sign in.</string>
+    <string name="TEXT_USER_INFO_CHANGED_SUCCESS">Your information has been successfully updated.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_ARTWORKS_API_ERROR">Error while trying to get artworks. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_CHANGE_PASSWORD_API_ERROR">Error while trying to change your password. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_USER_INFO_API_ERROR">Error while trying to update your information. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_NO_ARTWORKS">There is no artworks for the moment...</string>
 
 

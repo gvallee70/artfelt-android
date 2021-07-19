@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/background_small_radius_white"
-    android:paddingVertical="5dp"
     android:paddingHorizontal="10dp"
+    android:paddingVertical="5dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
@@ -41,6 +41,7 @@
         android:layout_height="15dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="3dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/ic_location"
         app:layout_constraintStart_toEndOf="@id/imageView_artist_profile_pic"
         app:layout_constraintTop_toBottomOf="@id/textView_artist_name" />

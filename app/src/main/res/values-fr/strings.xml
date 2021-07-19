@@ -54,11 +54,13 @@
     <string name="TEXT_USERNAME_ALREADY_USE">Un compte utilisant ce nom d\'utilisateur existe déjà. Merci d\'en renseigner un autre.</string>
     <string name="TEXT_EMAIL_ALREADY_USE">Un compte utilisant cet email existe déjà. Merci d\'en renseigner un autre.</string>
     <string name="TEXT_SUCCESS_SIGN_UP">Votre compte a bien été créé. Vous pouvez désormais vous connecter.</string>
+    <string name="TEXT_USER_INFO_CHANGED_SUCCESS">Vos informations ont bien été modifiées.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Impossible de créer votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Echec de connexion, il se peut que vous ne soyez pas connecté à internet. Merci de rééssayer.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Impossible de récupérer les informations de votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_GET_ARTWORKS_API_ERROR">Impossible de récupérer la liste des œuvres. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_CHANGE_PASSWORD_API_ERROR">Impossible de modifier votre mot de passe. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_USER_INFO_API_ERROR">Impossible de modifier vos informations. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_NO_ARTWORKS">Il n\'y a pas d\'œuvres pour le moment...</string>
 
 

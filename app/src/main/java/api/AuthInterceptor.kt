@@ -16,6 +16,7 @@ class AuthInterceptor(context: Context) : Interceptor {
 
         // If token has been saved, add it to the request
         sessionManager.fetchAuthToken()?.let {
+            requestBuilder.addHeader("Content-Type", "application/json")
             requestBuilder.addHeader("authorization", it)
         }
 

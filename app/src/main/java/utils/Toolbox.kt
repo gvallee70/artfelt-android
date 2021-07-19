@@ -3,7 +3,9 @@ package utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
@@ -17,6 +19,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.artfelt.artfelt.R
 import home.HomeActivity
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
@@ -99,6 +104,18 @@ class Toolbox {
             toast.show()
 
         }
+
+
+        fun getBase64Image(image: Bitmap, complete: (String) -> Unit) {
+            GlobalScope.launch {
+                val outputStream = ByteArrayOutputStream()
+                image.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                val b = outputStream.toByteArray()
+                complete(Base64.encodeToString(b, Base64.DEFAULT))
+            }
+        }
+
+
     }
 
 }

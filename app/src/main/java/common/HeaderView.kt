@@ -3,7 +3,7 @@ package common
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import api.models.user.User
+import api.models.user.infos.User
 import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_header.view.*
@@ -43,10 +43,10 @@ class HeaderView(
         if (backButton) {
             mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
         } else {
-            if (User.infos?.avatarUrl.isNullOrEmpty()) {
+            if (User.info?.avatarUrl.isNullOrEmpty()) {
                 mHeaderLeftIcon.setImageResource(R.drawable.ic_user_default)
             } else {
-                Picasso.get().load(User.infos?.avatarUrl).into(mHeaderLeftIcon)
+                Picasso.get().load(User.info?.avatarUrl).into(mHeaderLeftIcon)
             }
         }
     }

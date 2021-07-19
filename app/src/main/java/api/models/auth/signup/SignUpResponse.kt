@@ -1,6 +1,6 @@
 package api.models.auth.signup
 
-import api.models.user.infos.UserInfosResponse
+import api.models.user.infos.User
 import com.google.gson.annotations.SerializedName
 
 data class SignUpResponse(
@@ -8,5 +8,5 @@ data class SignUpResponse(
     var message: String? = null,
 
     @SerializedName("user")
-    var user: UserInfosResponse
+    var user: User
 )

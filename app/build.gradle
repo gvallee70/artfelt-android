@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.artfelt.artfelt"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -25,7 +25,7 @@ android {
         }
         buildTypes {
             debug {
-                buildConfigField "String", 'BASE_URL', '"http://10.33.0.164:7701"'
+                buildConfigField "String", 'BASE_URL', '"http://192.168.1.93:7701"'
             }
             release {
                 buildConfigField "String", 'BASE_URL', '"http://178.62.93.242:7701"'
@@ -59,6 +59,10 @@ dependencies {
 
     //Picasso (for url image converter)
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Image picker
+    implementation 'com.github.florent37:inline-activity-result-kotlin:1.0.4'
+    implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

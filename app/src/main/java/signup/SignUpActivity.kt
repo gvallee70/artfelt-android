@@ -292,8 +292,8 @@ class SignUpActivity : AppCompatActivity() {
 
                     signUpResponse.body()?.let {
                         val data = HashMap<String, Any>()
-                        data[NEW_USERNAME] = it.user.username
-                        data[NEW_PASSWORD] = editText_password.text.toString()
+                        data[NEW_USERNAME] = it.user.username!!
+                        data[NEW_PASSWORD] = "${editText_password.text}"
                         navigateTo(SignInActivity(), data, true)
                     }
                 } else {
