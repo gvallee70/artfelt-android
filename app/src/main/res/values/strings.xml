@@ -30,6 +30,9 @@
     <string name="LABEL_OLD_PASSWORD">Old password</string>
     <string name="LABEL_NEW_PASSWORD">New password</string>
     <string name="LABEL_CONFIRMATION_PASSWORD">Confirm new password</string>
+    <string name="LABEL_NO_ARTWORKS">There is no artworks for the moment...</string>
+    <string name="LABEL_EXPLAIN_WHY">Tell us why</string>
+
 
     /* TEXTS */
     <string name="TEXT_FIRST_NAME_EMPTY">Please enter your first name.</string>
@@ -40,6 +43,7 @@
     <string name="TEXT_EMAIL_EMPTY">Please enter your email.</string>
     <string name="TEXT_USERNAME_EMPTY">Please enter an username.</string>
     <string name="TEXT_PASSWORD_EMPTY">Please enter a password.</string>
+    <string name="TEXT_EXPLAIN_WHY_EMPTY">Please tell us why you want to become an artist.</string>
     <string name="TEXT_SIGNIN_ERROR">Wrong username or password. Please try again.</string>
     <string name="TEXT_EMAIL_ERROR">Please enter a valid email.</string>
     <string name="TEXT_PASSWORD_LENGTH_ERROR">Password must contain between 7 and 20 characters.</string>
@@ -54,13 +58,14 @@
     <string name="TEXT_EMAIL_ALREADY_USE">An account with this email already exists. Please enter another.</string>
     <string name="TEXT_SUCCESS_SIGN_UP">Your account has been successfully created. You can now sign in.</string>
     <string name="TEXT_USER_INFO_CHANGED_SUCCESS">Your information has been successfully updated.</string>
+    <string name="TEXT_BECOME_ARTIST_SUCCESS">Your request has been sent. We will review it very quickly.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_ARTWORKS_API_ERROR">Error while trying to get artworks. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_CHANGE_PASSWORD_API_ERROR">Error while trying to update your password. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_USER_INFO_API_ERROR">Error while trying to update your information. You may not be connected to the internet. Please try again.</string>
-    <string name="TEXT_NO_ARTWORKS">There is no artworks for the moment...</string>
+    <string name="TEXT_BECOME_ARTIST_API_ERROR">Error while trying to send your request. You may not be connected to the internet. Please try again.</string>
 
 
     /* ACTIONS */
@@ -69,10 +74,12 @@
     <string name="ACTION_DELETE">Delete</string>
     <string name="ACTION_CANCEL">Cancel</string>
     <string name="ACTION_SAVE">Save</string>
+    <string name="ACTION_SEND">Send</string>
     <string name="ACTION_SIGN_IN">Sign In</string>
     <string name="ACTION_SIGN_UP">Sign Up</string>
     <string name="ACTION_CHANGE_PASSWORD">Change password</string>
     <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Reset your password</string>
     <string name="ACTION_BECOME_ARTIST">Become an artist</string>
+
 
 </resources>
