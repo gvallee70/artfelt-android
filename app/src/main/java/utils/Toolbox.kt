@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Base64
-import android.util.Log
 import android.util.Patterns
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -15,23 +14,18 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import api.models.user.infos.User
 import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
-import home.HomeActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import utils.transition.Transition
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 import kotlin.collections.HashMap
-import kotlin.concurrent.schedule
-import kotlin.concurrent.timerTask
 
 class Toolbox {
 
@@ -150,9 +144,15 @@ fun String.containsAlphaOnly(): Boolean {
 
 
 
-fun Activity.navigateTo(activity: Activity, finish: Boolean) {
+fun Activity.navigateTo(activity: Activity, finish: Boolean = false, transition: Transition = Transition.RIGHT) {
     val intent = Intent(this, activity::class.java)
     startActivity(intent)
+
+    when(transition) {
+        Transition.TOP -> overridePendingTransition(R.transition.slide_in_up, R.transition.slide_out_up)
+        Transition.BOTTOM -> overridePendingTransition(R.transition.slide_in_down, R.transition.slide_out_down)
+        Transition.LEFT -> overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_left)
+    }
 
     if (finish) {
         finish()
@@ -160,7 +160,7 @@ fun Activity.navigateTo(activity: Activity, finish: Boolean) {
 }
 
 
-fun Activity.navigateTo(activity: Activity, data: HashMap<String, Any>? = null, finish: Boolean) {
+fun Activity.navigateTo(activity: Activity, data: HashMap<String, Any>? = null, finish: Boolean = false, transition: Transition = Transition.RIGHT) {
     val intent = Intent(this, activity::class.java)
     data?.let {
         val args = Bundle()
@@ -169,9 +169,16 @@ fun Activity.navigateTo(activity: Activity, data: HashMap<String, Any>? = null, 
     }
     startActivity(intent)
 
+    when(transition) {
+        Transition.TOP -> overridePendingTransition(R.transition.slide_in_up, R.transition.slide_out_up)
+        Transition.BOTTOM -> overridePendingTransition(R.transition.slide_in_down, R.transition.slide_out_down)
+        Transition.LEFT -> overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_left)
+    }
+
     if (finish) {
         finish()
     }
+
 }
 
 

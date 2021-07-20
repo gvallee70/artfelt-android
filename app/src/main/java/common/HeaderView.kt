@@ -3,16 +3,16 @@ package common
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import api.models.user.infos.User
+import api.models.user.User
 import com.artfelt.artfelt.R
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.view_header.view.*
 import utils.setImageURL
+import utils.transition.Transition
 
 class HeaderView(
     private val context: Context,
     parent: ViewGroup,
-    private val backButton: Boolean,
+    private var leftIcon: HeaderLeftIcon,
     private val listener: HeaderDelegate
 ){
 
@@ -41,13 +41,15 @@ class HeaderView(
     private fun initHeaderLeftIcon() {
         mHeaderLeftIcon.clipToOutline = true
 
-        if (backButton) {
-            mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
-        } else {
-            if (User.info?.avatarUrl.isNullOrEmpty()) {
-                mHeaderLeftIcon.setImageResource(R.drawable.ic_user_default)
-            } else {
-                mHeaderLeftIcon.setImageURL(User.info?.avatarUrl!!)
+        when(leftIcon) {
+            HeaderLeftIcon.BACK -> mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
+            HeaderLeftIcon.CLOSE -> mHeaderLeftIcon.setImageResource(R.drawable.ic_close)
+            HeaderLeftIcon.PROFILE -> {
+                if (User.info?.avatarUrl.isNullOrEmpty()) {
+                    mHeaderLeftIcon.setImageResource(R.drawable.ic_user_default)
+                } else {
+                    mHeaderLeftIcon.setImageURL(User.info?.avatarUrl!!)
+                }
             }
         }
     }

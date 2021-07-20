@@ -1,5 +1,6 @@
-package api.models.user.infos
+package api.models.user.update
 
+import api.models.user.User
 import com.google.gson.annotations.SerializedName
 
 data class UpdateUserInfoResponse(

@@ -19,6 +19,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import managers.session.SessionManager
 import common.HeaderDelegate
+import common.HeaderLeftIcon
 import common.HeaderView
 import profile.ProfileActivity
 import signin.SignInActivity
@@ -26,6 +27,7 @@ import utils.Toolbox
 import utils.hide
 import utils.navigateTo
 import utils.show
+import utils.transition.Transition
 import java.io.Serializable
 
 class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
@@ -58,7 +60,7 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
 
     private fun initHeader() {
-        HeaderView(this, block_header_home, false, this)
+        HeaderView(this, block_header_home, HeaderLeftIcon.PROFILE, this)
     }
 
     private fun initViewsIfArtworks() {
@@ -163,11 +165,11 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
     override fun onClickItem(artwork: Artwork) {
         val data = HashMap<String, Any>()
         data[ARTWORK] = artwork as Serializable
-        navigateTo(ArtworkDetailsActivity(), data, false)
+        navigateTo(ArtworkDetailsActivity(), data)
 
     }
 
     override fun onClickHeaderLeftIcon() {
-        navigateTo(ProfileActivity(), false)
+        navigateTo(ProfileActivity(), transition = Transition.TOP)
     }
 }

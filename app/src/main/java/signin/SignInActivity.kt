@@ -20,6 +20,7 @@ import managers.session.SessionManager
 import signup.SignUpActivity
 import splash.SplashActivity
 import utils.*
+import utils.transition.Transition
 
 class SignInActivity : AppCompatActivity() {
 
@@ -140,7 +141,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun manageOnClickSignUpButton() {
         button_signup.setOnClickListener {
-            navigateTo(SignUpActivity(), false)
+            navigateTo(SignUpActivity())
         }
     }
 

@@ -1,4 +1,4 @@
-package api.models.user.infos
+package api.models.user
 
 import com.google.gson.annotations.SerializedName
 

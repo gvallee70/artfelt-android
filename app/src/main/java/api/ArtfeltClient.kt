@@ -1,7 +1,7 @@
 package api
 
 import android.content.Context
-import api.interfaces.ArtfeltApiService
+import api.services.*
 import com.artfelt.artfelt.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

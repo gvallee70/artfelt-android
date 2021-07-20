@@ -7,6 +7,7 @@ import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_artwork_details.*
 import common.HeaderDelegate
+import common.HeaderLeftIcon
 import common.HeaderView
 import utils.EXTRA_HASHMAP
 import utils.formatddMMMMYYYY
@@ -58,7 +59,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initHeader() {
-        HeaderView(this, block_header_artwork_details, true, this)
+        HeaderView(this, block_header_artwork_details, HeaderLeftIcon.BACK, this)
     }
 
 

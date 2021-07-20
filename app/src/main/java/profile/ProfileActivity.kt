@@ -7,23 +7,23 @@ import android.graphics.Bitmap
 import android.graphics.Paint
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import api.ArtfeltClient
 import api.models.auth.changepassword.ChangePasswordRequest
 import api.models.request.BecomeArtistRequest
-import api.models.user.infos.User
+import api.models.user.User
 import com.artfelt.artfelt.R
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import common.HeaderDelegate
+import common.HeaderLeftIcon
 import common.HeaderView
+import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.activity_signup.*
@@ -37,16 +37,13 @@ import org.json.JSONObject
 import org.json.JSONTokener
 import signin.SignInActivity
 import utils.*
+import utils.transition.Transition
 import java.io.OutputStreamWriter
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 
-class ProfileActivity: AppCompatActivity(), HeaderDelegate {
-
-    companion object {
-        lateinit var saveButtonView: CardView
-    }
+class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDelegate {
     private lateinit var becomeArtistRequestDialog: AlertDialog
     private lateinit var mExplainWhyEditText: EditText
 
@@ -70,7 +67,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
 
     override fun onResume() {
         super.onResume()
-        saveButtonView = findViewById(R.id.button_profile_save)
         initView()
     }
 
@@ -92,7 +88,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initHeader() {
-        HeaderView(this, block_header_profile, true, this)
+        HeaderView(this, block_header_profile, HeaderLeftIcon.CLOSE, this)
     }
 
     private fun initProfilePicture() {
@@ -105,7 +101,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
                 imageView_profile_profile_pic.setImageURL(User.info?.avatarUrl!!)
             }
         }
-
         manageOnClickProfilePicture()
     }
 
@@ -139,50 +134,50 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initFirstNameEditText() {
-        editText_profile_first_name.hint = getString(R.string.LABEL_FIRST_NAME)
-        editText_profile_first_name.textSize = 16f
-        editText_profile_first_name.addTextChangedListener(CustomTextWatcher(editText_profile_first_name))
-
         User.info?.firstName.let {
             editText_profile_first_name.setText(it)
         }
+        editText_profile_first_name.hint = getString(R.string.LABEL_FIRST_NAME)
+        editText_profile_first_name.textSize = 16f
+        editText_profile_first_name.addTextChangedListener(CustomProfileTextWatcher(editText_profile_first_name, editText_profile_first_name.text.toString(), this))
+
     }
 
     private fun initLastNameEditText() {
-        editText_profile_last_name.hint = getString(R.string.LABEL_LAST_NAME)
-        editText_profile_last_name.textSize = 16f
-        editText_profile_last_name.addTextChangedListener(CustomTextWatcher(editText_profile_last_name))
-
         User.info?.lastName.let {
             editText_profile_last_name.setText(it)
         }
+        editText_profile_last_name.hint = getString(R.string.LABEL_LAST_NAME)
+        editText_profile_last_name.textSize = 16f
+        editText_profile_last_name.addTextChangedListener(CustomProfileTextWatcher(editText_profile_last_name, editText_profile_last_name.text.toString(), this))
+
     }
 
 
     private fun initAddressEditText() {
-        editText_profile_address_street.hint = getString(R.string.LABEL_ADDRESS_STREET)
-        editText_profile_address_street.textSize = 16f
-        editText_profile_address_street.addTextChangedListener(CustomTextWatcher(editText_profile_address_street))
-
         User.info?.street.let {
             editText_profile_address_street.setText(it)
         }
+        editText_profile_address_street.hint = getString(R.string.LABEL_ADDRESS_STREET)
+        editText_profile_address_street.textSize = 16f
+        editText_profile_address_street.addTextChangedListener(CustomProfileTextWatcher(editText_profile_address_street, editText_profile_address_street.text.toString(), this))
 
-        editText_profile_address_zipcode.hint = getString(R.string.LABEL_ADDRESS_ZIPCODE)
-        editText_profile_address_zipcode.textSize = 16f
-        editText_profile_address_zipcode.addTextChangedListener(CustomTextWatcher(editText_profile_address_zipcode))
 
         User.info?.zipCode.let {
             editText_profile_address_zipcode.setText(it)
         }
+        editText_profile_address_zipcode.hint = getString(R.string.LABEL_ADDRESS_ZIPCODE)
+        editText_profile_address_zipcode.textSize = 16f
+        editText_profile_address_zipcode.addTextChangedListener(CustomProfileTextWatcher(editText_profile_address_zipcode, editText_profile_address_zipcode.text.toString(), this))
 
-        editText_profile_address_city.hint = getString(R.string.LABEL_ADDRESS_CITY)
-        editText_profile_address_city.textSize = 16f
-        editText_profile_address_city.addTextChangedListener(CustomTextWatcher(editText_profile_address_city))
 
         User.info?.city.let {
             editText_profile_address_city.setText(it)
         }
+        editText_profile_address_city.hint = getString(R.string.LABEL_ADDRESS_CITY)
+        editText_profile_address_city.textSize = 16f
+        editText_profile_address_city.addTextChangedListener(CustomProfileTextWatcher(editText_profile_address_city, editText_profile_address_city.text.toString(), this))
+
     }
 
 
@@ -192,34 +187,34 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initUsernameEditText() {
-        editText_profile_username.hint = getString(R.string.LABEL_USERNAME)
-        editText_profile_username.textSize = 16f
-        editText_profile_username.addTextChangedListener(CustomTextWatcher(editText_profile_username))
-
         User.info?.username.let {
             editText_profile_username.setText(it)
         }
+        editText_profile_username.hint = getString(R.string.LABEL_USERNAME)
+        editText_profile_username.textSize = 16f
+        editText_profile_username.addTextChangedListener(CustomProfileTextWatcher(editText_profile_username, editText_profile_username.text.toString(), this))
+
     }
 
     private fun initEmailEditText() {
-        editText_profile_email.hint = getString(R.string.LABEL_AUTHENTICATION_EMAIL)
-        editText_profile_email.textSize = 16f
-        editText_profile_email.addTextChangedListener(CustomTextWatcher(editText_profile_email))
-
         User.info?.email.let {
             editText_profile_email.setText(it)
         }
+        editText_profile_email.hint = getString(R.string.LABEL_AUTHENTICATION_EMAIL)
+        editText_profile_email.textSize = 16f
+        editText_profile_email.addTextChangedListener(CustomProfileTextWatcher(editText_profile_email, editText_profile_email.text.toString(), this))
+
     }
 
 
 
     private fun initSaveButton() {
-        /*saveButtonView.isEnabled = false
-        saveButtonView.isClickable = false*/
+        disableSaveButton()
         initSaveTextView()
         hideSaveProgressBar()
         manageOnClickSaveButton()
     }
+
 
 
     private fun initChangePasswordButton() {
@@ -236,10 +231,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
         button_profile_become_artist.text = getString(R.string.ACTION_BECOME_ARTIST)
         button_profile_become_artist.textSize = 16f
 
-        /*textView_wanna_become_artist.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
-
-        textView_become_artist.text = getString(R.string.ACTION_BECOME_ARTIST)
-        textView_become_artist.paintFlags = Paint.UNDERLINE_TEXT_FLAG*/
         manageOnClickBecomeArtistButton()
 
     }
@@ -675,32 +666,38 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate {
     /* -------------------- DELEGATE -------------------*/
     /*---------------------------------------------------*/
 
+    /***** HeaderDelegate *****/
     override fun onClickHeaderLeftIcon() {
-        finish()
+        navigateTo(HomeActivity(), true, transition = Transition.BOTTOM)
     }
 
 
+    /***** EditTextWatcherDelegate *****/
+    override fun enableSaveButton() {
+        button_profile_save.isEnabled = true
+        textView_profile_save.isEnabled = true
+        button_profile_save.setCardBackgroundColor(ContextCompat.getColorStateList(this, R.color.primaryColor))
+    }
+
+    override fun disableSaveButton() {
+        button_profile_save.isEnabled = false
+        textView_profile_save.isEnabled = false
+        button_profile_save.setCardBackgroundColor(ContextCompat.getColorStateList(this, R.color.gray))
+    }
+
+
+
+    /***** ImagePicker result *****/
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
         if(resultCode== Activity.RESULT_OK && requestCode== ImagePicker.REQUEST_CODE) {
             selectedProfilePicture = MediaStore.Images.Media.getBitmap(contentResolver, data?.data)
             imageView_profile_profile_pic.setImageBitmap(selectedProfilePicture)
             hasChangedProfilePicture = true
+            enableSaveButton()
         }
     }
 
-
-
-
-
-
-private class CustomTextWatcher(private val mEditText: EditText) : TextWatcher {
-    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
-    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-    override fun afterTextChanged(s: Editable) {
-        //TODO("faire en sorte que quand un edit text change de valeur, ca rend clickable le bouton save")
-    }
 }
-}
-
 

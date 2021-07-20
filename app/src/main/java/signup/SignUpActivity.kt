@@ -1,12 +1,14 @@
 package signup
 
+import android.R.id.message
 import android.graphics.Paint
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import api.ArtfeltClient
 import api.models.auth.signup.SignUpRequest
 import com.artfelt.artfelt.R
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_signin.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.android.synthetic.main.activity_signup.button_signup
@@ -19,6 +21,9 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import signin.SignInActivity
 import utils.*
+import utils.transition.Transition
+import java.lang.Exception
+
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -172,7 +177,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun manageOnClickSignInTextView(){
         textView_signin.setOnClickListener {
-            navigateTo(SignInActivity(), false)
+            navigateTo(SignInActivity(), transition = Transition.LEFT)
         }
     }
 
@@ -266,14 +271,14 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun signUpAPICall() {
         val signUpRequest = SignUpRequest(
-            firstName = "${editText_first_name.text}",
-            lastName = "${editText_last_name.text}",
-            street = "${editText_address_street.text}",
-            zipCode = "${editText_address_zipcode.text}",
-            city = "${editText_address_city.text}",
-            username = "${editText_username.text}",
-            email = "${editText_email.text}",
-            password = "${editText_password.text}",
+                firstName = "${editText_first_name.text}",
+                lastName = "${editText_last_name.text}",
+                street = "${editText_address_street.text}",
+                zipCode = "${editText_address_zipcode.text}",
+                city = "${editText_address_city.text}",
+                username = "${editText_username.text}",
+                email = "${editText_email.text}",
+                password = "${editText_password.text}",
         )
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -281,30 +286,30 @@ class SignUpActivity : AppCompatActivity() {
                 showLoadingSignUpButton()
 
                 val signUpResponse = ArtfeltClient().getApiService(this@SignUpActivity).signUp(signUpRequest)
-                /*println(signUpResponse.message())
-                println(signUpResponse.body()!!.message)
-                println(signUpResponse.code())
-                println(signUpResponse.errorBody().toString())
-                println(signUpResponse.headers())*/
 
                 if (signUpResponse.isSuccessful && signUpResponse.body() != null) {
                     Toolbox.showSuccessDialog(this@SignUpActivity, getString(R.string.TEXT_SUCCESS_SIGN_UP))
 
                     signUpResponse.body()?.let {
                         val data = HashMap<String, Any>()
-                        data[NEW_USERNAME] = it.user.username!!
+                        data[NEW_USERNAME] = it.user?.username!!
                         data[NEW_PASSWORD] = "${editText_password.text}"
-                        navigateTo(SignInActivity(), data, true)
+                        navigateTo(SignInActivity(), data, true, Transition.LEFT)
                     }
                 } else {
-                    initSignUpButton()
+                    val errorBody: String = signUpResponse.errorBody()!!.string()
+                    val jsonObject: JsonObject = Gson().fromJson(errorBody, JsonObject::class.java)
 
-                    if(signUpResponse.body()?.message.toString().contains("username")) {
-                        editText_username.error = getString(R.string.TEXT_USERNAME_ALREADY_USE)
-                    } else if(signUpResponse.body()?.message.toString().contains("email")) {
-                        editText_email.error = getString(R.string.TEXT_EMAIL_ALREADY_USE)
+                    if (jsonObject != null && jsonObject.has("message") && !jsonObject["message"].isJsonNull) {
+                        if(jsonObject["message"].toString().contains("username")) {
+                            editText_username.error = getString(R.string.TEXT_USERNAME_ALREADY_USE)
+                        } else if(jsonObject["message"].toString().contains("email")) {
+                            editText_email.error = getString(R.string.TEXT_EMAIL_ALREADY_USE)
+                        }
                     }
                 }
+
+                initSignUpButton()
 
             } catch (e: Exception) {
                 initSignUpButton()

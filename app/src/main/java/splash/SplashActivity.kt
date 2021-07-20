@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import api.ArtfeltClient
-import api.models.user.infos.User
+import api.models.user.User
 import com.artfelt.artfelt.R
 import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_signin.*
@@ -28,25 +28,48 @@ class SplashActivity: AppCompatActivity() {
 
         if (SessionManager(this).userIsLogged()) {
             println("token: ${SessionManager(this).fetchAuthToken()}")
-            getSelfInfos()
+            getSelfInfoAPICall()
         } else {
             navigateTo(SignInActivity(), true)
         }
     }
 
-
-    private fun getSelfInfos() {
+/*
+    private fun refreshTokenAPICall() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
-                val selfInfosResponse = ArtfeltClient().getApiService(this@SplashActivity).getSelfInfos()
+                val refreshTokenResponse = ArtfeltClient().getApiService(this@SplashActivity).refreshAuthToken()
 
-                if (selfInfosResponse.isSuccessful && selfInfosResponse.body() != null) {
-                    selfInfosResponse.body()?.let {
+                if (refreshTokenResponse.isSuccessful && refreshTokenResponse.body() != null) {
+                    refreshTokenResponse.body()?.let {
+                        SessionManager(this).saveAuthToken(it.)
                         User.info = it
                         navigateTo(HomeActivity(), true)
                     }
                 } else {
                     navigateTo(SignInActivity(), true)
+                }
+
+            } catch (e: Exception) {
+                println(e.message)
+                Toolbox.showErrorDialog(this@SplashActivity, getString(R.string.TEXT_GET_USER_INFO_API_ERROR))
+            }
+        }
+    }*/
+
+    private fun getSelfInfoAPICall() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val selfInfoResponse = ArtfeltClient().getApiService(this@SplashActivity).getSelfInfo()
+
+                if (selfInfoResponse.isSuccessful && selfInfoResponse.body() != null) {
+                    selfInfoResponse.body()?.let {
+                        User.info = it
+                        navigateTo(HomeActivity(), true)
+                    }
+                } else {
+                    navigateTo(SignInActivity(), true)
+
                 }
 
             } catch (e: Exception) {
