@@ -103,7 +103,14 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
 
     private fun initArtworkType() {
         textView_type_title_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_TITLE)
-        textView_type_artwork_details.text = artwork.type
+
+        when(artwork.type?.toLowerCase()) {
+            "painting" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_PAINTING)
+            "literature" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_LITERATURE)
+            "sculpture" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_SCULPTURE)
+            "photo" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_PHOTO)
+            else -> textView_type_artwork_details.text = artwork.type
+        }
     }
 
     private fun initArtworkDate() {

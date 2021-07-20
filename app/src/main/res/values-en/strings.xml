@@ -25,6 +25,10 @@
     <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ for %s</string>
     <string name="LABEL_ARTWORK_QUANTITY_TITLE">Quantity available:</string>
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type:</string>
+    <string name="LABEL_ARTWORK_TYPE_PAINTING">Painting</string>
+    <string name="LABEL_ARTWORK_TYPE_PHOTO">Photo</string>
+    <string name="LABEL_ARTWORK_TYPE_LITERATURE">Literature</string>
+    <string name="LABEL_ARTWORK_TYPE_SCULPTURE">Sculpture</string>
     <string name="LABEL_ARTWORK_DATE_TITLE">Date:</string>
     <string name="LABEL_ARTIST_MEMBER_SINCE">Member since %s</string>
     <string name="LABEL_WANNA_BECOME_ARTIST">You want to sell your artworks?</string>
