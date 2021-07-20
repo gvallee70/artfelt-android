@@ -26,7 +26,7 @@ interface ArtfeltApiService {
     suspend fun changePassword(@Body request: ChangePasswordRequest): Response<String>
 
     @GET("/v1/auth/refresh-token")
-    suspend fun refreshAuthToken(): Response<String>
+    suspend fun refreshAuthToken(): Response<Void>
 
 
 

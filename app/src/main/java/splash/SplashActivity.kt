@@ -27,35 +27,35 @@ class SplashActivity: AppCompatActivity() {
         this.supportActionBar!!.hide()
 
         if (SessionManager(this).userIsLogged()) {
+            refreshTokenAPICall(complete = {
+                getSelfInfoAPICall()
+            })
             println("token: ${SessionManager(this).fetchAuthToken()}")
-            getSelfInfoAPICall()
         } else {
             navigateTo(SignInActivity(), true)
         }
     }
 
-/*
-    private fun refreshTokenAPICall() {
+
+    private fun refreshTokenAPICall(complete: (Unit) -> Unit) {
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val refreshTokenResponse = ArtfeltClient().getApiService(this@SplashActivity).refreshAuthToken()
 
-                if (refreshTokenResponse.isSuccessful && refreshTokenResponse.body() != null) {
-                    refreshTokenResponse.body()?.let {
-                        SessionManager(this).saveAuthToken(it.)
-                        User.info = it
-                        navigateTo(HomeActivity(), true)
+                if (refreshTokenResponse.isSuccessful) {
+                    refreshTokenResponse.headers()?.let {
+                        complete(SessionManager(this@SplashActivity).saveAuthToken(it.get("token").toString()))
                     }
-                } else {
+                } else if (refreshTokenResponse.code() == 401) {
                     navigateTo(SignInActivity(), true)
                 }
-
             } catch (e: Exception) {
                 println(e.message)
-                Toolbox.showErrorDialog(this@SplashActivity, getString(R.string.TEXT_GET_USER_INFO_API_ERROR))
+                navigateTo(SignInActivity(), true)
             }
         }
-    }*/
+    }
+
 
     private fun getSelfInfoAPICall() {
         GlobalScope.launch(Dispatchers.Main) {
@@ -69,9 +69,7 @@ class SplashActivity: AppCompatActivity() {
                     }
                 } else {
                     navigateTo(SignInActivity(), true)
-
                 }
-
             } catch (e: Exception) {
                 println(e.message)
                 Toolbox.showErrorDialog(this@SplashActivity, getString(R.string.TEXT_GET_USER_INFO_API_ERROR))
