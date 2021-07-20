@@ -20,6 +20,7 @@
     <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
     <string name="LABEL_ARTWORK_SEARCH">Search an artwork...</string>
     <string name="LABEL_ALL_ARTWORKS">All artworks</string>
+    <string name="LABEL_RESULTS_ARTWORKS_SEARCH">%d artwork(s)</string>
     <string name="LABEL_ARTWORK_PRICE">%d $</string>
     <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ for %s</string>
     <string name="LABEL_ARTWORK_QUANTITY_TITLE">Quantity available:</string>
