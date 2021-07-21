@@ -12,12 +12,14 @@
     <string name="LABEL_ADDRESS_STREET">Street number and name</string>
     <string name="LABEL_ADDRESS_ZIPCODE">ZIP code</string>
     <string name="LABEL_ADDRESS_CITY">City</string>
-    <string name="LABEL_PERSONAL_INFORMATIONS">Personal informations</string>
-    <string name="LABEL_CONNECTION_INFORMATIONS">Connexion informations</string>
+    <string name="LABEL_PERSONAL_INFORMATIONS">Personal information</string>
+    <string name="LABEL_CONNECTION_INFORMATIONS">Connexion information</string>
     <string name="LABEL_CONNECTION_IN_PROGRESS">Connection in progress...</string>
-    <string name="LABEL_AUTHENTICATION_TROUBLE_SIGINING_IN">Trouble signing in?</string>
+    <string name="LABEL_MAIL_CODE_RECEIVED">Confirmation code received by email</string>
+    <string name="LABEL_AUTHENTICATION_FORGOT_PASSWORD">Forgot password?</string>
+    <string name="LABEL_RESET_PASSWORD">Reset password</string>
     <string name="LABEL_ALREADY_ACCOUNT">Already have an account?</string>
-    <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
+    <string name="LABEL_COPYRIGHT">© %d - ArtFelt</string>
     <string name="LABEL_ARTWORK_SEARCH">Search an artwork...</string>
     <string name="LABEL_ALL_ARTWORKS">All artworks</string>
     <string name="LABEL_RESULTS_ARTWORKS_SEARCH">%d artwork(s)</string>
@@ -35,6 +37,7 @@
     <string name="LABEL_WANNA_BECOME_ARTIST">You want to sell your artworks?</string>
     <string name="LABEL_OLD_PASSWORD">Old password</string>
     <string name="LABEL_NEW_PASSWORD">New password</string>
+    <string name="LABEL_YOUR_EMAIL">Your email</string>
     <string name="LABEL_CONFIRMATION_PASSWORD">Confirm new password</string>
     <string name="LABEL_NO_ARTWORKS">There is no artworks for the moment...</string>
     <string name="LABEL_EXPLAIN_WHY">Tell us why</string>
@@ -52,10 +55,12 @@
     <string name="TEXT_EXPLAIN_WHY_EMPTY">Please tell us why you want to become an artist.</string>
     <string name="TEXT_SIGNIN_ERROR">Wrong username or password. Please try again.</string>
     <string name="TEXT_EMAIL_ERROR">Please enter a valid email.</string>
+    <string name="TEXT_EMAIL_DONT_EXIST">This email does not belong to any user.</string>
     <string name="TEXT_PASSWORD_LENGTH_ERROR">Password must contain between 7 and 20 characters.</string>
     <string name="TEXT_OLD_PASSWORD_ERROR">Your old password is wrong.</string>
     <string name="TEXT_PASSWORD_CHANGED_SUCCESS">Your password has been successfully updated.</string>
     <string name="TEXT_PASSWORD_CONFIRMATION_ERROR">Passwords entered do not match.</string>
+    <string name="TEXT_RESET_PASSWORD_CODE_EMPTY">Please enter the confirmation code you received by mail.</string>
     <string name="TEXT_USERNAME_LENGTH_ERROR">Username must contain between 7 and 16 characters.</string>
     <string name="TEXT_USERNAME_FORMAT_ERROR">Username must contain only unaccented letters, numbers and -_</string>
     <string name="TEXT_FIRST_NAME_FORMAT_ERROR">First name must contain only unaccented letters.</string>
@@ -65,6 +70,7 @@
     <string name="TEXT_SUCCESS_SIGN_UP">Your account has been successfully created. You can now sign in.</string>
     <string name="TEXT_USER_INFO_CHANGED_SUCCESS">Your information has been successfully updated.</string>
     <string name="TEXT_BECOME_ARTIST_SUCCESS">Your request has been sent. We will review it very quickly.</string>
+    <string name="TEXT_RESET_PASSWORD_REQUEST_SUCCESS">An email has been sent to you. The confirmation code is valid for 15 minutes.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
@@ -72,6 +78,8 @@
     <string name="TEXT_CHANGE_PASSWORD_API_ERROR">Error while trying to update your password. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_USER_INFO_API_ERROR">Error while trying to update your information. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_BECOME_ARTIST_API_ERROR">Error while trying to send your request. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_RESET_PASSWORD_API_ERROR">Error while trying to reset your password. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_RESET_PASSWORD_WRONG_CONFIRMATION_CODE">The confirmation code is not correct.</string>
 
 
     /* ACTIONS */
@@ -85,7 +93,7 @@
     <string name="ACTION_SIGN_UP">Sign Up</string>
     <string name="ACTION_LOG_OUT">Log out</string>
     <string name="ACTION_CHANGE_PASSWORD">Change password</string>
-    <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Reset your password</string>
+    <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Reset it</string>
     <string name="ACTION_BECOME_ARTIST">Become an artist</string>
 
 

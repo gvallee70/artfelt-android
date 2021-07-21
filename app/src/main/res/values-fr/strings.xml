@@ -15,9 +15,11 @@
     <string name="LABEL_PERSONAL_INFORMATIONS">Informations personnelles</string>
     <string name="LABEL_CONNECTION_INFORMATIONS">Informations de connexion</string>
     <string name="LABEL_CONNECTION_IN_PROGRESS">Connexion en cours...</string>
-    <string name="LABEL_AUTHENTICATION_TROUBLE_SIGINING_IN">Vous rencontrez des difficultés pour vous connecter ?</string>
+    <string name="LABEL_MAIL_CODE_RECEIVED">Code de confirmation reçu par email</string>
+    <string name="LABEL_AUTHENTICATION_FORGOT_PASSWORD">Mot de passe oublié ?</string>
+    <string name="LABEL_RESET_PASSWORD">Réinitialiser le mot de passe</string>
     <string name="LABEL_ALREADY_ACCOUNT">Déja un compte ?</string>
-    <string name="LABEL_COPYRIGHT">© 2020-%s - ArtFelt</string>
+    <string name="LABEL_COPYRIGHT">© %d - ArtFelt</string>
     <string name="LABEL_ARTWORK_SEARCH">Rechercher une œuvre...</string>
     <string name="LABEL_ALL_ARTWORKS">Toutes les œuvres</string>
     <string name="LABEL_RESULTS_ARTWORKS_SEARCH">%d œuvre(s)</string>
@@ -35,6 +37,7 @@
     <string name="LABEL_WANNA_BECOME_ARTIST">Vous souhaitez vendre vos œuvres ?</string>
     <string name="LABEL_OLD_PASSWORD">Ancien mot de passe</string>
     <string name="LABEL_NEW_PASSWORD">Nouveau mot de passe</string>
+    <string name="LABEL_YOUR_EMAIL">Votre email</string>
     <string name="LABEL_CONFIRMATION_PASSWORD">Confirmer nouveau mot de passe</string>
     <string name="LABEL_NO_ARTWORKS">Il n\'y a pas d\'œuvres pour le moment...</string>
     <string name="LABEL_EXPLAIN_WHY">Expliquez-nous pourquoi</string>
@@ -53,10 +56,12 @@
     <string name="TEXT_PASSWORD_EMPTY">Merci d\'entrer votre mot de passe.</string>
     <string name="TEXT_EXPLAIN_WHY_EMPTY">Merci de nous expliquer pourquoi vous souhaitez devenir un artiste.</string>
     <string name="TEXT_EMAIL_ERROR">Merci d\'entrer un email valide.</string>
+    <string name="TEXT_EMAIL_DONT_EXIST">Cette email n\'appartient à aucun utilisateur.</string>
     <string name="TEXT_PASSWORD_LENGTH_ERROR">Le mot de passe doit contenir entre 7 et 20 caractères.</string>
     <string name="TEXT_PASSWORD_CHANGED_SUCCESS">Votre mot de passe a bien été modifié.</string>
     <string name="TEXT_OLD_PASSWORD_ERROR">Votre ancien mot de passe n\'est pas le bon.</string>
     <string name="TEXT_PASSWORD_CONFIRMATION_ERROR">Les mots de passe ne correspondent pas.</string>
+    <string name="TEXT_RESET_PASSWORD_CODE_EMPTY">Veuillez rentrer le code de confirmation reçu par mail.</string>
     <string name="TEXT_USERNAME_LENGTH_ERROR">Le nom d\'utilisateur doit contenir entre 7 et 20 caractères.</string>
     <string name="TEXT_USERNAME_FORMAT_ERROR">Le nom d\'utilisateur ne peut contenir que des lettres non accentuées, des chiffres et -_</string>
     <string name="TEXT_FIRST_NAME_FORMAT_ERROR">Le prénom ne peut contenir que des lettres non accentuées.</string>
@@ -66,6 +71,7 @@
     <string name="TEXT_SUCCESS_SIGN_UP">Votre compte a bien été créé. Vous pouvez désormais vous connecter.</string>
     <string name="TEXT_USER_INFO_CHANGED_SUCCESS">Vos informations ont bien été modifiées.</string>
     <string name="TEXT_BECOME_ARTIST_SUCCESS">Votre demande a bien été envoyée. Nous allons l\'examiner très rapidement.</string>
+    <string name="TEXT_RESET_PASSWORD_REQUEST_SUCCESS">Un email vous a été envoyé. Le code de confirmation est valable pendant 15 minutes.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Impossible de créer votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Echec de connexion, il se peut que vous ne soyez pas connecté à internet. Merci de rééssayer.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Impossible de récupérer les informations de votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
@@ -73,6 +79,8 @@
     <string name="TEXT_CHANGE_PASSWORD_API_ERROR">Impossible de modifier votre mot de passe. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_USER_INFO_API_ERROR">Impossible de modifier vos informations. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_BECOME_ARTIST_API_ERROR">Impossible d\'envoyer votre demande. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_RESET_PASSWORD_API_ERROR">Impossible de réinitialiser votre mot de passe. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_RESET_PASSWORD_WRONG_CONFIRMATION_CODE">Le code de confirmation n\'est pas le bon.</string>
 
 
     /* ACTIONS */
@@ -86,7 +94,7 @@
     <string name="ACTION_SIGN_UP">Créer un compte</string>
     <string name="ACTION_LOG_OUT">Se déconnecter</string>
     <string name="ACTION_CHANGE_PASSWORD">Modifier le mot de passe</string>
-    <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Réinitialisez votre mot de passe </string>
+    <string name="ACTION_AUTHENTICATION_RESET_PASSWORD">Réinitialisez-le</string>
     <string name="ACTION_BECOME_ARTIST">Devenir artiste</string>
 
 </resources>
