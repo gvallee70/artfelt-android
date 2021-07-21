@@ -43,7 +43,6 @@ class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, Ar
 
     var artworkTypes: ArrayList<ArtworkTypeEnum> = arrayListOf()
 
-
     companion object {
         const val ARTWORK = "artwork"
     }
@@ -183,11 +182,14 @@ class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, Ar
 
                 if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
                     getArtworksResponse.body()?.let {
-                        initArtworkTypesRecyclerView(it)
-                        initArtworksRecyclerView(it)
-                        initViewsIfArtworks()
-                    } ?: initViewsIfNoArtworks()
-
+                        if(it.isEmpty()) {
+                            initViewsIfNoArtworks()
+                        } else {
+                            initViewsIfArtworks()
+                            initArtworkTypesRecyclerView(it)
+                            initArtworksRecyclerView(it)
+                        }
+                    }
                 } else {
                     Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_GET_ARTWORKS_API_ERROR))
                 }
