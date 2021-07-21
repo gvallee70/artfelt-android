@@ -25,6 +25,7 @@
     <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ for %s</string>
     <string name="LABEL_ARTWORK_QUANTITY_TITLE">Quantity available:</string>
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type:</string>
+    <string name="LABEL_ARTWORK_TYPE_ALL">All</string>
     <string name="LABEL_ARTWORK_TYPE_PAINTING">Painting</string>
     <string name="LABEL_ARTWORK_TYPE_PHOTO">Photo</string>
     <string name="LABEL_ARTWORK_TYPE_LITERATURE">Literature</string>

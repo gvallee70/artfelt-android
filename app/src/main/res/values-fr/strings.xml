@@ -25,6 +25,7 @@
     <string name="LABEL_ASSOCIATION_DONATED_PRICE">dont %d € pour %s</string>
     <string name="LABEL_ARTWORK_QUANTITY_TITLE">Quantité(s) disponible(s) :</string>
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type :</string>
+    <string name="LABEL_ARTWORK_TYPE_ALL">Tout</string>
     <string name="LABEL_ARTWORK_TYPE_PAINTING">Peinture</string>
     <string name="LABEL_ARTWORK_TYPE_PHOTO">Photo</string>
     <string name="LABEL_ARTWORK_TYPE_LITERATURE">Littérature</string>
