@@ -4,11 +4,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import api.models.artwork.Artwork
 import com.artfelt.artfelt.R
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_artwork_details.*
 import common.HeaderDelegate
-import common.HeaderLeftIcon
+import common.HeaderLeftIconEnum
 import common.HeaderView
+import home.artworks.type.ArtworkTypeEnum
 import utils.EXTRA_HASHMAP
 import utils.formatddMMMMYYYY
 import utils.getExtraPassedData
@@ -59,7 +59,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initHeader() {
-        HeaderView(this, block_header_artwork_details, HeaderLeftIcon.BACK, this)
+        HeaderView(this, block_header_artwork_details, HeaderLeftIconEnum.BACK, this)
     }
 
 
@@ -102,14 +102,9 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initArtworkType() {
-        textView_type_title_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_TITLE)
-
-        when(artwork.type?.toLowerCase()) {
-            "painting" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_PAINTING)
-            "literature" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_LITERATURE)
-            "sculpture" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_SCULPTURE)
-            "photo" -> textView_type_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_PHOTO)
-            else -> textView_type_artwork_details.text = artwork.type
+        artwork.type?.let {
+            textView_type_title_artwork_details.text = getString(R.string.LABEL_ARTWORK_TYPE_TITLE)
+            textView_type_artwork_details.text = getString(it.value)
         }
     }
 

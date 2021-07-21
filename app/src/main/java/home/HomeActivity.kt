@@ -7,10 +7,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import api.ArtfeltClient
 import api.models.artwork.Artwork
 import artwork.ArtworkDetailsActivity
 import com.artfelt.artfelt.R
+import com.google.android.flexbox.FlexDirection
+import com.google.android.flexbox.FlexboxLayoutManager
+import com.google.android.flexbox.JustifyContent
 import home.artworks.ArtworkAdapter
 import home.artworks.ArtworkDelegate
 import kotlinx.android.synthetic.main.activity_home.*
@@ -18,22 +22,27 @@ import kotlinx.android.synthetic.main.activity_signup.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import managers.session.SessionManager
 import common.HeaderDelegate
-import common.HeaderLeftIcon
+import common.HeaderLeftIconEnum
 import common.HeaderView
+import home.artworks.type.ArtworkTypeAdapter
+import home.artworks.type.ArtworkTypeDelegate
+import home.artworks.type.ArtworkTypeEnum
 import profile.ProfileActivity
-import signin.SignInActivity
 import utils.Toolbox
 import utils.hide
 import utils.navigateTo
 import utils.show
-import utils.transition.Transition
+import utils.transition.TransitionEnum
 import java.io.Serializable
 
-class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
+class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, ArtworkDelegate {
 
     private lateinit var artworkAdapter: ArtworkAdapter
+    private lateinit var artworkTypeAdapter: ArtworkTypeAdapter
+
+    var artworkTypes: ArrayList<ArtworkTypeEnum> = arrayListOf()
+
 
     companion object {
         const val ARTWORK = "artwork"
@@ -61,7 +70,7 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
 
     private fun initHeader() {
-        HeaderView(this, block_header_home, HeaderLeftIcon.PROFILE, this)
+        HeaderView(this, block_header_home, HeaderLeftIconEnum.PROFILE, this)
     }
 
     private fun initViewsIfArtworks() {
@@ -130,6 +139,32 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
     }
 
 
+    private fun initArtworkTypesList(artworks: ArrayList<Artwork>) {
+        artworkTypes.removeAll(ArtworkTypeEnum.values())
+
+        artworkTypes.add(ArtworkTypeEnum.ALL)
+
+        artworks.forEach {
+            it.type?.let { type ->
+                if (!artworkTypes.contains(type)) {
+                    artworkTypes.add(type)
+                }
+            }
+        }
+    }
+
+
+    private fun initArtworkTypesRecyclerView(artworks: ArrayList<Artwork>) {
+        initArtworkTypesList(artworks)
+
+        artworkTypeAdapter = ArtworkTypeAdapter(this, artworkTypes =  artworkTypes, listener = this)
+
+        recycler_view_artworks_type.removeAllViews()
+        recycler_view_artworks_type.layoutManager = FlexboxLayoutManager(this, FlexDirection.ROW)
+        recycler_view_artworks_type.adapter = artworkTypeAdapter
+    }
+
+
     private fun initArtworksRecyclerView(artworks: ArrayList<Artwork>) {
         artworkAdapter = ArtworkAdapter(this, artworks, this)
 
@@ -148,13 +183,11 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
 
                 if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
                     getArtworksResponse.body()?.let {
-                        if (it.isEmpty()) {
-                            initViewsIfNoArtworks()
-                        } else {
-                            initArtworksRecyclerView(it)
-                            initViewsIfArtworks()
-                        }
-                    }
+                        initArtworkTypesRecyclerView(it)
+                        initArtworksRecyclerView(it)
+                        initViewsIfArtworks()
+                    } ?: initViewsIfNoArtworks()
+
                 } else {
                     Toolbox.showErrorDialog(this@HomeActivity, getString(R.string.TEXT_GET_ARTWORKS_API_ERROR))
                 }
@@ -174,6 +207,19 @@ class HomeActivity: AppCompatActivity(), ArtworkDelegate, HeaderDelegate {
     }
 
     override fun onClickHeaderLeftIcon() {
-        navigateTo(ProfileActivity(), transition = Transition.TOP)
+        navigateTo(ProfileActivity(), transition = TransitionEnum.TOP)
     }
+
+    override fun onClickArtworkType(artworkType: ArtworkTypeEnum) {
+        recycler_view_artworks_type.adapter = ArtworkTypeAdapter(this, artworkType, artworkTypes, this)
+
+        artworkAdapter.filterArtworksByType(artworkType)
+
+        when(artworkType) {
+            ArtworkTypeEnum.ALL -> title_artworks_list.text = getString(R.string.LABEL_ALL_ARTWORKS)
+            else -> title_artworks_list.text = getString(R.string.LABEL_RESULTS_ARTWORKS_SEARCH).format(artworkAdapter.itemCount)
+        }
+
+    }
+
 }

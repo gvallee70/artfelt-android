@@ -1,6 +1,6 @@
 package utils.transition
 
-enum class Transition {
+enum class TransitionEnum {
     LEFT,
     RIGHT,
     TOP,

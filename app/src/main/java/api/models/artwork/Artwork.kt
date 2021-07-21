@@ -4,6 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 import api.models.user.Artist
 import com.google.gson.annotations.SerializedName
+import home.artworks.type.ArtworkTypeEnum
 import java.io.Serializable
 import java.util.*
 
@@ -15,7 +16,7 @@ data class Artwork(
     var title: String? = null,
 
     @SerializedName("type")
-    var type: String? = null,
+    var type: ArtworkTypeEnum? = null,
 
     @SerializedName("description")
     var description: String? = null,

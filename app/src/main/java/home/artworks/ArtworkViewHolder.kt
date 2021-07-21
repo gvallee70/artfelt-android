@@ -14,7 +14,10 @@ import java.io.InputStream
 import java.net.URLConnection
 import java.net.URLStreamHandler
 
-class ArtworkViewHolder(val container: View) : RecyclerView.ViewHolder(container) {
+class ArtworkViewHolder(
+    val container: View,
+    private val listener: ArtworkDelegate
+    ) : RecyclerView.ViewHolder(container) {
 
     private var mImage: ImageView = container.imageView_artwork
     private var mTitle: TextView = container.textView_title_artwork
@@ -22,10 +25,17 @@ class ArtworkViewHolder(val container: View) : RecyclerView.ViewHolder(container
 
 
     fun bindView(artwork: Artwork) {
+        initView(artwork)
+
+        manageOnClickArtwork(artwork)
+
+    }
+
+
+    private fun initView(artwork: Artwork) {
         initImage(artwork)
         initTitle(artwork)
         initPrice(artwork)
-
     }
 
 
@@ -44,9 +54,14 @@ class ArtworkViewHolder(val container: View) : RecyclerView.ViewHolder(container
     }
 
     private fun initPrice(artwork: Artwork) {
-        mPrice.text = container.context
-                               .getString(R.string.LABEL_ARTWORK_PRICE)
-                               .format(artwork.price)
+        mPrice.text = container.context.getString(R.string.LABEL_ARTWORK_PRICE).format(artwork.price)
+    }
+
+
+    fun manageOnClickArtwork(artwork: Artwork) {
+        container.setOnClickListener {
+            listener.onClickItem(artwork)
+        }
     }
 
 }

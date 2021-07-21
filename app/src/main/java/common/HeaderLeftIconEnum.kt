@@ -1,6 +1,6 @@
 package common
 
-enum class HeaderLeftIcon {
+enum class HeaderLeftIconEnum {
     BACK,
     CLOSE,
     PROFILE

@@ -7,13 +7,12 @@ import api.models.user.User
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.view_header.view.*
 import utils.setImageURL
-import utils.transition.Transition
 
 class HeaderView(
-    private val context: Context,
-    parent: ViewGroup,
-    private var leftIcon: HeaderLeftIcon,
-    private val listener: HeaderDelegate
+        private val context: Context,
+        parent: ViewGroup,
+        private var leftIcon: HeaderLeftIconEnum,
+        private val listener: HeaderDelegate
 ){
 
     private val view =
@@ -42,9 +41,9 @@ class HeaderView(
         mHeaderLeftIcon.clipToOutline = true
 
         when(leftIcon) {
-            HeaderLeftIcon.BACK -> mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
-            HeaderLeftIcon.CLOSE -> mHeaderLeftIcon.setImageResource(R.drawable.ic_close)
-            HeaderLeftIcon.PROFILE -> {
+            HeaderLeftIconEnum.BACK -> mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
+            HeaderLeftIconEnum.CLOSE -> mHeaderLeftIcon.setImageResource(R.drawable.ic_close)
+            HeaderLeftIconEnum.PROFILE -> {
                 if (User.info?.avatarUrl.isNullOrEmpty()) {
                     mHeaderLeftIcon.setImageResource(R.drawable.ic_user_default)
                 } else {

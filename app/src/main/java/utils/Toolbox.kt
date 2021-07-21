@@ -19,7 +19,7 @@ import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import utils.transition.Transition
+import utils.transition.TransitionEnum
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
@@ -144,14 +144,14 @@ fun String.containsAlphaOnly(): Boolean {
 
 
 
-fun Activity.navigateTo(activity: Activity, finish: Boolean = false, transition: Transition = Transition.RIGHT) {
+fun Activity.navigateTo(activity: Activity, finish: Boolean = false, transition: TransitionEnum = TransitionEnum.RIGHT) {
     val intent = Intent(this, activity::class.java)
     startActivity(intent)
 
     when(transition) {
-        Transition.TOP -> overridePendingTransition(R.transition.slide_in_up, R.transition.slide_out_up)
-        Transition.BOTTOM -> overridePendingTransition(R.transition.slide_in_down, R.transition.slide_out_down)
-        Transition.LEFT -> overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_left)
+        TransitionEnum.TOP -> overridePendingTransition(R.transition.slide_in_up, R.transition.slide_out_up)
+        TransitionEnum.BOTTOM -> overridePendingTransition(R.transition.slide_in_down, R.transition.slide_out_down)
+        TransitionEnum.LEFT -> overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_left)
     }
 
     if (finish) {
@@ -160,7 +160,7 @@ fun Activity.navigateTo(activity: Activity, finish: Boolean = false, transition:
 }
 
 
-fun Activity.navigateTo(activity: Activity, data: HashMap<String, Any>? = null, finish: Boolean = false, transition: Transition = Transition.RIGHT) {
+fun Activity.navigateTo(activity: Activity, data: HashMap<String, Any>? = null, finish: Boolean = false, transition: TransitionEnum = TransitionEnum.RIGHT) {
     val intent = Intent(this, activity::class.java)
     data?.let {
         val args = Bundle()
@@ -170,9 +170,9 @@ fun Activity.navigateTo(activity: Activity, data: HashMap<String, Any>? = null, 
     startActivity(intent)
 
     when(transition) {
-        Transition.TOP -> overridePendingTransition(R.transition.slide_in_up, R.transition.slide_out_up)
-        Transition.BOTTOM -> overridePendingTransition(R.transition.slide_in_down, R.transition.slide_out_down)
-        Transition.LEFT -> overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_left)
+        TransitionEnum.TOP -> overridePendingTransition(R.transition.slide_in_up, R.transition.slide_out_up)
+        TransitionEnum.BOTTOM -> overridePendingTransition(R.transition.slide_in_down, R.transition.slide_out_down)
+        TransitionEnum.LEFT -> overridePendingTransition(R.transition.slide_in_left, R.transition.slide_out_left)
     }
 
     if (finish) {

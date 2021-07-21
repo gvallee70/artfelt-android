@@ -21,7 +21,7 @@ import com.artfelt.artfelt.R
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import common.HeaderDelegate
-import common.HeaderLeftIcon
+import common.HeaderLeftIconEnum
 import common.HeaderView
 import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_home.*
@@ -37,7 +37,7 @@ import org.json.JSONObject
 import org.json.JSONTokener
 import signin.SignInActivity
 import utils.*
-import utils.transition.Transition
+import utils.transition.TransitionEnum
 import java.io.OutputStreamWriter
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
@@ -88,7 +88,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     }
 
     private fun initHeader() {
-        HeaderView(this, block_header_profile, HeaderLeftIcon.CLOSE, this)
+        HeaderView(this, block_header_profile, HeaderLeftIconEnum.CLOSE, this)
     }
 
     private fun initProfilePicture() {
@@ -668,7 +668,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
     /***** HeaderDelegate *****/
     override fun onClickHeaderLeftIcon() {
-        navigateTo(HomeActivity(), true, transition = Transition.BOTTOM)
+        navigateTo(HomeActivity(), true, transition = TransitionEnum.BOTTOM)
     }
 
 

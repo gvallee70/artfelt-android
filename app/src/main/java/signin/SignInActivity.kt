@@ -1,7 +1,6 @@
 package signin
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_signin.*
@@ -20,7 +19,6 @@ import managers.session.SessionManager
 import signup.SignUpActivity
 import splash.SplashActivity
 import utils.*
-import utils.transition.Transition
 
 class SignInActivity : AppCompatActivity() {
 

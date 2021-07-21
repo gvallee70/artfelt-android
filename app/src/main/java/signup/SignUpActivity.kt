@@ -1,6 +1,5 @@
 package signup
 
-import android.R.id.message
 import android.graphics.Paint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import signin.SignInActivity
 import utils.*
-import utils.transition.Transition
+import utils.transition.TransitionEnum
 import java.lang.Exception
 
 
@@ -177,7 +176,7 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun manageOnClickSignInTextView(){
         textView_signin.setOnClickListener {
-            navigateTo(SignInActivity(), transition = Transition.LEFT)
+            navigateTo(SignInActivity(), transition = TransitionEnum.LEFT)
         }
     }
 
@@ -294,7 +293,7 @@ class SignUpActivity : AppCompatActivity() {
                         val data = HashMap<String, Any>()
                         data[NEW_USERNAME] = it.user?.username!!
                         data[NEW_PASSWORD] = "${editText_password.text}"
-                        navigateTo(SignInActivity(), data, true, Transition.LEFT)
+                        navigateTo(SignInActivity(), data, true, TransitionEnum.LEFT)
                     }
                 } else {
                     val errorBody: String = signUpResponse.errorBody()!!.string()
