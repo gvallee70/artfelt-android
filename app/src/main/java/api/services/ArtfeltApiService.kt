@@ -2,6 +2,9 @@ package api.services
 
 import api.models.artwork.Artwork
 import api.models.auth.changepassword.ChangePasswordRequest
+import api.models.auth.resetpassword.AskResetPasswordRequest
+import api.models.auth.resetpassword.ResetPasswordRequest
+import api.models.auth.resetpassword.ResetPasswordResponse
 import retrofit2.Response
 import api.models.auth.signin.SignInRequest
 import api.models.auth.signin.SignInResponse
@@ -24,6 +27,12 @@ interface ArtfeltApiService {
 
     @POST("/v1/auth/change-password")
     suspend fun changePassword(@Body request: ChangePasswordRequest): Response<String>
+
+    @POST("/v1/auth/reset-password-request")
+    suspend fun askResetPassword(@Body request: AskResetPasswordRequest): Response<Void>
+
+    @POST("/v1/auth/reset-password")
+    suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<ResetPasswordResponse>
 
     @GET("/v1/auth/refresh-token")
     suspend fun refreshAuthToken(): Response<Void>

@@ -489,7 +489,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
             val mExplainWhyTitle = becomeArtistRequestDialog.findViewById<TextView>(R.id.textView_explain_why_title)
 
             mDialogTitle?.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
-            mDialogTitle?.textSize = 22f
             mExplainWhyTitle?.text = getString(R.string.LABEL_EXPLAIN_WHY)
 
 

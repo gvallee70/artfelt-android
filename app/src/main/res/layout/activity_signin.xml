@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
-    android:paddingBottom="40dp">
+    android:paddingBottom="10dp">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -110,6 +110,41 @@
             tools:hint="Créer un compte" />
 
     </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_signup">
+
+        <TextView
+            android:id="@+id/textView_forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            tools:text="Vous rencontrez des soucis ?" />
+
+        <TextView
+            android:id="@+id/textView_reset_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primaryColor"
+            tools:text="Reset password" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="2021 - ArtFelt" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
