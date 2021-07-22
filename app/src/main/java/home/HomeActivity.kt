@@ -120,7 +120,7 @@ class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, Ar
                         title_artworks_list.text = getString(R.string.LABEL_RESULTS_ARTWORKS_SEARCH).format(artworkAdapter.itemCount)
                     })
                 }
-
+            //TODO("ameliorer la recherche car quand on remove des caractere ca annule")x
                 return false
             }
         })
@@ -173,14 +173,26 @@ class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, Ar
     }
 
 
+    private fun initLoadingArtworksView() {
+        textView_artworks_loading.text = getString(R.string.LABEL_LOADING_ARTWORKS)
+    }
+
+    private fun hideLoadingArtworksView() {
+        progressBar_artworks_loading.hide()
+        textView_artworks_loading.hide()
+    }
 
 
     private fun getAllArtworksAPICall() {
+        initLoadingArtworksView()
+
         GlobalScope.launch(Dispatchers.Main) {
             try {
                 val getArtworksResponse = ArtfeltClient().getApiService(this@HomeActivity).getAllArtworks()
 
                 if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
+                    hideLoadingArtworksView()
+
                     getArtworksResponse.body()?.let {
                         if(it.isEmpty()) {
                             initViewsIfNoArtworks()
