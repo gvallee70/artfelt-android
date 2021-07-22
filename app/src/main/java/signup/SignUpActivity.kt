@@ -117,7 +117,8 @@ class SignUpActivity : AppCompatActivity() {
         editText_password.textSize = 16f
     }
 
-
+    //TODO("implementer password confirmation")
+    //TODO("bonus implementer oeil pour voir mdp")
     private fun initSignUpButton() {
         initSignUpTextView()
         hideSignUpProgressBar()

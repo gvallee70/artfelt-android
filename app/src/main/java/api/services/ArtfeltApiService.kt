@@ -1,5 +1,6 @@
 package api.services
 
+import api.models.artwork.ArtistArtworksResponse
 import api.models.artwork.Artwork
 import api.models.auth.changepassword.ChangePasswordRequest
 import api.models.auth.resetpassword.AskResetPasswordRequest
@@ -42,6 +43,9 @@ interface ArtfeltApiService {
     /* USER */
     @GET("/v1/user/info")
     suspend fun getSelfInfo(): Response<User>
+
+    @GET("/v1/user/{id}")
+    suspend fun getArtistArtworks(@Path("id") id: String): Response<ArtistArtworksResponse>
 
     @PATCH("/v1/user/{id}")
     suspend fun updateUserInfo(@Path("id") id: String, @Body request: User): Response<UpdateUserInfoResponse>

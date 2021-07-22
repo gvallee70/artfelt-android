@@ -2,21 +2,32 @@ package artwork
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import api.ArtfeltClient
 import api.models.artwork.Artwork
+import api.models.user.Artist
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_artwork_details.*
 import common.HeaderDelegate
 import common.HeaderLeftIconEnum
 import common.HeaderView
+import home.HomeActivity
+import home.artworks.ArtworkAdapter
+import home.artworks.ArtworkDelegate
 import home.artworks.type.ArtworkTypeEnum
-import utils.EXTRA_HASHMAP
-import utils.formatddMMMMYYYY
-import utils.getExtraPassedData
-import utils.setImageURL
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import utils.*
+import java.io.Serializable
 
-class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
+class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelegate {
 
     private lateinit var artwork: Artwork
+    private lateinit var artworkAdapter: ArtworkAdapter
+
 
     companion object {
         const val ARTWORK = "artwork"
@@ -38,6 +49,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
     }
 
     private fun initView() {
+        println("toto + " + artwork)
         initHeader()
         initArtworkImageView()
         initArtworkTitle()
@@ -117,11 +129,53 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate {
     private fun initArtistView() {
         artwork.artist?.let {
             ArtistView(this, block_artwork_artist_view, artwork.artist!!)
+
+            getArtistArtworksAPICall()
         }
     }
 
+    private fun initArtistArtworksRecyclerView(artworks: ArrayList<Artwork>) {
+        artworkAdapter = ArtworkAdapter(this, artworks, this)
+
+        recycler_view_artist_artworks.removeAllViews()
+        recycler_view_artist_artworks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        recycler_view_artist_artworks.adapter = artworkAdapter
+    }
+
+
+
+    private fun getArtistArtworksAPICall() {
+        GlobalScope.launch(Dispatchers.Main) {
+            try {
+                val getArtworksResponse = ArtfeltClient().getApiService(this@ArtworkDetailsActivity).getArtistArtworks(artwork.artist?.id!!)
+
+                if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
+                    getArtworksResponse.body()?.let {
+                        var artworks = it.artworks
+                        /*artworks.forEach {
+                            it.artist = "yoyo" //TODO("implemnter artiste")
+                        }*/
+                        artworks.removeAt(artwork.id!!-1) //TODO("a améliorer car je pense c'est bullshit")
+                        initArtistArtworksRecyclerView(artworks)
+                    }
+                }
+            } catch (e: Exception) {
+                println(e.message)
+            }
+        }
+    }
+
+
+
     override fun onClickHeaderLeftIcon() {
         finish()
+    }
+
+
+    override fun onClickItem(artwork: Artwork) {
+        val data = HashMap<String, Any>()
+        data[HomeActivity.ARTWORK] = artwork as Serializable
+        navigateTo(this, data)
     }
 
 }
