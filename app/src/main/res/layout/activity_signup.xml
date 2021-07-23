@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:overScrollMode="never"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
-    android:paddingBottom="40dp">
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -141,18 +142,53 @@
             android:paddingStart="17dp"
             tools:hint="Email" />
 
-        <EditText
-            android:id="@+id/editText_password"
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/background_radius_light_gray"
-            android:drawableLeft="@drawable/ic_password"
-            android:drawablePadding="9dp"
-            android:inputType="textPassword"
-            android:padding="10dp"
-            android:paddingStart="17dp"
-            tools:hint="Password" />
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:passwordToggleEnabled="true"
+            app:startIconTint="@color/primaryColor">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_radius_light_gray"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="9dp"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                tools:hint="Password" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:passwordToggleEnabled="true"
+            app:startIconTint="@color/primaryColor">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText_password_confirmation"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/background_radius_light_gray"
+                android:drawableStart="@drawable/ic_password"
+                android:drawablePadding="9dp"
+                android:inputType="textPassword"
+                android:padding="10dp"
+                tools:hint="Password confirmation" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
 
         <androidx.cardview.widget.CardView
@@ -191,7 +227,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="40dp">
 
             <TextView
                 android:id="@+id/textView_already_account"

@@ -67,6 +67,7 @@ class SignUpActivity : AppCompatActivity() {
         initUsernameEditText()
         initEmailEditText()
         initPasswordEditText()
+        initPasswordConfirmationEditText()
     }
 
     private fun initPersonalInformationsTextView() {
@@ -117,8 +118,12 @@ class SignUpActivity : AppCompatActivity() {
         editText_password.textSize = 16f
     }
 
-    //TODO("implementer password confirmation")
-    //TODO("bonus implementer oeil pour voir mdp")
+
+    private fun initPasswordConfirmationEditText() {
+        editText_password_confirmation.hint = getString(R.string.LABEL_PASSWORD_CONFIRMATION)
+        editText_password_confirmation.textSize = 16f
+    }
+
     private fun initSignUpButton() {
         initSignUpTextView()
         hideSignUpProgressBar()
@@ -261,6 +266,11 @@ class SignUpActivity : AppCompatActivity() {
 
         if ("${editText_password.text}".length < 7 || "${editText_password.text}".length > 20) {
             editText_password.error = getString(R.string.TEXT_PASSWORD_LENGTH_ERROR)
+            return false
+        }
+
+        if (("${editText_password.text}" != ("${editText_password_confirmation.text}"))) {
+            editText_password_confirmation.error = getString(R.string.TEXT_PASSWORD_CONFIRMATION_ERROR)
             return false
         }
 

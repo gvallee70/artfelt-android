@@ -557,7 +557,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
                     Toolbox.showSuccessDialog(this@ProfileActivity, getString(R.string.TEXT_PASSWORD_CHANGED_SUCCESS))
                     changePasswordDialog.dismiss()
                 } else if (changePasswordResponse.code() == 401) {
-                    Toolbox.showErrorDialog(this@ProfileActivity, getString(R.string.TEXT_OLD_PASSWORD_ERROR))
+                    mOldPasswordEditText.error = getString(R.string.TEXT_OLD_PASSWORD_ERROR)
                 }
             } catch (e: Exception) {
                 println(e.message)
@@ -590,6 +590,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
                     updateUserInfoResponse.body().let {
                         User.info = it?.updatedUser
                     }
+                    //TODO("implementer erreur username et mail deja utilisé")
                 } else {
                     Toolbox.showErrorDialog(this@ProfileActivity, getString(R.string.TEXT_USER_INFO_API_ERROR))
                 }

@@ -5,6 +5,7 @@
     /* LABELS */
     <string name="LABEL_AUTHENTICATION_EMAIL">Email</string>
     <string name="LABEL_AUTHENTICATION_PASSWORD">Mot de passe</string>
+    <string name="LABEL_PASSWORD_CONFIRMATION">Confirmation du mot de passe</string>
     <string name="LABEL_FIRST_NAME">Prénom</string>
     <string name="LABEL_LAST_NAME">Nom</string>
     <string name="LABEL_USERNAME">Nom d\'utilisateur</string>
@@ -63,7 +64,7 @@
     <string name="TEXT_OLD_PASSWORD_ERROR">Votre ancien mot de passe n\'est pas le bon.</string>
     <string name="TEXT_PASSWORD_CONFIRMATION_ERROR">Les mots de passe ne correspondent pas.</string>
     <string name="TEXT_RESET_PASSWORD_CODE_EMPTY">Veuillez rentrer le code de confirmation reçu par mail.</string>
-    <string name="TEXT_USERNAME_LENGTH_ERROR">Le nom d\'utilisateur doit contenir entre 7 et 20 caractères.</string>
+    <string name="TEXT_USERNAME_LENGTH_ERROR">Le nom d\'utilisateur doit contenir entre 7 et 16 caractères.</string>
     <string name="TEXT_USERNAME_FORMAT_ERROR">Le nom d\'utilisateur ne peut contenir que des lettres non accentuées, des chiffres et -_</string>
     <string name="TEXT_FIRST_NAME_FORMAT_ERROR">Le prénom ne peut contenir que des lettres non accentuées.</string>
     <string name="TEXT_LAST_NAME_FORMAT_ERROR">Le nom de famille ne peut contenir que des lettres non accentuées.</string>

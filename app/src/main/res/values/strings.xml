@@ -5,6 +5,7 @@
     /* LABELS */
     <string name="LABEL_AUTHENTICATION_EMAIL">Email</string>
     <string name="LABEL_AUTHENTICATION_PASSWORD">Password</string>
+    <string name="LABEL_PASSWORD_CONFIRMATION">Password confirmation</string>
     <string name="LABEL_FIRST_NAME">First name</string>
     <string name="LABEL_LAST_NAME">Last name</string>
     <string name="LABEL_USERNAME">Username</string>
