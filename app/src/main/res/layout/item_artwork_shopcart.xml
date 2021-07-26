@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_small_radius_white"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="5dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+
+    <ImageView
+        android:id="@+id/imageView_artwork_shopcart"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/background_small_radius_gray"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_image_placeholder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_artwork_title_shopcart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/work_sans"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/imageView_artwork_shopcart"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Oeuvre magnifique" />
+
+
+    <TextView
+        android:id="@+id/textView_artwork_price_shopcart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/work_sans"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@id/imageView_artwork_shopcart"
+        app:layout_constraintTop_toBottomOf="@id/textView_artwork_title_shopcart"
+        tools:text="50€" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/background_radius_light_gray"
+            android:drawableStart="@drawable/ic_plus"
+            app:backgroundTint="@color/lightGray"
+            app:icon="@drawable/ic_minus"
+            app:iconGravity="top"
+            app:iconSize="10dp"
+            app:iconTint="@color/primaryColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            tools:text="89" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/background_radius_light_gray"
+            android:drawableStart="@drawable/ic_plus"
+            app:backgroundTint="@color/lightGray"
+            app:icon="@drawable/ic_plus"
+            app:iconGravity="top"
+            app:iconSize="10dp"
+            app:iconTint="@color/primaryColor" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

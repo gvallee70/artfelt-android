@@ -221,4 +221,18 @@ fun ImageView.setImageURL(url: String) {
 
 
 
+fun <T:Any> ArrayList<T>.copyAndAdd(element: T): ArrayList<T> {
+    var newList: ArrayList<T> = this.clone() as ArrayList<T>
+    newList.add(element)
+
+    return newList
+}
+
+fun <T:Any> ArrayList<T>.copyAndRemove(element: T): ArrayList<T> {
+    var newList: ArrayList<T> = this.clone() as ArrayList<T>
+    newList.remove(element)
+
+    return newList
+}
+
 
