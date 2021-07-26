@@ -13,7 +13,7 @@ import managers.shopcart.ItemShopCart
 class ShopcartArtworksAdapter(
     val context: Context,
     private var artworks: ArrayList<ItemShopCart>,
-    //private val listener: ArtworkDelegate
+    private val listener: PlusOrMinusDelegate
 ) : RecyclerView.Adapter<ShopcartArtworkViewHolder>() {
 
     var artworksList = ArrayList<ItemShopCart>(artworks)
@@ -21,7 +21,7 @@ class ShopcartArtworksAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopcartArtworkViewHolder {
         return ShopcartArtworkViewHolder(
             LayoutInflater.from(context).inflate(R.layout.item_artwork_shopcart, parent, false),
-            //listener
+            listener
         )
     }
 
@@ -33,6 +33,13 @@ class ShopcartArtworksAdapter(
 
     override fun getItemCount(): Int {
         return artworksList.size
+    }
+
+    fun updateShopCartList(updatedShopCartList: ArrayList<ItemShopCart>) {
+        artworksList = ArrayList(updatedShopCartList)
+
+        this.notifyDataSetChanged();
+
     }
 
 }

@@ -43,6 +43,8 @@
     <string name="LABEL_CONFIRMATION_PASSWORD">Confirm new password</string>
     <string name="LABEL_NO_ARTWORKS">There is no artworks for the moment...</string>
     <string name="LABEL_EXPLAIN_WHY">Tell us why</string>
+    <string name="LABEL_SHOPCART_TITLE">Your shopcart (%d $)</string>
+    <string name="LABEL_SHOPCART_EMPTY">Your shopcart is empty</string>
 
 
     /* TEXTS */
@@ -82,6 +84,7 @@
     <string name="TEXT_BECOME_ARTIST_API_ERROR">Error while trying to send your request. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_RESET_PASSWORD_API_ERROR">Error while trying to reset your password. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_RESET_PASSWORD_WRONG_CONFIRMATION_CODE">The confirmation code is not correct.</string>
+    <string name="TEXT_REMOVE_SHOPCART_ITEM">Do you want to remove %s from shopcart?</string>
 
 
     /* ACTIONS */

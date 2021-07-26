@@ -24,11 +24,13 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import common.HeaderDelegate
 import common.HeaderLeftIconEnum
+import common.HeaderRightIconEnum
 import common.HeaderView
 import home.artworks.type.ArtworkTypeAdapter
 import home.artworks.type.ArtworkTypeDelegate
 import home.artworks.type.ArtworkTypeEnum
 import profile.ProfileActivity
+import shopcart.ShopcartActivity
 import utils.Toolbox
 import utils.hide
 import utils.navigateTo
@@ -69,7 +71,7 @@ class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, Ar
 
 
     private fun initHeader() {
-        HeaderView(this, block_header_home, HeaderLeftIconEnum.PROFILE, this)
+        HeaderView(this, block_header_home, HeaderLeftIconEnum.PROFILE, HeaderRightIconEnum.SHOPCART, this)
     }
 
     private fun initViewsIfArtworks() {
@@ -120,7 +122,7 @@ class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, Ar
                         title_artworks_list.text = getString(R.string.LABEL_RESULTS_ARTWORKS_SEARCH).format(artworkAdapter.itemCount)
                     })
                 }
-            //TODO("ameliorer la recherche car quand on remove des caractere ca annule")x
+                //TODO("ameliorer la recherche car quand on remove des caractere ca annule")x
                 return false
             }
         })
@@ -222,6 +224,10 @@ class HomeActivity: AppCompatActivity(), HeaderDelegate, ArtworkTypeDelegate, Ar
 
     override fun onClickHeaderLeftIcon() {
         navigateTo(ProfileActivity(), transition = TransitionEnum.TOP)
+    }
+
+    override fun onClickHeaderRightIcon() {
+        navigateTo(ShopcartActivity(), transition = TransitionEnum.TOP)
     }
 
     override fun onClickArtworkType(artworkType: ArtworkTypeEnum) {

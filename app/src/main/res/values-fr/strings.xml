@@ -43,6 +43,8 @@
     <string name="LABEL_CONFIRMATION_PASSWORD">Confirmer nouveau mot de passe</string>
     <string name="LABEL_NO_ARTWORKS">Il n\'y a pas d\'œuvres pour le moment...</string>
     <string name="LABEL_EXPLAIN_WHY">Expliquez-nous pourquoi</string>
+    <string name="LABEL_SHOPCART_TITLE">Votre panier (%d €)</string>
+    <string name="LABEL_SHOPCART_EMPTY">Votre panier est vide</string>
 
 
 
@@ -83,6 +85,7 @@
     <string name="TEXT_BECOME_ARTIST_API_ERROR">Impossible d\'envoyer votre demande. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_RESET_PASSWORD_API_ERROR">Impossible de réinitialiser votre mot de passe. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_RESET_PASSWORD_WRONG_CONFIRMATION_CODE">Le code de confirmation n\'est pas le bon.</string>
+    <string name="TEXT_REMOVE_SHOPCART_ITEM">Voulez-vous supprimer %s du panier ?</string>
 
 
     /* ACTIONS */

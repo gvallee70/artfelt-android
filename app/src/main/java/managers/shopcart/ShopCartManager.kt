@@ -23,17 +23,41 @@ class ShopCartManager (context: Context) {
     }
 
 
+    val shopCart: ArrayList<ItemShopCart>
+        get() = mShopCartItems
+
     fun saveToShopCart(item: ItemShopCart) {
         var newItem = item
+
         //remove item if the item is already in shopcart to avoid duplicates and only add quantity
         mShopCartItems.forEach {
             if(it.id == item.id) {
+                println(it)
                 newItem.quantity = newItem.quantity?.plus(it.quantity!!)
+                println(newItem)
                 mShopCartItems = mShopCartItems.copyAndRemove(it)
             }
         }
 
+        println(newItem.quantity)
+        println(newItem.maxQuantity)
+        if (newItem.quantity!! >= newItem.maxQuantity!!) {
+            newItem.quantity = newItem.maxQuantity
+        }
+
         mShopCartItems = mShopCartItems.copyAndAdd(newItem)
+
+        val stringItemsList = Gson().toJson(mShopCartItems)
+
+        prefs.edit()
+            .putString(SHOPCART_ITEMS, stringItemsList)
+            .commit()
+
+    }
+
+
+    fun removeFromShopCart(item: ItemShopCart) {
+        mShopCartItems = mShopCartItems.copyAndRemove(item)
 
         val stringItemsList = Gson().toJson(mShopCartItems)
 

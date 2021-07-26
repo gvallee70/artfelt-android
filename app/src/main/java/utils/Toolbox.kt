@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.artfelt.artfelt.R
 import com.squareup.picasso.Picasso
@@ -31,7 +32,7 @@ class Toolbox {
 
     companion object {
 
-        fun showSuccessDialog(context: Context, message: String, ) {
+        fun showSuccessDialog(context: Context, message: String) {
             val inflater: LayoutInflater = LayoutInflater.from(context)
 
             val layout: View = inflater.inflate(
@@ -67,7 +68,7 @@ class Toolbox {
         }
 
 
-        fun showErrorDialog(context: Context, message: String, ) {
+        fun showErrorDialog(context: Context, message: String) {
             val inflater: LayoutInflater = LayoutInflater.from(context)
 
             val layout: View = inflater.inflate(
@@ -101,6 +102,25 @@ class Toolbox {
             toast.show()
 
         }
+
+
+        fun showSimpleCustomDialog(
+            context: Context,
+            message: String,
+            positiveText: String,
+            negativetext: String,
+            validate: () -> Unit
+        ): AlertDialog {
+            val dialog = AlertDialog.Builder(context)
+                .setMessage(message)
+                .setNegativeButton(negativetext, null)
+                .setPositiveButton(positiveText) { _, _ ->
+                    validate()
+                }
+            return dialog.show()
+        }
+
+
 
 
         fun getBase64Image(image: Bitmap, complete: (String) -> Unit) {

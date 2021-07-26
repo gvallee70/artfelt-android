@@ -11,6 +11,7 @@ import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_artwork_details.*
 import common.HeaderDelegate
 import common.HeaderLeftIconEnum
+import common.HeaderRightIconEnum
 import common.HeaderView
 import home.HomeActivity
 import home.artworks.ArtworkAdapter
@@ -77,7 +78,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
     }
 
     private fun initHeader() {
-        HeaderView(this, block_header_artwork_details, HeaderLeftIconEnum.BACK, this)
+        HeaderView(this, block_header_artwork_details, HeaderLeftIconEnum.BACK, HeaderRightIconEnum.SHOPCART,this)
     }
 
 
@@ -193,6 +194,10 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
 
     override fun onClickHeaderLeftIcon() {
         finish()
+    }
+
+    override fun onClickHeaderRightIcon() {
+        navigateTo(ShopcartActivity(), transition = TransitionEnum.TOP)
     }
 
 

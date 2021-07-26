@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:background="@drawable/background_small_radius_white"
     android:paddingHorizontal="10dp"
     android:paddingVertical="5dp"
@@ -28,8 +29,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/work_sans"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/work_sans_bold"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/imageView_artwork_shopcart"
         app:layout_constraintTop_toTopOf="parent"
@@ -59,6 +60,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_minus_quantity"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="5dp"
@@ -71,6 +73,7 @@
             app:iconTint="@color/primaryColor" />
 
         <TextView
+            android:id="@+id/textView_quantity_artwork_shopcart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -79,6 +82,7 @@
 
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_plus_quantity"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_margin="5dp"
