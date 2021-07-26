@@ -78,10 +78,12 @@ class ShopcartArtworkViewHolder(
     private fun toggleMinusButton(item: ItemShopCart) {
         if (mTextViewQuantity.text == "0") {
             disableMinusButton()
+            item.quantity = 1
             listener.onClickRemove(item)
         } else {
             enableMinusButton()
         }
+
     }
 
     private fun enableMinusButton() {

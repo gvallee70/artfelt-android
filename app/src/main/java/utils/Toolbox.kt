@@ -107,8 +107,8 @@ class Toolbox {
         fun showSimpleCustomDialog(
             context: Context,
             message: String,
-            positiveText: String,
-            negativetext: String,
+            positiveText: String?,
+            negativetext: String?,
             validate: () -> Unit
         ): AlertDialog {
             val dialog = AlertDialog.Builder(context)

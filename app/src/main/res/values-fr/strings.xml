@@ -76,6 +76,7 @@
     <string name="TEXT_USER_INFO_CHANGED_SUCCESS">Vos informations ont bien été modifiées.</string>
     <string name="TEXT_BECOME_ARTIST_SUCCESS">Votre demande a bien été envoyée. Nous allons l\'examiner très rapidement.</string>
     <string name="TEXT_RESET_PASSWORD_REQUEST_SUCCESS">Un email vous a été envoyé. Le code de confirmation est valable pendant 15 minutes.</string>
+    <string name="TEXT_CREATE_ORDER_SUCCESS">Votre commande est confirmé. Merci pour votre achat.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Impossible de créer votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Echec de connexion, il se peut que vous ne soyez pas connecté à internet. Merci de rééssayer.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Impossible de récupérer les informations de votre compte. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
@@ -84,17 +85,23 @@
     <string name="TEXT_USER_INFO_API_ERROR">Impossible de modifier vos informations. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_BECOME_ARTIST_API_ERROR">Impossible d\'envoyer votre demande. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_RESET_PASSWORD_API_ERROR">Impossible de réinitialiser votre mot de passe. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
+    <string name="TEXT_CREATE_ORDER_API_ERROR">Impossible de créer votre commande. Il se peut que vous ne soyez pas connecter à internet. Merci de rééssayer.</string>
     <string name="TEXT_RESET_PASSWORD_WRONG_CONFIRMATION_CODE">Le code de confirmation n\'est pas le bon.</string>
+    <string name="TEXT_RESET_SHOPCART">Voulez-vous réinitialiser votre panier ?</string>
     <string name="TEXT_REMOVE_SHOPCART_ITEM">Voulez-vous supprimer %s du panier ?</string>
+    <string name="TEXT_NOT_AVAILABLE_SHOPCART_ITEM">Désolé, %s n\'est plus disponible.</string>
 
 
     /* ACTIONS */
+    <string name="ACTION_OK">Ok</string>
     <string name="ACTION_ADD">Ajouter</string>
     <string name="ACTION_EDIT">Modifier</string>
     <string name="ACTION_DELETE">Supprimer</string>
     <string name="ACTION_CANCEL">Annuler</string>
     <string name="ACTION_SAVE">Enregistrer</string>
     <string name="ACTION_SEND">Envoyer</string>
+    <string name="ACTION_ORDER">Commander</string>
+    <string name="ACTION_RESET">Réinitialiser</string>
     <string name="ACTION_SIGN_IN">Se connecter</string>
     <string name="ACTION_SIGN_UP">Créer un compte</string>
     <string name="ACTION_LOG_OUT">Se déconnecter</string>

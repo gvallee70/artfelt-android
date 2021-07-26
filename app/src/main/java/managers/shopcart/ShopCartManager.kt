@@ -32,15 +32,11 @@ class ShopCartManager (context: Context) {
         //remove item if the item is already in shopcart to avoid duplicates and only add quantity
         mShopCartItems.forEach {
             if(it.id == item.id) {
-                println(it)
                 newItem.quantity = newItem.quantity?.plus(it.quantity!!)
-                println(newItem)
                 mShopCartItems = mShopCartItems.copyAndRemove(it)
             }
         }
 
-        println(newItem.quantity)
-        println(newItem.maxQuantity)
         if (newItem.quantity!! >= newItem.maxQuantity!!) {
             newItem.quantity = newItem.maxQuantity
         }

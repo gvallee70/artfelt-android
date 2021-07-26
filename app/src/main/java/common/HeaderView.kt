@@ -64,7 +64,7 @@ class HeaderView(
         mHeaderRightIcon.clipToOutline = true
 
         when(rightIcon) {
-            //HeaderRightIconEnum.SAVE -> mHeaderLeftIcon.setImageResource(R.drawable.ic_arrow_left)
+            HeaderRightIconEnum.TRASH -> mHeaderRightIcon.setImageResource(R.drawable.ic_error)
             HeaderRightIconEnum.SHOPCART -> mHeaderRightIcon.setImageResource(R.drawable.ic_shopcart)
         }
     }

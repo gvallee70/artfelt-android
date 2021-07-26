@@ -11,6 +11,7 @@ import api.models.auth.signin.SignInRequest
 import api.models.auth.signin.SignInResponse
 import api.models.auth.signup.SignUpRequest
 import api.models.auth.signup.SignUpResponse
+import api.models.order.OrderRequest
 import api.models.request.BecomeArtistRequest
 import api.models.user.update.UpdateUserInfoResponse
 import api.models.user.User
@@ -61,6 +62,12 @@ interface ArtfeltApiService {
     /* REQUEST */
     @POST("/v1/request")
     suspend fun becomeArtistRequest(@Body request: BecomeArtistRequest): Response<JSONObject>
+
+
+
+    /* ORDER */
+    @POST("/v1/order")
+    suspend fun createOrder(@Body request: OrderRequest): Response<JSONObject>
 
 
 

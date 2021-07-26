@@ -1,6 +1,6 @@
 package common
 
 enum class HeaderRightIconEnum {
-    SAVE,
+    TRASH,
     SHOPCART
 }
