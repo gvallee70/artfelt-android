@@ -12,7 +12,7 @@ class SessionManager (context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences(context.getString(R.string.TITLE_APP_NAME), Context.MODE_PRIVATE)
 
     companion object {
-        const val USER_TOKEN = "user_token"
+        const val USER_TOKEN = "user-token"
     }
 
 

@@ -2,9 +2,10 @@ package managers.shopcart
 
 import android.content.Context
 import android.content.SharedPreferences
-import api.models.user.User
+import models.user.User
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import models.order.ItemShopCart
 import utils.copyAndAdd
 import utils.copyAndRemove
 
