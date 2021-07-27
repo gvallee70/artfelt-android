@@ -22,6 +22,7 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
 import common.HeaderDelegate
 import common.HeaderLeftIconEnum
+import common.HeaderRightIconEnum
 import common.HeaderView
 import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_home.*
@@ -35,6 +36,7 @@ import kotlinx.coroutines.withContext
 import managers.session.SessionManager
 import org.json.JSONObject
 import org.json.JSONTokener
+import shopcart.ShopcartActivity
 import signin.SignInActivity
 import utils.*
 import utils.transition.TransitionEnum
@@ -88,7 +90,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     }
 
     private fun initHeader() {
-        HeaderView(this, block_header_profile, HeaderLeftIconEnum.CLOSE, this)
+        HeaderView(this, block_header_profile, HeaderLeftIconEnum.CLOSE, HeaderRightIconEnum.SHOPCART, this)
     }
 
     private fun initProfilePicture() {
@@ -448,9 +450,9 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
 
             mButtonSave.setOnClickListener {
-               if (changePasswordFormIsValid()) {
-                   changePasswordAPICall()
-               }
+                if (changePasswordFormIsValid()) {
+                    changePasswordAPICall()
+                }
 
             }
         }
@@ -479,10 +481,10 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     private fun manageOnClickBecomeArtistButton(){
         button_profile_become_artist.setOnClickListener {
             becomeArtistRequestDialog = AlertDialog.Builder(this)
-                    .setView(R.layout.dialog_become_artist)
-                    .setPositiveButton(R.string.ACTION_SEND, null)
-                    .setNegativeButton(R.string.ACTION_CANCEL, null)
-                    .show()
+                .setView(R.layout.dialog_become_artist)
+                .setPositiveButton(R.string.ACTION_SEND, null)
+                .setNegativeButton(R.string.ACTION_CANCEL, null)
+                .show()
 
             val mButtonSend = becomeArtistRequestDialog.getButton(DialogInterface.BUTTON_POSITIVE)
             val mDialogTitle = becomeArtistRequestDialog.findViewById<TextView>(R.id.textView_wanna_become_artist_title)
@@ -523,7 +525,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
     private fun becomeArtistRequestAPICall() {
         val becomeArtistRequest = BecomeArtistRequest(
-                message = "${mExplainWhyEditText.text}"
+            message = "${mExplainWhyEditText.text}"
         )
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -545,8 +547,8 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
     private fun changePasswordAPICall() {
         val changePasswordRequest = ChangePasswordRequest(
-                oldPassword = "${mOldPasswordEditText.text}",
-                newPassword = "${mNewPasswordEditText.text}"
+            oldPassword = "${mOldPasswordEditText.text}",
+            newPassword = "${mNewPasswordEditText.text}"
         )
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -570,15 +572,15 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
     private fun updateUserInfoAPICall() {
         val updateUserInfoRequest = User(
-                firstName = "${editText_profile_first_name.text}",
-                lastName = "${editText_profile_last_name.text}",
-                street = "${editText_profile_address_street.text}",
-                zipCode = "${editText_profile_address_zipcode.text}",
-                city = "${editText_profile_address_city.text}",
-                username = "${editText_profile_username.text}",
-                email = "${editText_profile_email.text}",
-                avatarUrl = newProfilePictureUrl
-                )
+            firstName = "${editText_profile_first_name.text}",
+            lastName = "${editText_profile_last_name.text}",
+            street = "${editText_profile_address_street.text}",
+            zipCode = "${editText_profile_address_zipcode.text}",
+            city = "${editText_profile_address_city.text}",
+            username = "${editText_profile_username.text}",
+            email = "${editText_profile_email.text}",
+            avatarUrl = newProfilePictureUrl
+        )
 
         GlobalScope.launch(Dispatchers.Main) {
             try {
@@ -619,8 +621,8 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
                 httpsURLConnection.setRequestProperty("Authorization", "Client-ID $IMGUR_CLIENT_ID")
                 httpsURLConnection.setRequestProperty(
-                        "Content-Type",
-                        "multipart/form-data; boundary=$boundary"
+                    "Content-Type",
+                    "multipart/form-data; boundary=$boundary"
                 )
 
                 httpsURLConnection.requestMethod = "POST"
@@ -671,6 +673,10 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
         navigateTo(HomeActivity(), true, transition = TransitionEnum.BOTTOM)
     }
 
+    override fun onClickHeaderRightIcon() {
+        navigateTo(ShopcartActivity(), false, transition = TransitionEnum.TOP)
+    }
+
 
     /***** EditTextWatcherDelegate *****/
     override fun enableSaveButton() {
@@ -700,4 +706,3 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     }
 
 }
-

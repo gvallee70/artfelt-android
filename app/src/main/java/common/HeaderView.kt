@@ -9,10 +9,11 @@ import kotlinx.android.synthetic.main.view_header.view.*
 import utils.setImageURL
 
 class HeaderView(
-        private val context: Context,
-        parent: ViewGroup,
-        private var leftIcon: HeaderLeftIconEnum,
-        private val listener: HeaderDelegate
+    private val context: Context,
+    parent: ViewGroup,
+    private var leftIcon: HeaderLeftIconEnum,
+    private var rightIcon: HeaderRightIconEnum,
+    private val listener: HeaderDelegate
 ){
 
     private val view =
@@ -34,6 +35,7 @@ class HeaderView(
         initHeaderRightIcon()
 
         manageOnClickLeftIcon()
+        manageOnClickRightIcon()
     }
 
 
@@ -59,13 +61,25 @@ class HeaderView(
     }
 
     private fun initHeaderRightIcon() {
+        mHeaderRightIcon.clipToOutline = true
 
+        when(rightIcon) {
+            HeaderRightIconEnum.TRASH -> mHeaderRightIcon.setImageResource(R.drawable.ic_error)
+            HeaderRightIconEnum.SHOPCART -> mHeaderRightIcon.setImageResource(R.drawable.ic_shopcart)
+        }
     }
 
 
     private fun manageOnClickLeftIcon() {
         mHeaderLeftIcon.setOnClickListener {
             listener.onClickHeaderLeftIcon()
+        }
+    }
+
+
+    private fun manageOnClickRightIcon() {
+        mHeaderRightIcon.setOnClickListener {
+            listener.onClickHeaderRightIcon()
         }
     }
 
