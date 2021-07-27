@@ -27,4 +27,7 @@ data class SignUpRequest(
     @SerializedName("password")
     val password: String? = null,
 
+    @SerializedName("role")
+    val role: String = "CUSTOMER",
+
 )

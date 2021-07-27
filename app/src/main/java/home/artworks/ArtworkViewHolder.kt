@@ -28,7 +28,6 @@ class ArtworkViewHolder(
         initView(artwork)
 
         manageOnClickArtwork(artwork)
-
     }
 
 
@@ -58,7 +57,7 @@ class ArtworkViewHolder(
     }
 
 
-    fun manageOnClickArtwork(artwork: Artwork) {
+    private fun manageOnClickArtwork(artwork: Artwork) {
         container.setOnClickListener {
             listener.onClickItem(artwork)
         }

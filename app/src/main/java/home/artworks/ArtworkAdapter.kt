@@ -36,7 +36,6 @@ class ArtworkAdapter(
         val artwork = artworksListFilter[position]
 
         holder.bindView(artwork)
-        holder.manageOnClickArtwork(artwork)
     }
 
 
