@@ -11,6 +11,7 @@ import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_artwork_details.*
 import common.HeaderDelegate
 import common.HeaderLeftIconEnum
+import common.HeaderRightIconEnum
 import common.HeaderView
 import home.HomeActivity
 import home.artworks.ArtworkAdapter
@@ -20,7 +21,11 @@ import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import managers.shopcart.ItemShopCart
+import managers.shopcart.ShopCartManager
+import shopcart.ShopcartActivity
 import utils.*
+import utils.transition.TransitionEnum
 import java.io.Serializable
 
 class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelegate {
@@ -61,6 +66,8 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
         initArtworkDate()
         initArtistView()
 
+        manageOnClickAddShopCartButton()
+
     }
 
     private fun getArtworkDetailsFromIntent() {
@@ -71,7 +78,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
     }
 
     private fun initHeader() {
-        HeaderView(this, block_header_artwork_details, HeaderLeftIconEnum.BACK, this)
+        HeaderView(this, block_header_artwork_details, HeaderLeftIconEnum.BACK, HeaderRightIconEnum.SHOPCART,this)
     }
 
 
@@ -144,6 +151,23 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
 
 
 
+    private fun manageOnClickAddShopCartButton() {
+        fab_add_to_shopcart.setOnClickListener {
+            val itemShopcart = ItemShopCart(
+                id = artwork.id,
+                title = artwork.title,
+                price = artwork.price,
+                quantity = 1,
+                maxQuantity = artwork.quantity,
+                imageUrl = artwork.imageUrl
+            )
+            ShopCartManager(this).saveToShopCart(itemShopcart)
+            navigateTo(ShopcartActivity(), transition = TransitionEnum.TOP)
+        }
+    }
+
+
+
     private fun getArtistArtworksAPICall() {
         GlobalScope.launch(Dispatchers.Main) {
             try {
@@ -167,8 +191,13 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
 
 
 
+
     override fun onClickHeaderLeftIcon() {
         finish()
+    }
+
+    override fun onClickHeaderRightIcon() {
+        navigateTo(ShopcartActivity(), transition = TransitionEnum.TOP)
     }
 
 

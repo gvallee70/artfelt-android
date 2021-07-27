@@ -43,6 +43,8 @@
     <string name="LABEL_CONFIRMATION_PASSWORD">Confirm new password</string>
     <string name="LABEL_NO_ARTWORKS">There is no artworks for the moment...</string>
     <string name="LABEL_EXPLAIN_WHY">Tell us why</string>
+    <string name="LABEL_SHOPCART_TITLE">Your shopcart (%d $)</string>
+    <string name="LABEL_SHOPCART_EMPTY">Your shopcart is empty</string>
 
 
     /* TEXTS */
@@ -73,6 +75,7 @@
     <string name="TEXT_USER_INFO_CHANGED_SUCCESS">Your information has been successfully updated.</string>
     <string name="TEXT_BECOME_ARTIST_SUCCESS">Your request has been sent. We will review it very quickly.</string>
     <string name="TEXT_RESET_PASSWORD_REQUEST_SUCCESS">An email has been sent to you. The confirmation code is valid for 15 minutes.</string>
+    <string name="TEXT_CREATE_ORDER_SUCCESS">Your order is confirmed. Thank you for your purchase.</string>
     <string name="TEXT_SIGN_UP_API_ERROR">Error while trying to create an account. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_SIGN_IN_API_ERROR">Error while trying to sign in. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_GET_USER_INFO_API_ERROR">Error while trying to get your account information. You may not be connected to the internet. Please try again.</string>
@@ -81,16 +84,23 @@
     <string name="TEXT_USER_INFO_API_ERROR">Error while trying to update your information. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_BECOME_ARTIST_API_ERROR">Error while trying to send your request. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_RESET_PASSWORD_API_ERROR">Error while trying to reset your password. You may not be connected to the internet. Please try again.</string>
+    <string name="TEXT_CREATE_ORDER_API_ERROR">Error while trying to create your order. You may not be connected to the internet. Please try again.</string>
     <string name="TEXT_RESET_PASSWORD_WRONG_CONFIRMATION_CODE">The confirmation code is not correct.</string>
+    <string name="TEXT_RESET_SHOPCART">Do you want to reset your shopcart?</string>
+    <string name="TEXT_REMOVE_SHOPCART_ITEM">Do you want to remove %s from shopcart?</string>
+    <string name="TEXT_NOT_AVAILABLE_SHOPCART_ITEM">Sorry, %s isn\'t available anymore.</string>
 
 
     /* ACTIONS */
+    <string name="ACTION_OK">Ok</string>
     <string name="ACTION_ADD">Add</string>
     <string name="ACTION_EDIT">Edit</string>
     <string name="ACTION_DELETE">Delete</string>
     <string name="ACTION_CANCEL">Cancel</string>
     <string name="ACTION_SAVE">Save</string>
     <string name="ACTION_SEND">Send</string>
+    <string name="ACTION_ORDER">Order</string>
+    <string name="ACTION_RESET">Reset</string>
     <string name="ACTION_SIGN_IN">Sign In</string>
     <string name="ACTION_SIGN_UP">Sign Up</string>
     <string name="ACTION_LOG_OUT">Log out</string>
