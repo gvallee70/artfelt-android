@@ -1,50 +1,55 @@
 package api.models.user
 
+import api.models.association.Association
+import api.models.user.role.UserRoleEnum
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
 
 data class Artist(
     @SerializedName("id")
-    val id: String? = null,
+    var id: String? = null,
 
     @SerializedName("first_name")
-    val firstName: String,
+    var firstName: String? = null,
 
     @SerializedName("last_name")
-    val lastName: String,
+    var lastName: String? = null,
 
     @SerializedName("address_street")
-    val street: String,
+    var street: String? = null,
 
     @SerializedName("address_zip_code")
-    val zipCode: String,
+    var zipCode: String? = null,
 
     @SerializedName("address_city")
-    val city: String,
+    var city: String? = null,
 
     @SerializedName("username")
-    val username: String,
+    var username: String? = null,
 
     @SerializedName("mail")
-    val email: String,
+    var email: String? = null,
 
     @SerializedName("IBAN")
-    val iban: String? = null,
+    var iban: String? = null,
 
     @SerializedName("BIC")
-    val bic: String? = null,
+    var bic: String? = null,
 
     @SerializedName("role")
-    val role: String,
+    var role: UserRoleEnum? = null,
 
     @SerializedName("percentage")
-    val percentage: Int? = null,
+    var percentage: Int? = null,
 
     @SerializedName("avatar_url")
-    val avatarUrl: String? = null,
+    var avatarUrl: String? = null,
 
     @SerializedName("creation_date")
-    val creationDate: Date
+    var creationDate: Date? = null,
 
-): Serializable
+    @SerializedName("association")
+    var association: Association? = null
+
+) : Serializable

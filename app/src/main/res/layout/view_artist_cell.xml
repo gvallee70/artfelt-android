@@ -17,6 +17,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="7dp"
+        android:scaleType="centerCrop"
         android:background="@drawable/background_rounded_light_gray"
         android:src="@drawable/ic_user_default"
         app:layout_constraintStart_toStartOf="parent"

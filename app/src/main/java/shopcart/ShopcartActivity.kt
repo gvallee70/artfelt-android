@@ -15,6 +15,7 @@ import home.HomeActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_shopcart.*
 import kotlinx.android.synthetic.main.activity_signin.*
+import kotlinx.android.synthetic.main.view_header.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -49,10 +50,21 @@ class ShopcartActivity: AppCompatActivity(), HeaderDelegate, PlusOrMinusDelegate
         initView()
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        shopcartArtworks.forEach {
+            if(it.quantity == 0) {
+                manageOnRemoveItem(it)
+            }
+        }
+    }
+
     private fun initView() {
         initHeader()
         initShopCartTitle()
         initOrderButton()
+        showOrHideTrashButton()
     }
 
     private fun initHeader() {
@@ -126,6 +138,15 @@ class ShopcartActivity: AppCompatActivity(), HeaderDelegate, PlusOrMinusDelegate
     }
 
 
+    private fun showOrHideTrashButton() {
+        if(shopcartQuantity == 0) {
+            block_header_shopcart.header_right_icon.hide()
+        } else {
+            block_header_shopcart.header_right_icon.show()
+        }
+    }
+
+
     private fun manageOnClickOrderButton() {
         textView_shopcart_order.setOnClickListener {
             createOrderAPICall()
@@ -144,6 +165,8 @@ class ShopcartActivity: AppCompatActivity(), HeaderDelegate, PlusOrMinusDelegate
         shopcartArtworkAdapter.updateShopCartList(ShopCartManager(this).getShopCartItems())
         initShopCartTitle()
         initOrderButton()
+        showOrHideTrashButton()
+        navigateTo(HomeActivity(), finish = true, transition = TransitionEnum.BOTTOM)
     }
 
     override fun onClickHeaderLeftIcon() {
@@ -166,12 +189,14 @@ class ShopcartActivity: AppCompatActivity(), HeaderDelegate, PlusOrMinusDelegate
         ShopCartManager(this).saveToShopCart(item)
         initShopCartTitle()
         initOrderButton()
+        showOrHideTrashButton()
     }
 
     override fun onClickPlus(item: ItemShopCart) {
         ShopCartManager(this).saveToShopCart(item)
         initShopCartTitle()
         initOrderButton()
+        showOrHideTrashButton()
     }
 
     override fun onClickRemove(item: ItemShopCart) {

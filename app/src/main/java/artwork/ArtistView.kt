@@ -56,7 +56,7 @@ class ArtistView(
         if (artist.avatarUrl.isNullOrEmpty()) {
             mArtistProfilePicture.setImageResource(R.drawable.ic_user_default)
         } else {
-            mArtistProfilePicture.setImageURL(artist.avatarUrl)
+            mArtistProfilePicture.setImageURL(artist.avatarUrl!!)
         }
     }
 
@@ -66,12 +66,12 @@ class ArtistView(
     }
 
     private fun initArtistAddress() {
-        mArtistAddress.text = "${artist.city.capitalize()} ${artist.zipCode}"
+        mArtistAddress.text = "${artist.city?.capitalize()} ${artist.zipCode}"
         mArtistAddress.textSize = 12f
     }
 
     private fun initArtistMemberDate() {
-        mArtistMemberDate.text = context.getString(R.string.LABEL_ARTIST_MEMBER_SINCE).format(artist.creationDate.formatddMMMMYYYY())
+        mArtistMemberDate.text = context.getString(R.string.LABEL_ARTIST_MEMBER_SINCE).format(artist.creationDate?.formatddMMMMYYYY())
         mArtistMemberDate.typeface = Typeface.defaultFromStyle(Typeface.ITALIC)
     }
 

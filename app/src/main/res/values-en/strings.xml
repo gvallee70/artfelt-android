@@ -26,7 +26,7 @@
     <string name="LABEL_LOADING_ARTWORKS">Loading artworks...</string>
     <string name="LABEL_RESULTS_ARTWORKS_SEARCH">%d artwork(s)</string>
     <string name="LABEL_ARTWORK_PRICE">%d $</string>
-    <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %d $ for %s</string>
+    <string name="LABEL_ASSOCIATION_DONATED_PRICE">including %.2f $ for %s</string>
     <string name="LABEL_ARTWORK_QUANTITY_TITLE">Quantity available:</string>
     <string name="LABEL_ARTWORK_TYPE_TITLE">Type:</string>
     <string name="LABEL_ARTWORK_TYPE_ALL">All</string>
@@ -45,6 +45,7 @@
     <string name="LABEL_EXPLAIN_WHY">Tell us why</string>
     <string name="LABEL_SHOPCART_TITLE">Your shopcart (%d $)</string>
     <string name="LABEL_SHOPCART_EMPTY">Your shopcart is empty</string>
+    <string name="LABEL_SOLD_OUT">Sold out</string>
 
 
     /* TEXTS */

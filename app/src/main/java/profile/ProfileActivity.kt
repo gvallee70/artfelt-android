@@ -17,9 +17,12 @@ import api.ArtfeltClient
 import api.models.auth.changepassword.ChangePasswordRequest
 import api.models.request.BecomeArtistRequest
 import api.models.user.User
+import api.models.user.role.UserRoleEnum
 import com.artfelt.artfelt.R
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.constant.ImageProvider
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import common.HeaderDelegate
 import common.HeaderLeftIconEnum
 import common.HeaderRightIconEnum
@@ -72,6 +75,15 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
         initView()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode== Activity.RESULT_OK && requestCode== ImagePicker.REQUEST_CODE) {
+            selectedProfilePicture = MediaStore.Images.Media.getBitmap(contentResolver, data?.data)
+            hasChangedProfilePicture = true
+        }
+    }
+
 
 
 
@@ -81,8 +93,8 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
     private fun initView() {
         initHeader()
-        initProfilePicture()
         initModifyProfileForms()
+        initProfilePicture()
         initBecomeArtistButton()
         initLogOutButton()
 
@@ -96,13 +108,17 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     private fun initProfilePicture() {
         imageView_profile_profile_pic.clipToOutline = true
 
-        if (User.info?.avatarUrl.isNullOrEmpty()) {
-            imageView_profile_profile_pic.setImageResource(R.drawable.ic_add_user_picture)
+        if(hasChangedProfilePicture) {
+            imageView_profile_profile_pic.setImageBitmap(selectedProfilePicture)
+            enableSaveButton()
         } else {
-            if (!hasChangedProfilePicture) {
+            if (User.info?.avatarUrl.isNullOrEmpty()) {
+                imageView_profile_profile_pic.setImageResource(R.drawable.ic_add_user_picture)
+            } else {
                 imageView_profile_profile_pic.setImageURL(User.info?.avatarUrl!!)
             }
         }
+
         manageOnClickProfilePicture()
     }
 
@@ -228,13 +244,19 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
 
     private fun initBecomeArtistButton() {
-        textView_wanna_become_artist.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
+        if(User.info?.role == UserRoleEnum.CUSTOMER) {
+            textView_wanna_become_artist.show()
+            textView_wanna_become_artist.text = getString(R.string.LABEL_WANNA_BECOME_ARTIST)
 
-        button_profile_become_artist.text = getString(R.string.ACTION_BECOME_ARTIST)
-        button_profile_become_artist.textSize = 16f
+            button_profile_become_artist.show()
+            button_profile_become_artist.text = getString(R.string.ACTION_BECOME_ARTIST)
+            button_profile_become_artist.textSize = 16f
 
-        manageOnClickBecomeArtistButton()
-
+            manageOnClickBecomeArtistButton()
+        } else {
+            textView_wanna_become_artist.hide()
+            button_profile_become_artist.hide()
+        }
     }
 
 
@@ -273,9 +295,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     private fun hideSaveTextView() {
         textView_profile_save.hide()
     }
-
-
-
 
 
 
@@ -339,16 +358,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
 
     private fun checkErrorFields(): Boolean {
-        /*    if (!"${editText_first_name.text}".containsAlphaOnly()) {
-                editText_first_name.error = getString(R.string.TEXT_FIRST_NAME_FORMAT_ERROR)
-                return false
-            }
-
-            if (!"${editText_last_name.text}".containsAlphaOnly()) {
-                editText_last_name.error = getString(R.string.TEXT_LAST_NAME_FORMAT_ERROR)
-                return false
-            }*/
-
         if ("${editText_profile_username.text}".containsSpecialCharacters()) {
             editText_profile_username.error = getString(R.string.TEXT_USERNAME_FORMAT_ERROR)
             return false
@@ -466,7 +475,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
             if (formIsValid()) {
                 showLoadingSaveButton()
                 if (hasChangedProfilePicture) {
-                    println(selectedProfilePicture)
                     uploadImageToImgurAPICall(selectedProfilePicture, complete = {
                         updateUserInfoAPICall()
                     })
@@ -505,7 +513,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     }
 
 
-
     private fun manageOnClickLogOutButton() {
         textView_logout.setOnClickListener {
             SessionManager(this).removeAuthToken()
@@ -514,8 +521,6 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
             finishAffinity() //finish all activities
         }
     }
-
-
 
 
 
@@ -571,6 +576,13 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
 
 
     private fun updateUserInfoAPICall() {
+        var pictureUrl: String
+        if(newProfilePictureUrl.isNullOrEmpty() && !(User.info?.avatarUrl.isNullOrEmpty())) {
+            pictureUrl = User.info?.avatarUrl!!
+        } else {
+            pictureUrl = newProfilePictureUrl!!
+        }
+
         val updateUserInfoRequest = User(
             firstName = "${editText_profile_first_name.text}",
             lastName = "${editText_profile_last_name.text}",
@@ -579,7 +591,7 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
             city = "${editText_profile_address_city.text}",
             username = "${editText_profile_username.text}",
             email = "${editText_profile_email.text}",
-            avatarUrl = newProfilePictureUrl
+            avatarUrl = pictureUrl
         )
 
         GlobalScope.launch(Dispatchers.Main) {
@@ -590,11 +602,21 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
                     Toolbox.showSuccessDialog(this@ProfileActivity, getString(R.string.TEXT_USER_INFO_CHANGED_SUCCESS))
 
                     updateUserInfoResponse.body().let {
+                        val role = User.info?.role
                         User.info = it?.updatedUser
+                        User.info?.role = role
                     }
-                    //TODO("implementer erreur username et mail deja utilisé")
                 } else {
-                    Toolbox.showErrorDialog(this@ProfileActivity, getString(R.string.TEXT_USER_INFO_API_ERROR))
+                    val errorBody: String = updateUserInfoResponse.errorBody()!!.string()
+                    val jsonObject: JsonObject = Gson().fromJson(errorBody, JsonObject::class.java)
+
+                    if (jsonObject != null && jsonObject.has("message") && !jsonObject["message"].isJsonNull) {
+                        if(jsonObject["message"].toString().contains("username")) {
+                            editText_profile_username.error = getString(R.string.TEXT_USERNAME_ALREADY_USE)
+                        } else if(jsonObject["message"].toString().contains("email")) {
+                            editText_profile_email.error = getString(R.string.TEXT_EMAIL_ALREADY_USE)
+                        }
+                    }
                 }
                 initSaveButton()
             } catch (e: Exception) {
@@ -692,17 +714,5 @@ class ProfileActivity: AppCompatActivity(), HeaderDelegate, EditTextWatcherDeleg
     }
 
 
-
-    /***** ImagePicker result *****/
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(resultCode== Activity.RESULT_OK && requestCode== ImagePicker.REQUEST_CODE) {
-            selectedProfilePicture = MediaStore.Images.Media.getBitmap(contentResolver, data?.data)
-            imageView_profile_profile_pic.setImageBitmap(selectedProfilePicture)
-            hasChangedProfilePicture = true
-            enableSaveButton()
-        }
-    }
 
 }

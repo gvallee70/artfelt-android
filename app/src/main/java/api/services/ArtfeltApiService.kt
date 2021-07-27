@@ -48,7 +48,7 @@ interface ArtfeltApiService {
     @GET("/v1/user/{id}")
     suspend fun getArtistArtworks(@Path("id") id: String): Response<ArtistArtworksResponse>
 
-    @PATCH("/v1/user/{id}")
+    @PUT("/v1/user/{id}")
     suspend fun updateUserInfo(@Path("id") id: String, @Body request: User): Response<UpdateUserInfoResponse>
 
 

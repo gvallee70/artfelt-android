@@ -1,5 +1,6 @@
 package api.models.user
 
+import api.models.user.role.UserRoleEnum
 import com.google.gson.annotations.SerializedName
 
 data class User(
@@ -31,7 +32,7 @@ data class User(
     val password: String? = null,
 
     @SerializedName("role")
-    val role: String? = null,
+    var role: UserRoleEnum? = null,
 
     @SerializedName("avatar_url")
     val avatarUrl: String? = null

@@ -1,5 +1,6 @@
 package api.models.auth.signup
 
+import api.models.user.role.UserRoleEnum
 import com.google.gson.annotations.SerializedName
 
 data class SignUpRequest(
@@ -28,6 +29,6 @@ data class SignUpRequest(
     val password: String? = null,
 
     @SerializedName("role")
-    val role: String = "CUSTOMER",
+    val role: String = UserRoleEnum.CUSTOMER.value,
 
-)
+    )

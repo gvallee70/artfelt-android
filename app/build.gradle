@@ -5,6 +5,20 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        'artfelt-key' {
+            storeFile file('/Users/GwendalPadam/artfelt-key')
+            storePassword 'artfelt'
+            keyAlias 'artfelt'
+            keyPassword 'artfelt'
+        }
+        artfelt {
+            storeFile file('/Users/GwendalPadam/artfelt-keystore.jks')
+            storePassword 'artfelt'
+            keyAlias 'upload'
+            keyPassword 'artfelt'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
@@ -22,6 +36,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.artfelt
         }
         buildTypes {
             debug {

@@ -1,5 +1,6 @@
 package home.artworks
 
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
@@ -53,7 +54,14 @@ class ArtworkViewHolder(
     }
 
     private fun initPrice(artwork: Artwork) {
-        mPrice.text = container.context.getString(R.string.LABEL_ARTWORK_PRICE).format(artwork.price)
+        if(artwork.quantity == 0) {
+            mPrice.text = container.context.getString(R.string.LABEL_SOLD_OUT)
+            mPrice.setTextColor(container.context.resources.getColorStateList(R.color.errorColor))
+            mPrice.typeface = Typeface.DEFAULT
+            mPrice.textSize = 14f
+        } else {
+            mPrice.text = container.context.getString(R.string.LABEL_ARTWORK_PRICE).format(artwork.price)
+        }
     }
 
 

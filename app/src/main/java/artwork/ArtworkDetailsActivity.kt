@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import api.ArtfeltClient
 import api.models.artwork.Artwork
 import api.models.user.Artist
+import api.models.user.User
 import com.artfelt.artfelt.R
 import kotlinx.android.synthetic.main.activity_artwork_details.*
 import common.HeaderDelegate
@@ -54,20 +55,16 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
     }
 
     private fun initView() {
-        println("toto + " + artwork)
         initHeader()
         initArtworkImageView()
         initArtworkTitle()
         initArtworkPrice()
-        initArtworkAssociationDonatedPrice()
         initArtworkDescription()
         initArtworkQuantity()
         initArtworkType()
         initArtworkDate()
         initArtistView()
-
-        manageOnClickAddShopCartButton()
-
+        initAddShopCartButton()
     }
 
     private fun getArtworkDetailsFromIntent() {
@@ -104,9 +101,11 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
 
     private fun initArtworkAssociationDonatedPrice() {
         artwork.artist?.percentage?.let {
-            val donatedPrice = (artwork.price!!/100) * it!!
-            textView_association_artwork_details.text = getString(R.string.LABEL_ASSOCIATION_DONATED_PRICE).format(donatedPrice, "Restos du coeur" /*,artwork.artist.association */)
-            textView_association_artwork_details.textSize = 12f
+            val donatedPrice = ((artwork.price!!/100.toFloat()) * it!!)
+            artwork.artist?.association?.name.let {
+                textView_association_artwork_details.text = getString(R.string.LABEL_ASSOCIATION_DONATED_PRICE).format(donatedPrice, it)
+                textView_association_artwork_details.textSize = 12f
+            }
         }
     }
 
@@ -150,6 +149,15 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
     }
 
 
+    private fun initAddShopCartButton() {
+        if (artwork.quantity == 0 || (User.info?.id == artwork.artist?.id)) {
+            fab_add_to_shopcart.hide()
+        } else {
+            fab_add_to_shopcart.show()
+            manageOnClickAddShopCartButton()
+        }
+    }
+
 
     private fun manageOnClickAddShopCartButton() {
         fab_add_to_shopcart.setOnClickListener {
@@ -174,12 +182,27 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
                 val getArtworksResponse = ArtfeltClient().getApiService(this@ArtworkDetailsActivity).getArtistArtworks(artwork.artist?.id!!)
 
                 if (getArtworksResponse.isSuccessful && getArtworksResponse.body() != null) {
-                    getArtworksResponse.body()?.let {
-                        var artworks = it.artworks
-                        /*artworks.forEach {
-                            it.artist = "yoyo" //TODO("implemnter artiste")
-                        }*/
-                        artworks.removeAt(artwork.id!!-1) //TODO("a améliorer car je pense c'est bullshit")
+                    getArtworksResponse.body()?.let { response ->
+                        var artworks = response.artworks
+                        artworks.forEach {
+                            var artist = Artist(
+                                id = response.id,
+                                firstName = response.firstName,
+                                lastName = response.lastName,
+                                city = response.city,
+                                zipCode = response.zipCode,
+                                percentage = response.percentage,
+                                avatarUrl = response.avatarUrl,
+                                creationDate = response.creationDate,
+                                association = response.association
+                            )
+                            if (it.id == artwork.id) {
+                                artwork = it
+                            }
+                            it.artist = artist
+                        }
+                        artworks.remove(artwork)
+                        initArtworkAssociationDonatedPrice()
                         initArtistArtworksRecyclerView(artworks)
                     }
                 }
@@ -193,7 +216,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
 
 
     override fun onClickHeaderLeftIcon() {
-        finish()
+        navigateTo(HomeActivity(), finish = true, transition = TransitionEnum.LEFT)
     }
 
     override fun onClickHeaderRightIcon() {
@@ -204,7 +227,7 @@ class ArtworkDetailsActivity: AppCompatActivity(), HeaderDelegate, ArtworkDelega
     override fun onClickItem(artwork: Artwork) {
         val data = HashMap<String, Any>()
         data[HomeActivity.ARTWORK] = artwork as Serializable
-        navigateTo(this, data)
+        navigateTo(this, finish = true, data = data)
     }
 
 }
